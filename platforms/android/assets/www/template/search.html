@@ -1,0 +1,49 @@
+<div jqm-page jqm-theme="a">
+	<div jqm-header>
+		<a ng-click="state.panel='left'" class="ui-btn-left ui-btn ui-btn-corner-all ui-btn-icon-notext ui-btn-up-c">	
+			<span class="ui-btn-inner">
+				<span class="ui-icon ui-icon-bars">&nbsp;
+				</span>
+			</span>
+		</a>
+		<h1>Search</h1>
+	</div>
+	<div  style="padding-top:8px">
+    <div jqm-textinput ng-model="criteria" placeholder="Phrase or work item ID" type="">
+      </div>
+      <button ng-click="searchPressed(criteria)">Search</button>
+    <div style="height:20px"></div>
+		<div style="">
+
+  		<ul jqm-listview>
+  			<li jqm-li-divider>Advanced Filters</li>
+  			<li jqm-li-entry>
+  				<div class="ui-grid-a">
+  					<div class="ui-block-a">
+  						Tags
+  					</div>
+  					<div class="ui-block-b">
+  						<div jqm-flip mini="true" ng-model="search.includeTags">
+  						</div>
+  					</div>
+  				</div>
+  			</li>
+  			<li jqm-li-entry>
+  				<div class="ui-grid-a">
+  					<div class="ui-block-a">
+  						Keywords 
+  					</div>
+  					<div class="ui-block-b">
+  						<div jqm-flip mini="true" ng-model="search.includeKeywords">
+  						</div>
+  					</div>
+  				</div>
+  				 
+  				
+  			</li>
+  			<li jqm-li-divider>Project Areas</li>
+  		</ul>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,36 @@
+{
+  "name": "ClearConcertV3",
+  "version": "3.0.0",
+  "description": "Access Rational Team Concert from a mobile device",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@99.153.65.130:/home/git/ClearConcertV3.git"
+  },
+  "author": "ClearBlade",
+  "license": "BSD",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-text-replace": "~0.3.6",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-clean": "~0.4.1",
+    "karma-script-launcher": "~0.1.0",
+    "karma-chrome-launcher": "~0.1.0",
+    "karma-firefox-launcher": "~0.1.0",
+    "karma-html2js-preprocessor": "~0.1.0",
+    "karma-jasmine": "~0.1.0",
+    "karma-requirejs": "~0.1.0",
+    "karma-coffee-preprocessor": "~0.1.0",
+    "karma-phantomjs-launcher": "~0.1.0",
+    "grunt-karma": "~0.5.3",
+    "karma": "~0.10.0",
+    "grunt-contrib-watch": "~0.5.1"
+  },
+  "dependencies": {
+    "grunt-contrib-livereload": "~0.1.2",
+    "grunt-contrib-watch": "~0.5.1"
+  }
+}

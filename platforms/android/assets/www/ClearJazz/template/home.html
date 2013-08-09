@@ -1,0 +1,23 @@
+<div class="toolbar">
+  <a class="btn btn-toolbar" ng-tap="$nav.go('/settings')">
+    <i class="icon-cogs"></i>
+  </a>
+  <h1>ClearConcert</h1>
+</div>
+<div class="page with-toolbar with-tabbar scroll">
+  <h2 class="content-title">Favorites</h2> 
+  <button class="btn btn-normal" ng-class="{active: editMode}" ng-tap="editMode = !editMode" style="position:absolute; line-height: 20px; top: 4px; right: 4px; width: 80px;" ng-show="favorites().length || editMode">
+    {{editMode && 'Cancel' || 'Edit'}}
+  </button>
+  <ul style="position: absolute; width: 100%; margin-left: -10px; border-left: none;">
+    <li ng-hide="favorites().length"><p>
+    Add favorites to quickly navigate to your most important work items, searches, or queries. Wherever you find a <i class="icon-star"></i> on the toolbar, press it to add a favorite!
+    </p></li>
+    <div class="title">Work Items ({{itemFavorites.length}})</div>
+    <div ng-repeat="f in itemFavorites" favorite="f" edit="editMode" remove="remove(f)"></div>
+    <div class="title">Searches ({{searchFavorites.length}})</div>
+    <div ng-repeat="f in searchFavorites" favorite="f" edit="editMode" remove="remove(f)"></div>
+    <div class="title">Queries ({{queryFavorites.length}})</div>
+    <div ng-repeat="f in queryFavorites" favorite="f" edit="editMode" remove="remove(f)"></div>
+</div>
+<div ng-include="'template/tabbar.html'"></div>

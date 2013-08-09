@@ -1,0 +1,31 @@
+<div class="toolbar">
+  <a class="btn btn-toolbar back" ng-tap="$nav.back()">
+    Back
+  </a>
+  <h1>Settings</h1>
+</div>
+<div class="page scroll with-toolbar with-tabbar">
+  <ul>
+    <li class="pair">
+      <span class="left">Repository</span>
+      <span class="right" style="max-width:62%;">{{repository | stripUrlProtocol}}</span>
+    </li>
+    <li class="pair">
+      <span class="left">Username</span>
+      <span class="right">{{username}}</span>
+    </li>
+    <li class="pair">
+      <span class="left">Show Exceptions</span>
+      <mobi-checkbox class="right" ng-model="showErrorsSwitch"></mobi-checkbox>
+    </li>
+  </ul>
+  <ul>
+    <li>
+      <a ng-tap="$nav.go('/about')">About ClearConcert</a>
+    </li>
+  </ul>
+  <button class="btn btn-danger" style="width: 100%;" ng-tap="logout()">
+    Logout
+  </button>
+</div>
+<div ng-include="'template/tabbar.html'"></div>

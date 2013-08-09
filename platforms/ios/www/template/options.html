@@ -1,0 +1,22 @@
+<div ng-controller="OptionsCtrl">
+	<div>
+		<form ng-submit="search.text && searchPressed(search.text)">
+      		<div jqm-textinput type="search" placeholder="Search for work items" ng-model="search.text"></div>
+    	</form>
+			
+		</div>
+	</div>
+	
+	<div>
+		<ul jqm-listview>
+			<li jqm-li-link="#/home" ng-click="$hidePanel()">Home</li>
+			<li jqm-li-link="#/create-workitem"  ng-click="$hidePanel()">Create Work Item</li>
+			<li jqm-li-link="#/search" ng-click="$hidePanel()">Advanced Search</li>
+			<li jqm-li-link="#/query"  ng-click="$hidePanel()">Queries</li>
+			<li jqm-li-link>Build</li>
+			<li jqm-li-link>Latest News</li>
+			<li jqm-li-link="#/settings"  ng-click="$hidePanel()">Settings</li>
+		</ul>
+	</div>
+	
+</div>

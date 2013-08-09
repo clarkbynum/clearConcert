@@ -1,0 +1,15 @@
+<div jqm-page>
+  <div jqm-header>
+  	 <a class="btn btn-toolbar back" ng-click="go('/splash')">Back</a>
+    <h1>Recent</h1>
+  </div>
+
+	<div class="content scroll page with-toolbar">
+
+	  <ul jqm-listview>
+	    <li jqm-li-entry ng-repeat="r in repos" ng-click="setRepoFromRecent(r)">
+	      <a>{{r.username && r.username + '@' || ''}}{{r.repository | stripUrlProtocol}}</a>
+	    </li>
+	  </ul>
+	</div>
+</div>

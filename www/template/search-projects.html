@@ -1,0 +1,34 @@
+<div jqm-page jqm-theme="a">
+  <div jqm-header>
+    <a class="ui-btn ui-btn-left ui-btn-icon-left ui-btn-corner-all" ng-click="$back()">
+      <span class="ui-btn-inner">
+        <span class="ui-btn-text">Back</span>
+        <span class="ui-icon"><</span>
+      </span>
+    </a>
+    <h1>Results</h1>
+  </div>
+  <div>
+    <ul jqm-listview class="full">
+      <li jqm-li-entry ng-show="moreLoading.active();">
+        <p style="text-align: center;">
+            <i class="icon-spin icon-refresh"></i>
+            Searching {{resolvedCount}}/{{requestCount}} Project Areas
+        </p>
+      </li>
+    </ul>
+    <div style="padding: 10px;">
+      <h2 class="content-title">Results for '{{query}}' by project:</h2>
+      <ul jqm-listview>
+        <li jqm-listentry class="pair" ng-repeat="result in results" ng-click="resultPressed(result)">
+          <a style="max-width:75%; padding-right:25%;">{{result.project.title}}</a>
+          <span class="right">({{result.total}})</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+
