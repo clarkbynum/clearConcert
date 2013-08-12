@@ -90,8 +90,6 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
   .otherwise({
     redirectTo: '/'
   });
-
-   // Wait until workitem is loaded to load page,
   // then change page and inject workitem into the ctrl
   function resolveWorkItem($rootScope, $q, workItems, $route, settings, $loadDialog ) {
     var id = $route.current.params.id;
@@ -155,6 +153,7 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
 
 }])
 
+
 .controller('AppCtrl', ['$scope',
   function($scope){
    $scope.state={};
@@ -187,4 +186,12 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
       });
     });
   };
+}])
+.run(['$rootScope', '$location', 'settings', function($rootScope, $location, settings) {
+	$rootScope.$on('auth.logout', function() {
+		settings.repository = null;
+		settings.username = null;
+		settings.password = null;
+		$location.path('/spash');
+	});
 }]);
