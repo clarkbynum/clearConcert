@@ -2,13 +2,10 @@ angular.module('clearConcert')
 .controller('LoginCtrl', ['$scope', 'rootServices', 'settings', '$loadDialog', '$location', 'auth',
   function($scope, rootServices, settings, $loadDialog, $location, auth){
 
-    $scope.repositoryUrl = "https://clm.clearblade.com:9443/ccm/";
-    $scope.username = "aallsbrook";
-    $scope.password = "aallsbrook";
 
-  // $scope.repository = settings.repository;
-  // $scope.username = settings.username;
-  // $scope.password = settings.password;
+   $scope.repository = settings.repository;
+   $scope.username = settings.username;
+   $scope.password = settings.password;
 
   $scope.$on('auth.logout', function() {
     $scope.repository = $scope.username = $scope.password = '';
@@ -20,7 +17,8 @@ angular.module('clearConcert')
       settings.setUntrusted(val);
     }
   });
-
+	
+  $scope.repos = settings.savedRepos;
   $scope.repositoryIsValid = function(repositoryUrl){
     if(repositoryUrl.indexOf("https://") > -1 || repositoryUrl.indexOf("http://") > -1 || 
       repositoryUrl.indexOf("Https://")  >-1 || repositoryUrl.indexOf("Http://") > -1){
@@ -48,6 +46,14 @@ angular.module('clearConcert')
       $location.path("/login-credentials");
     }); 
    }
+  };
+  $scope.setRepoFromRecent = function(repo){
+	settings.username = repo.username;
+	settings.repository = repo.repository;
+	$location.path('/login-credentials');
+  };
+  $scope.go = function(target) {
+	$location.path('/' + target);
   };
 
   $scope.onCredentialDone = function(repositoryUrl, username, password, allowUnstrusted) {

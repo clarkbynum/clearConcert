@@ -52,6 +52,9 @@ angular.module('clearConcert')
 	settings.repository = repo.repository;
 	$location.path('/login-credentials');
   };
+  $scope.go = function(target) {
+	$location.path('/' + target);
+  };
 
   $scope.onCredentialDone = function(repositoryUrl, username, password, allowUnstrusted) {
     //i think this forces the keyboard down on different devices

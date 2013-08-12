@@ -5,12 +5,12 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
 .config(['$routeProvider',
   function($routeProvider){
    $routeProvider.when('/', {
-    templateUrl: 'template/home.html',
-
+    templateUrl: 'template/home.html'
   })
    .when('/splash', {
     templateUrl: 'template/splash.html',
-    animation: 'page-slide'
+    animation: 'page-slide',
+   controller: 'LoginCtrl'
   })
   .when('/login-repository',{
     controller: 'LoginCtrl',
@@ -88,7 +88,7 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
       }
     })
   .otherwise({
-    redirectTo: '/'
+    redirectTo: '/splash'
   });
   // then change page and inject workitem into the ctrl
   function resolveWorkItem($rootScope, $q, workItems, $route, settings, $loadDialog ) {
@@ -154,8 +154,7 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
 }])
 
 
-.controller('AppCtrl', ['$scope',
-  function($scope){
+.controller('AppCtrl', ['$scope', '$location', function($scope, $location){
    $scope.state={};
    $scope.$back = function(){
     window.history.back();
@@ -163,6 +162,7 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
 
   $scope.$hidePanel = function(){
     $scope.state.panel='';
+
   };
 } ])
 

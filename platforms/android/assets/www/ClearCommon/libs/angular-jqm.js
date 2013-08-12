@@ -1,4 +1,4 @@
-/*! angular-jqm - v0.0.1-SNAPSHOT - 2013-08-06
+/*! angular-jqm - v0.0.1-SNAPSHOT - 2013-08-11
  * https://github.com/opitzconsulting/angular-jqm
  * Copyright (c) 2013 OPITZ CONSULTING GmbH; Licensed MIT */
 (function(window, angular) {
@@ -421,6 +421,133 @@ function registerPageAnimation(animationType, reverse, direction) {
 
 /**
  * @ngdoc directive
+ * @name jqm.directive:jqmButton
+ * @restrict A
+ *
+ * @description
+ * Creates a jquery mobile button on the given element.
+ *
+ * If created on an anchor `<a>` tag, the button will be treated as a link button.
+ *
+ * @param {submit|reset=} jqmButton The button type - if specified, the button will be treated as an input with the given value as its type. Otherwise, the button will just be a normal button.
+ * @param {string=} icon Defines an icon for the button
+ * @param {left|right|top|bottom=} iconpos Defines the Position of the icon, default is 'left'
+ * @param {boolean=} mini Whether or not to use the mini layout
+ * @param {boolean=} inline Whether or not to make the button inline (smaller)
+ * @param {boolean=} shadow Whether or not to give the button shadows (default true)
+ * @param {boolean=} corners Whether or not to give the button shadows (default true)
+ *
+ * @example
+<example module="jqm">
+  <file name="index.html">
+    <div>
+        <div jqm-button icon="ui-icon-search" ng-click>Do some search</div>
+        <a jqm-button icon="ui-icon-home" data-mini="true" href="#/api" ng-click>Go home, mini!</a>
+        <hr />
+        <h3>Form With Vertical Group</h3>
+        <form action="http://foobar3000.com/echo" method="GET">
+          <div jqm-textinput ng-model="$root.value" ng-init="$root.value='banana'" name="stuff"></div>
+          <div jqm-controlgroup>
+            <div jqm-button="submit" ng-click icon="ui-icon-check" iconpos="right">Submit to foobar3030.com</div>
+            <div jqm-button="reset" ng-click icon="ui-icon-minus" iconpos="right">"reset" it away!</div>
+          </div>
+        </form>
+        <hr />
+        <h3>Horizontal Group</h3>
+        <div jqm-controlgroup type="horizontal">
+          <div jqm-button ng-click>One</div>
+          <div jqm-button ng-click>Two</div>
+          <div jqm-button ng-click>Three</div>
+        </div>
+    </div>
+  </file>
+</example>
+ */
+jqmModule.directive('jqmButton', ['jqmClassDirective', 'jqmOnceClassDirective', function(jqmClassDirectives, jqmOnceClassDirectives) {
+    var isDef = angular.isDefined;
+    return {
+        restrict: 'A',
+        transclude: true,
+        templateUrl: 'templates/jqmButton.html',
+        scope: {
+            iconpos: '@',
+            icon: '@',
+            mini: '@',
+            shadow: '@',
+            corners: '@',
+            inline: '@'
+        },
+        require: '^?jqmControlGroup',
+        compile: function(elm, attr) {
+            attr.shadow = isDef(attr.shadow) ? attr.shadow==='true' : 'true';
+            attr.corners = isDef(attr.corners) ? attr.corners==='true' : 'true';
+
+            elm[0].className += ' ui-btn';
+            attr.$set('jqmOnceClass', "{{$scopeAs.jqmBtn.getIconPos() ? 'ui-btn-icon-'+$scopeAs.jqmBtn.getIconPos() : ''}}");
+            attr.$set('jqmClass',
+                "{'ui-first-child': $scopeAs.jqmBtn.$position.first," +
+                "'ui-submit': $scopeAs.jqmBtn.type," +
+                "'ui-last-child': $scopeAs.jqmBtn.$position.last," +
+                "'ui-shadow': $scopeAs.jqmBtn.shadow," +
+                "'ui-btn-corner-all': $scopeAs.jqmBtn.corners," +
+                "'ui-mini': $scopeAs.jqmBtn.isMini()," +
+                "'ui-btn-inline': $scopeAs.jqmBtn.isInline()}"
+            );
+
+            if (elm[0].tagName.toLowerCase() === 'input') {
+                //Inputs can't have templates inside of them so throw an error
+                throw new Error("Cannot have jqm-button <input> - use <button> instead!");
+            }
+
+            //Eg <div jqm-button="submit"> --> we put a <input type="submit"> inside
+            var buttonEl;
+            if (attr.jqmButton) {
+                buttonEl = angular.element('<button>');
+                buttonEl.addClass('ui-btn-hidden');
+                buttonEl.attr("type", attr.jqmButton);
+                if (attr.name) {
+                    buttonEl.attr("name", attr.name);
+                }
+                if (attr.ngDisabled) {
+                    buttonEl.attr('ngDisabled', attr.ngDisabled);
+                } else if (attr.disabled) {
+                    buttonEl.attr('disabled', attr.disabled);
+                }
+                elm.append(buttonEl);
+            }
+
+            return function(scope, elm, attr, controlGroup) {
+
+                scope.$$scopeAs = 'jqmBtn';
+                scope.isMini = isMini;
+                scope.getIconPos = getIconPos;
+                scope.isInline = isInline;
+                scope.type = attr.jqmButton;
+
+                angular.forEach(jqmClassDirectives, function(directive) {
+                    directive.link(scope, elm, attr);
+                });
+                angular.forEach(jqmOnceClassDirectives, function(directive) {
+                    directive.link(scope, elm, attr);
+                });
+
+                function isMini() {
+                    return scope.mini || (controlGroup && controlGroup.$scope.mini);
+                }
+                function getIconPos() {
+                    return scope.iconpos || (controlGroup && controlGroup.$scope.iconpos) || (scope.icon ? 'left' : '');
+                }
+                function isInline() {
+                    return (controlGroup && controlGroup.$scope.type === "horizontal") || scope.inline;
+                }
+
+            };
+        }
+    };
+}]);
+
+/**
+ * @ngdoc directive
  * @name jqm.directive:jqmCachingView
  * @restrict ECA
  *
@@ -666,33 +793,35 @@ jqmModule.directive('jqmCheckbox', [function () {
 }]);
 
 jqmModule.directive('jqmClass', [function() {
-    return function(scope, element, attr) {
-        var oldVal;
+    return {
+        link: function(scope, element, attr) {
+            var oldVal;
 
-        scope.$watch(attr.jqmClass, jqmClassWatchAction, true);
+            scope.$watch(attr.jqmClass, jqmClassWatchAction, true);
 
-        attr.$observe('class', function(value) {
-            var jqmClass = scope.$eval(attr.jqmClass);
-            jqmClassWatchAction(jqmClass);
-        });
+            attr.$observe('class', function(value) {
+                var jqmClass = scope.$eval(attr.jqmClass);
+                jqmClassWatchAction(jqmClass);
+            });
 
-        function jqmClassWatchAction(newVal) {
-            if (oldVal && !angular.equals(newVal,oldVal)) {
-                changeClass('removeClass', oldVal);
+            function jqmClassWatchAction(newVal) {
+                if (oldVal && !angular.equals(newVal,oldVal)) {
+                    changeClass('removeClass', oldVal);
+                }
+                changeClass('addClass', newVal);
+                oldVal = angular.copy(newVal);
             }
-            changeClass('addClass', newVal);
-            oldVal = angular.copy(newVal);
-        }
 
-        function changeClass(fn, classVal) {
-            if (angular.isObject(classVal) && !angular.isArray(classVal)) {
-                var classes = [];
-                angular.forEach(classVal, function(v, k) {
-                    if (v) { classes.push(k); }
-                });
-                classVal = classes;
+            function changeClass(fn, classVal) {
+                if (angular.isObject(classVal) && !angular.isArray(classVal)) {
+                    var classes = [];
+                    angular.forEach(classVal, function(v, k) {
+                        if (v) { classes.push(k); }
+                    });
+                    classVal = classes;
+                }
+                element[fn](angular.isArray(classVal) ? classVal.join(' ') : classVal);
             }
-            element[fn](angular.isArray(classVal) ? classVal.join(' ') : classVal);
         }
     };
 }]);
@@ -1002,33 +1131,13 @@ jqmModule.directive('jqmListview', [function() {
     };
 }]);
 
-/**
- * @ngdoc directive
- * @name jqm.directive:jqmOnceClass
- * @restrict A
- *
- * @description
- * Sets the given class string once, with no watching.
- *
- * @example
- <example module="jqm">
- <file name="index.html">
-   <div ng-init="someClass='a'" jqm-once-class="{{someClass}}">
-       <input type="text" ng-model="someClass">
-   </div>
- </file>
- </example>
+/*
+ * This is intentionally not documented; internal use only
  */
 jqmModule.directive('jqmOnceClass', ['$interpolate', function($interpolate) {
     return {
-        compile: function(element, iAttr) {
-            //We have to catch the attr value before angular tries to compile it
-            var classAttr = $interpolate(iAttr.jqmOnceClass);
-            if (classAttr) {
-                return function postLink(scope, element, attr) {
-                    element.addClass( classAttr(scope) );
-                };
-            }
+        link: function(scope, elm, attr) {
+            elm.addClass( $interpolate(attr.jqmOnceClass)(scope) );
         }
     };
 }]);
@@ -2890,7 +2999,16 @@ jqmModule.factory('$transitionComplete', ['$sniffer', function ($sniffer) {
     };
 }]);
 
-angular.module('jqm-templates', ['templates/jqmCheckbox.html', 'templates/jqmControlgroup.html', 'templates/jqmFlip.html', 'templates/jqmLiEntry.html', 'templates/jqmLiLink.html', 'templates/jqmListview.html', 'templates/jqmPanel.html', 'templates/jqmPanelContainer.html', 'templates/jqmTextarea.html', 'templates/jqmTextinput.html']);
+angular.module('jqm-templates', ['templates/jqmButton.html', 'templates/jqmCheckbox.html', 'templates/jqmControlgroup.html', 'templates/jqmFlip.html', 'templates/jqmLiEntry.html', 'templates/jqmLiLink.html', 'templates/jqmListview.html', 'templates/jqmPanel.html', 'templates/jqmPanelContainer.html', 'templates/jqmTextarea.html', 'templates/jqmTextinput.html']);
+
+angular.module("templates/jqmButton.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("templates/jqmButton.html",
+    "<span class=\"ui-btn-inner\">\n" +
+    "  <span class=\"ui-btn-text\" ng-transclude></span>\n" +
+    "  <span ng-if=\"$scopeAs.jqmBtn.icon\" class=\"ui-icon {{$parent.icon}}\">&nbsp;</span>\n" +
+    "</span>\n" +
+    "");
+}]);
 
 angular.module("templates/jqmCheckbox.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/jqmCheckbox.html",
@@ -3047,13 +3165,11 @@ angular.module("templates/jqmTextinput.html", []).run(["$templateCache", functio
 
 angular.element(window.document).find('head').append('<style type="text/css">* {\n    -webkit-backface-visibility-hidden;\n}\nhtml, body {\n    -webkit-user-select: none;\n}\n\n/* browser resets */\n.ui-mobile, .ui-mobile html, .ui-mobile body {\n    height: 100%;\n    margin: 0\n}\n\n.ui-footer {\n    position: absolute;\n    bottom: 0;\n    width: 100%;\n    z-index: 1\n}\n\n.ui-header {\n    position: absolute;\n    top: 0;\n    width: 100%;\n    z-index: 1\n}\n\n.ui-mobile .ui-page {\n    height: 100%;\n    min-height: 0;\n    overflow: hidden;\n}\n.ui-content {\n    position: relative;\n    margin: 0;\n    padding: 0;\n}\n.ui-content.jqm-content-with-header {\n    margin-top: 42px\n}\n\n.ui-content.jqm-content-with-footer {\n    margin-bottom: 43px\n}\n.jqm-standalone-page {\n    display: block;\n    position: relative;\n}\n.ui-panel {\n  position: absolute;\n}\n\n.ui-panel-closed {\n  display: none;\n}\n\n.ui-panel.ui-panel-opened {\n  z-index: 1001;\n}\n.ui-panel-dismiss {\n  z-index: 1000; /* lower than ui-panel */\n}\n\n.ui-panel-content-wrap {\n    height: 100%\n}\n\n.jqm-panel-container {\n    position: relative;\n    width: 100%;\n    height: 100%;\n}\n\n\n.ui-mobile-viewport {\n    /* needed to allow multiple viewports */\n    position: relative;\n    height:100%\n}\n</style>');})(window, angular);
 /*
- * angular-scrolly - v0.0.1 - 2013-05-29
+ * angular-scrolly - v0.0.3 - 2013-08-09
  * http://github.com/ajoslin/angular-scrolly
  * Created by Andy Joslin; Licensed under Public Domain
  */
 angular.module('ajoslin.scrolly', [
-  'ajoslin.scrolly.dragger',
-  'ajoslin.scrolly.transformer',
   'ajoslin.scrolly.scroller',
   'ajoslin.scrolly.directives'
 ]);angular.module('ajoslin.scrolly.directives', ['ajoslin.scrolly.scroller']).directive('scrollyScroll', [
@@ -3070,13 +3186,78 @@ angular.module('ajoslin.scrolly', [
       }
     };
   }
-]);angular.module('ajoslin.scrolly.dragger', []).provider('$dragger', function () {
+]);angular.module('ajoslin.scrolly.desktop', []).provider('$desktopScroller', function () {
+  var KEYS = {
+      38: 150,
+      40: -150,
+      32: -600
+    };
+  this.key = function (keyCode, delta) {
+    if (arguments.length > 1) {
+      KEYS[keyCode] = delta;
+    }
+    return KEYS[keyCode];
+  };
+  var _mouseWheelDistanceMulti = 0.5;
+  this.mouseWheelDistanceMulti = function (newMulti) {
+    arguments.length && (_mouseWheelDistanceMulti = newMulti);
+    return _mouseWheelDistanceMulti;
+  };
+  this.$get = [
+    '$document',
+    function ($document) {
+      $desktopScroller.mouseWheelDistanceMulti = _mouseWheelDistanceMulti;
+      $desktopScroller.easeTimeMulti = 0.66;
+      function $desktopScroller(elm, scroller) {
+        var self = {};
+        elm.bind('$destroy', function () {
+          $document.unbind('mousewheel', onMousewheel);
+          $document.unbind('keydown', onKey);
+        });
+        $document.bind('mousewheel', onMousewheel);
+        $document.bind('keydown', onKey);
+        function onMousewheel(e) {
+          var delta = e.wheelDeltaY * $desktopScroller.mouseWheelDistanceMulti;
+          scroller.calculateHeight();
+          var newPos = scroller.transformer.pos + delta;
+          scroller.transformer.setTo(clamp(-scroller.scrollHeight, newPos, 0));
+          e.preventDefault();
+        }
+        var INPUT_REGEX = /INPUT|TEXTAREA|SELECT/i;
+        function onKey(e) {
+          if (document.activeElement && document.activeElement.tagName && document.activeElement.tagName.match(INPUT_REGEX)) {
+            return;
+          }
+          var delta = KEYS[e.keyCode || e.which];
+          if (delta) {
+            e.preventDefault();
+            if (scroller.transformer.changing)
+              return;
+            scroller.calculateHeight();
+            var newPos = scroller.transformer.pos + delta;
+            newPos = clamp(-scroller.scrollHeight, newPos, 0);
+            if (newPos !== scroller.transformer.pos) {
+              var newDelta = newPos - scroller.transformer.pos;
+              var time = Math.abs(newDelta * $desktopScroller.easeTimeMulti);
+              scroller.transformer.easeTo(newPos, time);
+            }
+          }
+        }
+        return self;
+      }
+      function clamp(a, b, c) {
+        return Math.min(Math.max(a, b), c);
+      }
+      return $desktopScroller;
+    }
+  ];
+});angular.module('ajoslin.scrolly.dragger', []).provider('$dragger', function () {
   var _shouldBlurOnDrag = true;
   this.shouldBlurOnDrag = function (shouldBlur) {
     arguments.length && (_shouldBlurOnDrag = !!shouldBlur);
     return _shouldBlurOnDrag;
   };
-  var _minDistanceForDrag = 6;
+  var _minDistanceForDrag = 8;
   this.minDistanceForDrag = function (newMinDistanceForDrag) {
     arguments.length && (_minDistanceForDrag = newMinDistanceForDrag);
     return _minDistanceForDrag;
@@ -3099,16 +3280,24 @@ angular.module('ajoslin.scrolly', [
     '$window',
     '$document',
     function ($window, $document) {
-      var hasTouch = 'ontouchstart' in $window;
-      var events = {
-          start: hasTouch ? 'touchstart' : 'mousedown',
-          move: hasTouch ? 'touchmove' : 'mousemove',
-          end: hasTouch ? 'touchend' : 'mouseup',
-          cancel: hasTouch ? 'touchcancel' : ''
-        };
-      function $dragger(elm) {
+      function getX(point) {
+        return point.pageX;
+      }
+      function getY(point) {
+        return point.pageY;
+      }
+      function $dragger(elm, options) {
         var self = {};
         var raw = elm[0];
+        var getPos, getOtherPos;
+        options = options || {};
+        if (options.horizontal) {
+          getPos = getX;
+          getOtherPos = getY;
+        } else {
+          getPos = getY;
+          getOtherPos = getX;
+        }
         var state = {
             startPos: 0,
             startTime: 0,
@@ -3125,41 +3314,26 @@ angular.module('ajoslin.scrolly', [
             cb(eventType, arg);
           });
         }
-        elm.bind(events.start, dragStart);
-        elm.bind(events.move, dragMove);
-        elm.bind(events.end, dragEnd);
-        events.cancel && elm.bind(events.cancel, dragEnd);
-        if (!hasTouch) {
-          elm.bind('mouseout', function mouseout(e) {
-            var t = e.relatedTarget;
-            if (!t) {
-              dragEnd(e);
-            } else {
-              while (t = t.parentNode) {
-                if (t === elm)
-                  return;
-              }
-              dragEnd(e);
-            }
-          });
-        }
-        function restartDragState(y) {
-          state.startPos = state.pos = y;
+        elm.bind('touchstart', dragStart);
+        elm.bind('touchmove', dragMove);
+        elm.bind('touchend touchcancel', dragEnd);
+        function restartDragState(point) {
+          state.startPos = state.pos = getPos(point);
+          state.otherStartPos = state.otherPos = getOtherPos(point);
           state.startTime = Date.now();
           state.dragging = true;
         }
         function isInput(raw) {
-          return raw && raw.tagName === 'INPUT' || raw.tagName === 'SELECT' || raw.tagName === 'TEXTAREA';
+          return raw && (raw.tagName === 'INPUT' || raw.tagName === 'SELECT' || raw.tagName === 'TEXTAREA');
         }
         function dragStart(e) {
-          if (!hasTouch && e.button)
-            return;
+          e = e.originalEvent || e;
           var target = e.target || e.srcElement;
           var point = e.touches ? e.touches[0] : e;
-          if (parentWithAttr(target, 'data-dragger-ignore')) {
+          if (parentWithAttr(target, 'dragger-ignore')) {
             return;
           }
-          if (_shouldBlurOnDrag && target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA' && target.tagName !== 'SELECT') {
+          if (_shouldBlurOnDrag && isInput(target)) {
             document.activeElement && document.activeElement.blur();
           }
           state.moved = false;
@@ -3167,7 +3341,7 @@ angular.module('ajoslin.scrolly', [
           state.delta = 0;
           state.pos = 0;
           state.distance = 0;
-          restartDragState(point.pageY);
+          restartDragState(point);
           dispatchEvent({
             type: 'start',
             startPos: state.startPos,
@@ -3175,20 +3349,28 @@ angular.module('ajoslin.scrolly', [
           });
         }
         function dragMove(e) {
+          e = e.originalEvent || e;
           e.preventDefault();
           if (state.dragging) {
             var point = e.touches ? e.touches[0] : e;
-            var delta = point.pageY - state.pos;
+            var delta = getPos(point) - state.pos;
             state.delta = delta;
-            state.pos = point.pageY;
+            state.pos = getPos(point);
+            state.otherPos = getOtherPos(point);
             state.distance = state.pos - state.startPos;
-            if (Math.abs(state.pos - state.startPos) < _minDistanceForDrag) {
-              return;
+            state.otherDistance = state.otherPos - state.otherStartPos;
+            if (!state.moved) {
+              if (Math.abs(state.otherDistance) > _minDistanceForDrag) {
+                return dragEnd(e);
+              } else if (Math.abs(state.distance) > _minDistanceForDrag) {
+                state.moved = true;
+              } else {
+                return;
+              }
             }
-            state.moved = true;
             var timeSinceMove = state.lastMoveTime - state.startTime;
             if (timeSinceMove > _maxTimeMotionless) {
-              restartDragState(state.pos);
+              restartDragState(point);
             }
             state.lastMoveTime = e.timeStamp || Date.now();
             dispatchEvent({
@@ -3202,10 +3384,12 @@ angular.module('ajoslin.scrolly', [
           }
         }
         function dragEnd(e) {
+          e = e.originalEvent || e;
           if (state.dragging) {
             state.dragging = false;
-            var duration = Date.now() - state.startTime;
-            var inactiveDrag = duration > _maxTimeMotionless;
+            var now = Date.now();
+            var duration = now - state.startTime;
+            var inactiveDrag = now - state.lastMoveTime > _maxTimeMotionless;
             dispatchEvent({
               type: 'end',
               startPos: state.startPos,
@@ -3235,20 +3419,28 @@ angular.module('ajoslin.scrolly', [
         };
         return self;
       }
-      $dragger.events = function () {
-        return events;
-      };
       return $dragger;
     }
   ];
 });angular.module('ajoslin.scrolly.scroller', [
   'ajoslin.scrolly.dragger',
-  'ajoslin.scrolly.scroller'
+  'ajoslin.scrolly.transformer',
+  'ajoslin.scrolly.desktop'
 ]).provider('$scroller', function () {
   var _decelerationRate = 0.001;
   this.decelerationRate = function (newDecelerationRate) {
     arguments.length && (_decelerationRate = newDecelerationRate);
     return _decelerationRate;
+  };
+  var _supportDesktop = true;
+  this.supportDesktop = function (newSupport) {
+    _supportDesktop = !!newSupport;
+    return _supportDesktop;
+  };
+  var _pastBoundaryScrollRate = 0.5;
+  this.pastBoundaryScrollRate = function (newRate) {
+    arguments.length && (_pastBoundaryScrollRate = newRate);
+    return _pastBoundaryScrollRate;
   };
   var _bounceBuffer = 40;
   this.bounceBuffer = function (newBounceBuffer) {
@@ -3265,35 +3457,48 @@ angular.module('ajoslin.scrolly', [
     arguments.length && (_bounceBackDistanceMulti = newBounceBackDistanceMult);
     return _bounceBackDistanceMulti;
   };
-  function getRect(elm) {
-    var style = window.getComputedStyle(elm);
-    var offTop = parseInt(style['margin-top'], 10) + parseInt(style['padding-top'], 10);
-    var offBottom = parseInt(style['margin-bottom'], 10) + parseInt(style['padding-bottom'], 10);
-    var height = parseInt(style.height, 10);
-    return {
-      top: offTop,
-      bottom: offBottom,
-      height: height
-    };
-  }
   function floor(n) {
     return n | 0;
-  }
-  function bounceTime(howMuchOut) {
-    return Math.abs(howMuchOut) * _bounceBackDistanceMulti + _bounceBackMinTime;
   }
   this.$get = [
     '$dragger',
     '$transformer',
     '$window',
-    function ($dragger, $transformer, $window) {
-      function scroller(elm) {
+    '$document',
+    '$desktopScroller',
+    function ($dragger, $transformer, $window, $document, $desktopScroller) {
+      $scroller.getContentRect = function (raw) {
+        var style = window.getComputedStyle(raw);
+        var offTop = parseInt(style.getPropertyValue('margin-top'), 10) + parseInt(style.getPropertyValue('padding-top'), 10);
+        var offBottom = parseInt(style.getPropertyValue('margin-bottom'), 10) + parseInt(style.getPropertyValue('padding-bottom'), 10);
+        var top = parseInt(style.getPropertyValue('top'), 10);
+        var bottom = parseInt(style.getPropertyValue('bottom'), 10);
+        var height = parseInt(style.getPropertyValue('height'), 10);
+        return {
+          top: offTop + (isNaN(top) ? 0 : top),
+          bottom: offBottom + (isNaN(bottom) ? 0 : bottom),
+          height: height
+        };
+      };
+      function bounceTime(howMuchOut) {
+        return Math.abs(howMuchOut) * _bounceBackDistanceMulti + _bounceBackMinTime;
+      }
+      function $scroller(elm) {
         var self = {};
+        var currentScroller = elm.data('$scrolly.scroller');
+        if (currentScroller) {
+          return currentScroller;
+        } else {
+          elm.data('$scrolly.scroller', self);
+        }
         var raw = elm[0];
-        var transformer = new $transformer(elm);
-        var dragger = new $dragger(elm);
-        function calculateHeight() {
-          var rect = getRect(raw);
+        var transformer = self.transformer = new $transformer(elm);
+        var dragger = self.dragger = new $dragger(elm);
+        if (_supportDesktop) {
+          var desktopScroller = new $desktopScroller(elm, self);
+        }
+        self.calculateHeight = function () {
+          var rect = $scroller.getContentRect(raw);
           var screenHeight = $window.innerHeight;
           if (rect.height < screenHeight) {
             self.scrollHeight = 0;
@@ -3301,81 +3506,78 @@ angular.module('ajoslin.scrolly', [
             self.scrollHeight = rect.height - screenHeight + rect.top + rect.bottom;
           }
           return self.scrollHeight;
-        }
-        window.s = self;
-        calculateHeight();
-        function outOfBounds(pos) {
+        };
+        self.calculateHeight();
+        self.outOfBounds = function (pos) {
           if (pos > 0)
             return pos;
           if (pos < -self.scrollHeight)
             return pos + self.scrollHeight;
           return false;
-        }
+        };
         function dragListener(dragData) {
           switch (dragData.type) {
           case 'start':
             if (transformer.changing) {
               transformer.stop();
             }
-            calculateHeight();
+            self.calculateHeight();
             break;
           case 'move':
             var newPos = transformer.pos + dragData.delta;
-            if (outOfBounds(newPos)) {
+            if (self.outOfBounds(newPos)) {
               newPos = transformer.pos + floor(dragData.delta * 0.5);
             }
             transformer.setTo(newPos);
             break;
           case 'end':
-            if (outOfBounds(transformer.pos) || dragData.inactiveDrag) {
-              checkBoundaries();
+            if (self.outOfBounds(transformer.pos) || dragData.inactiveDrag) {
+              self.checkBoundaries();
             } else {
-              calculateHeight();
-              var momentum = calcMomentum(dragData);
+              var momentum = self.momentum(dragData);
               if (momentum.position !== transformer.pos) {
-                transformer.easeTo(momentum.position, momentum.time, checkBoundaries);
+                transformer.easeTo(momentum.position, momentum.time, self.checkBoundaries);
               }
             }
             break;
           }
         }
-        function checkBoundaries() {
-          calculateHeight();
-          var howMuchOut = outOfBounds(transformer.pos);
+        self.checkBoundaries = function () {
+          self.calculateHeight();
+          var howMuchOut = self.outOfBounds(transformer.pos);
           if (howMuchOut) {
             var newPosition = howMuchOut > 0 ? 0 : -self.scrollHeight;
             transformer.easeTo(newPosition, bounceTime(howMuchOut));
           }
-        }
-        function calcMomentum(dragData) {
+        };
+        self.momentum = function (dragData) {
+          self.calculateHeight();
           var speed = Math.abs(dragData.distance) / dragData.duration;
           var newPos = transformer.pos + speed * speed / (2 * _decelerationRate) * (dragData.distance < 0 ? -1 : 1);
           var time = speed / _decelerationRate;
-          var howMuchOver = outOfBounds(newPos);
+          var howMuchOver = self.outOfBounds(newPos);
           var distance;
           if (howMuchOver) {
             if (howMuchOver > 0) {
               newPos = Math.min(howMuchOver, _bounceBuffer);
-              distance = Math.abs(newPos - transformer.pos);
-              time = distance / speed;
             } else if (howMuchOver < 0) {
               newPos = Math.max(newPos, -(self.scrollHeight + _bounceBuffer));
-              distance = Math.abs(newPos - transformer.pos);
-              time = distance / speed;
             }
+            distance = Math.abs(newPos - transformer.pos);
+            time = distance / speed;
           }
           return {
             position: newPos,
             time: floor(time)
           };
-        }
+        };
         dragger.addListener(dragListener);
         elm.bind('$destroy', function () {
           dragger.removeListener(dragListener);
         });
         return self;
       }
-      return scroller;
+      return $scroller;
     }
   ];
 });angular.module('ajoslin.scrolly.transformer', []).factory('$nextFrame', [
@@ -3394,20 +3596,54 @@ angular.module('ajoslin.scrolly', [
   this.$get = [
     '$window',
     '$nextFrame',
-    function ($window, $nextFrame) {
-      var transformProp = 'webkitTransform';
-      var transformPropDash = '-webkit-transform';
-      var transitionProp = 'webkitTransition';
+    '$sniffer',
+    '$document',
+    function ($window, $nextFrame, $sniffer, $document) {
+      if (!$sniffer.vendorPrefix) {
+        if (angular.isString($document[0].body.style.webkitTransition)) {
+          $sniffer.vendorPrefix = 'webkit';
+        }
+      }
+      var prefix = $sniffer.vendorPrefix;
+      if (prefix && prefix !== 'Moz' && prefix !== 'O') {
+        prefix = prefix.substring(0, 1).toLowerCase() + prefix.substring(1);
+      }
+      var transformProp = prefix ? prefix + 'Transform' : 'transform';
+      var transformPropDash = prefix ? '-' + prefix.toLowerCase() + '-transform' : 'transform';
+      var transitionProp = prefix ? prefix + 'Transition' : 'transition';
       function transitionString(transitionTime) {
         return transformPropDash + ' ' + transitionTime + 'ms ' + timingFunction;
       }
-      function $transformer(elm) {
+      function transformGetterX(n) {
+        return 'translate3d(' + n + 'px,0,0)';
+      }
+      function transformGetterY(n) {
+        return 'translate3d(0,' + n + 'px,0)';
+      }
+      function $transformer(elm, options) {
         var self = {};
+        var currentTransformer = elm.data('$scrolly.transformer');
+        if (currentTransformer) {
+          return currentTransformer;
+        } else {
+          elm.data('$scrolly.transformer', self);
+        }
         var raw = elm[0];
+        var _transformGetter;
+        var _matrixIndex;
+        options = options || {};
+        if (options.horizontal) {
+          _transformGetter = transformGetterX;
+          _matrixIndex = 4;
+        } else {
+          _transformGetter = transformGetterY;
+          _matrixIndex = 5;
+        }
         self.$$calcPosition = function () {
-          var matrix = $window.getComputedStyle(raw)[transformProp].replace(/[^0-9-.,]/g, '').split(',');
+          var style = $window.getComputedStyle(raw);
+          var matrix = (style[transformProp] || '').replace(/[^0-9-.,]/g, '').split(',');
           if (matrix.length > 1) {
-            return parseInt(matrix[5], 10);
+            return parseInt(matrix[_matrixIndex], 10);
           } else {
             return 0;
           }
@@ -3427,7 +3663,7 @@ angular.module('ajoslin.scrolly', [
             done && done();
           });
         };
-        self.easeTo = function (y, transitionTime, done) {
+        self.easeTo = function (n, transitionTime, done) {
           if (!angular.isNumber(transitionTime) || transitionTime < 0) {
             throw new Error('Expected a positive number for time, got \'' + transitionTime + '\'.');
           }
@@ -3440,7 +3676,7 @@ angular.module('ajoslin.scrolly', [
             raw.style[transitionProp] = transitionString(transitionTime);
             self.changing = true;
             $nextFrame(function () {
-              self.setTo(y);
+              self.setTo(n);
               transitionEndTimeout = $window.setTimeout(function () {
                 self.stop();
                 done && done();
@@ -3448,9 +3684,9 @@ angular.module('ajoslin.scrolly', [
             });
           }
         };
-        self.setTo = function (y) {
-          self.pos = y;
-          raw.style[transformProp] = 'translate3d(0,' + y + 'px,0)';
+        self.setTo = function (n) {
+          self.pos = n;
+          raw.style[transformProp] = _transformGetter(n);
         };
         return self;
       }

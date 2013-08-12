@@ -10,7 +10,7 @@ function($scope, settings, $rootScope, auth,$location) {
   });
 
   $scope.logout = function() {
-    auth.logout(settings.repository);
-    $location.path("/login");
+	console.log('logged out');
+	auth.logout();
   };
 }]);

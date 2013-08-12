@@ -117,21 +117,9 @@ function($rootScope, $http, $q, $timeout, catalog, rootServices, appConfig) {
     return loginDeferred.promise;
   };
 
-  authService.logout = function(repository) { 
-    var logoutUrl = repository + 'service/com.ibm.team.repository.service.internal.ILogoutRestService';
+  authService.logout = function() { 
     setLoggedIn(false);
     $rootScope.$broadcast('auth.logout');
-
-    var deferred = $q.defer();
-    //We use jqMobi.ajax here because $http messes up with this url 
-    //(angular sends some headers that ask for json by default)
-    $.ajax({
-      type: "POST",
-      url: logoutUrl,
-      success: function() { $rootScope.$apply(deferred.resolve); },
-      error: function() { $rootScope.$apply(deferred.reject); }
-    });
-    return deferred.promise;
   };
 
   authService.loggedIn = function() {
