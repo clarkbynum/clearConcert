@@ -22,15 +22,27 @@ package com.clearblade.clearconcert;
 import android.os.Bundle;
 import org.apache.cordova.*;
 
+import com.clearblade.clearconcert.ClearConcertView;
+import com.clearblade.clearconcert.R;
+
 public class ClearConcert extends DroidGap
 {
+	public boolean allowUntrusted = false;
     @Override
     public void onCreate(Bundle savedInstanceState)
-    {
+    { 
         super.onCreate(savedInstanceState);
-        // Set by <content src="index.html" /> in config.xml
-        super.loadUrl(Config.getStartUrl());
+        super.setIntegerProperty("splashscreen", R.drawable.splash);
+        super.loadUrl(Config.getStartUrl(), 10000);
         //super.loadUrl("file:///android_asset/www/index.html")
+    }
+    
+    public void init() {
+    	super.init();
+    	ClearConcertView view = new ClearConcertView(this);
+    	this.appView.setWebViewClient(view);
+    	view.setWebView(this.appView);
+    	//this.appView.getSettings().setNavDump(false);
     }
 }
 
