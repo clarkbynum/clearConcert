@@ -25,6 +25,7 @@ position: relative;
 	border-right-width:0px;
 	margin-left:12px;
 	margin-right:12px;
+	text-shadow: none !important;
 }
 
 .ui-li.ui-last-child{
