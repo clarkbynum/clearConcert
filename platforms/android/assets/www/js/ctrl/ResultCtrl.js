@@ -24,7 +24,10 @@ angular.module('clearConcert')
 					moreTracker.addPromise(promise);
 				}
 			};
-			$scope.setFavorite = resultData.setFavorite;
+			$scope.setFavorite = function() {
+				resultData.setFavorite();
+				$scope.isFav = resultData.isFavorite();
+			};
 
 			$scope.refresh = function() {
 				resultData.clear();
@@ -57,7 +60,6 @@ angular.module('clearConcert')
 			};
 
 			$scope.isFavorite = resultData.isFavorite;
-			$scope.setFavorite = resultData.setFavorite;
 			$scope.title = resultData.title();
 
 			if (resultData.advancedFilterOptions) {
@@ -95,17 +97,20 @@ loadMore: function(pageUrl) {
 		search.clearCache();
 	},
 	setFavorite: function() {
-		if (isFavorite && !favorite) {
-			newFav = newFavorites.newQueryFav(projectId, query);
-			console.log(newFav);
-		} else if (!isFavorite) {
-			favorites.remove(favorite);
-			favorite = null;
+		if (newFavorites.checkFav(projectId, queryId, 2)) {
+			console.log("remove");
+			newFavorites.removeFav(projectId, queryId, 2);
+		} else {
+			console.log("add");
+			var newFav = newFavorites.newQueryFav(projectId, queryId, 2);
+			newFavorites.addFav(newFav);
 		}
 	},
 	isFavorite: function() {
-		return angular.isDefined(favorite);
+		return newFavorites.checkFav(projectId, queryId, 1);
 	}
+
+
 };
 };
 }])
@@ -164,7 +169,7 @@ loadMore: function(pageUrl) {
 						newFavorites.removeFav(projectId, queryId, 1);
 					} else {
 						console.log("add");
-						var newFav = newFavorites.newQueryFav(projectId, queryId);
+						var newFav = newFavorites.newQueryFav(projectId, queryId, 1);
 						newFavorites.addFav(newFav);
 					}
 				},
