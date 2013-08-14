@@ -15,7 +15,7 @@ module.exports = function(grunt){
       				to: 'ClearCommon' 
     			}, {
     				from: '<!--CORDOVA LIB-->',
-    				to: '<script src="lib/cordova.js"></script>'
+    				to: '<script src="cordova.js"></script>'
     			}, {
     				from: '<script src="http://localhost:1337/livereload.js"></script>',
     				to: ''
@@ -32,7 +32,7 @@ module.exports = function(grunt){
       				to: 'ClearCommon' 
     			}, {
     				from: '<!--CORDOVA LIB-->',
-    				to: '<script src="lib/cordova.js"></script>'
+    				to: '<script src="cordova.js"></script>'
     			}, {
     				from: '<script src="http://localhost:1337/livereload.js"></script>',
     				to: ''
