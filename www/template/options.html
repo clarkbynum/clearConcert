@@ -1,14 +1,10 @@
 <div ng-controller="OptionsCtrl">
-	<div>
-		<form ng-submit="search.text && searchPressed(search.text)">
-			<div jqm-textinput type="search" placeholder="Search for work items" ng-model="search.text"></div>
-		</form>
-
-
-	</div>
+	
 
 	<div>
 		<ul jqm-listview>
+			<li jqm-li-divider>ClearConcert</li>
+			<li jqm-li-entry><ClearConcert></li>
 			<li jqm-li-link ng-click="go('')">Home</li>
 			<li jqm-li-link ng-click="go('create-workitem')">Create Work Item</li>
 			<li jqm-li-link ng-click="go('search')">Advanced Search</li>

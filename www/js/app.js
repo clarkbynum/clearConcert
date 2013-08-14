@@ -5,7 +5,8 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
 .config(['$routeProvider',
   function($routeProvider){
    $routeProvider.when('/', {
-    templateUrl: 'template/home.html'
+    templateUrl: 'template/home.html',
+    animation: 'page-slide'
   })
    .when('/splash', {
     templateUrl: 'template/splash.html',

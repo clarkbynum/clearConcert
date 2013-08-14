@@ -35,7 +35,10 @@ angular.module('clearConcert')
     return repositoryUrl;
   }
 
-  $scope.onRepositoryDone = function(repositoryUrl){
+  $scope.onRepositoryDone = function(repositoryUrl, allowUntrusted){
+    if (angular.isDefined(allowUntrusted)) {
+      settings.setUntrusted(allowUntrusted);
+    }
     repositoryUrl = $scope.standardizeUrl(repositoryUrl);
     if ($scope.repositoryIsValid(repositoryUrl)){
      repositoryUrl = repositoryUrl.toLowerCase();
@@ -56,7 +59,10 @@ angular.module('clearConcert')
 	$location.path('/' + target);
   };
 
-  $scope.onCredentialDone = function(repositoryUrl, username, password, allowUnstrusted) {
+  $scope.onCredentialDone = function(repositoryUrl, username, password, allowUntrusted) {
+    if (angular.isDefined(allowUntrusted)) {
+      settings.setUntrusted(allowUntrusted);
+    }
     //i think this forces the keyboard down on different devices
     repositoryUrl = $scope.standardizeUrl(repositoryUrl);
     document.activeElement && document.activeElement.blur && document.activeElement.blur();

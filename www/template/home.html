@@ -6,13 +6,25 @@
 				</span>
 			</span>
 		</a>
-		<h1>Home</h1>
-		<a ng-click="state.panel='right'" class="ui-btn-right ui-btn ui-btn-corner-all ui-btn-icon-notext ui-btn-up-c">	
+		<div class="ui-btn-right ui-btn ui-btn-corner-all ui-btn-icon-notext ui-btn-up-c">	
+			<span class="ui-btn-inner">
+				<span class="ui-icon ui-icon-search">&nbsp;
+				</span>
+			</span>
+		</div>
+		<div  style="display:none;position:absolute;right:0;">
+			<form ng-submit="search.text && searchPressed(search.text)">
+	      		<div jqm-theme="c" jqm-textinput style="margin:1px;"type="search" placeholder="Search for work items" ng-model="search.text"></div>
+	    	</form>
+	    </div>
+		<h1></h1>
+		
+		<!-- <a ng-click="state.panel='right'" class="ui-btn-right ui-btn ui-btn-corner-all ui-btn-icon-notext ui-btn-up-c">	
 			<span class="ui-btn-inner">
 				<span class="ui-icon ui-icon-star">&nbsp;
 				</span>
 			</span>
-		</a>
+		</a> -->
 	</div>
 	Im the home page
 	

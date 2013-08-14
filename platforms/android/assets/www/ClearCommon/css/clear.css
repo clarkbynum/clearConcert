@@ -11,3 +11,9 @@
 .ui-content.jqm-content-with-header{
 	height:100%;
 }
+
+.ui-input-search, div.ui-input-text {
+margin: .5em .5em;
+background-image: none;
+position: relative;
+}
