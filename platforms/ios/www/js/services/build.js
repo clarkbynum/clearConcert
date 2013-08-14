@@ -2,7 +2,7 @@ angular.module('clearConcert')
 .service('build', ['settings', '$http', '$q',
 function(settings, $http, $q){
 
-	this.getAutomationProjects = function(){
+/* 	this.getAutomationProjects = function(){
 		return $http.get("$0oslc/automation/catalog".format(settings.repository)
       
 	    }).then(function(response) {
@@ -38,5 +38,5 @@ function(settings, $http, $q){
         };
       });
     });
-  };
+  }; */
 }]);
