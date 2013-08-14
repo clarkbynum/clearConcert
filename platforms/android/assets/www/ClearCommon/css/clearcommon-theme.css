@@ -18,7 +18,7 @@
 	background: #333333 /*{a-bar-background-color}*/;
 	color: #ffffff /*{a-bar-color}*/;
 	font-weight: bold;
-	text-shadow: 0 /*{a-bar-shadow-x}*/ 1px /*{a-bar-shadow-y}*/ 0 /*{a-bar-shadow-radius}*/ #29A2E6 /*{a-bar-shadow-color}*/;
+	text-shadow: 0 /*{a-bar-shadow-x}*/ 1px /*{a-bar-shadow-y}*/ 0 /*{a-bar-shadow-radius}*/ #ffffff /*{a-bar-shadow-color}*/;
 	
 }
 .ui-bar-a .ui-link-inherit {
@@ -210,7 +210,7 @@
 	color: #2489ce /*{b-body-link-active}*/;
 }
 .ui-btn-up-b {
-	border: 1px solid #111111 /*{b-bup-border}*/;
+	border: 1px solid #262626 /*{b-bup-border}*/;
 	background: #ffffff /*{b-bup-background-color}*/;
 	font-weight: bold;
 	color: #333333 /*{b-bup-color}*/;

@@ -5,8 +5,18 @@ angular.module('clearConcert')
 		return favs;
 	}
 	var addFav = function(fav){
-		var allFavs = localStorage['favorites'];
-		allFavs = JSON.parse(allFavs);
+		var rawFavs = localStorage['favorites'];
+		if (typeof rawFavs === 'string') {
+			if (rawFavs == "" ) {
+				rawFavs = "[]";
+			}
+			var allFavs = JSON.parse(rawFavs);
+		}
+		if (!(allFavs instanceof Array)) {
+			allFavs = [];
+		}
+
+
 		if (allFavs instanceof Array) {
 			for (var i in allFavs) {
 				if (fav['projectId'] == allFavs[i]['projectId'] && fav['queryId'] == allFavs[i]['queryId'] && fav['repositoryId'] == allFavs[i]['repositoryId'] && fav['type'] == allFavs[i]['type']) {
@@ -48,7 +58,17 @@ angular.module('clearConcert')
 		return newFav;
 	};
 	var checkFav = function(projectId, queryId, type) {
-		var allFavs = JSON.parse(localStorage['favorites']);
+		var rawFavs = localStorage['favorites'];
+		if (typeof rawFavs === 'string') {
+			if (rawFavs == "" ) {
+				rawFavs = "[]";
+			}
+			var allFavs = JSON.parse(rawFavs);
+		}
+		if (!(allFavs instanceof Array)) {
+			allFavs = [];
+		}
+
 		for (var i in allFavs) {
 			if (projectId == allFavs[i]['projectId'] && queryId == allFavs[i]['queryId'] && settings.repository == allFavs[i]['repositoryId'] && type == allFavs[i]['type']){
 				return true;
