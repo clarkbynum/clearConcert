@@ -3,11 +3,16 @@ controller('BuildCtrl',['$scope', '$loadDialog', '$location', '$routeParams', 'c
 function($scope, $loadDialog, $location, $routeParams, catalog, build){
 	var projectId = $routeParams.projectId;
 
+
+
 	$scope.projects = function() {
+		// var promise = build.getAutomationProjects().then(function(projects){
+		// 	return projects();
+		// })
 	    return catalog.list();
 	  };
 	$scope.getProjectBuilds = function(projectId) {
-    var promise = build.buildsForProject(projectId).then(function(builds) {
+   		 var promise = build.buildsForProject(projectId).then(function(builds) {
       $scope.builds = builds;
       return builds;
     }, function(response) {
