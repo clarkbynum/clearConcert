@@ -1,0 +1,22 @@
+<div jqm-page jqm-theme="a">
+  <div jqm-header>
+    <a class="ui-btn ui-btn-up-c ui-btn-left ui-btn-corner-all" ng-click="$back()">
+      <span class="ui-btn-inner">
+        <span class="ui-btn-text"><</span>
+      </span>
+    </a>
+    <h1>Builds</h1>
+  </div>
+  <div jqm-theme="a">
+    <div style=""  jqm-textinput ng-model="resultFilterInput" placeholder="Filter Project Areas..."></div>
+    <div style="height:8px;"></div>
+    <div>
+	    <ul jqm-listview style="">
+	      
+	      <li jqm-li-divider>Project Areas ({{projects().length}})</li>
+	      <li jqm-li-entry ng-click="selectProject(project)" ng-repeat="project in filterBuilds(projects())">
+	        <a>{{project.title}}</a>
+	      </li>
+	    </ul>
+  </div>
+</div>

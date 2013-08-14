@@ -6,3 +6,8 @@
 	font-weight:bold;
 	padding-left:12px;
 }
+
+/*does this break pseudo scrolling*/
+.ui-content.jqm-content-with-header{
+	height:100%;
+}
