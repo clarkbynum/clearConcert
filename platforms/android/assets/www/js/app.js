@@ -76,17 +76,21 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
     }
   })
   .when('/query/:projectId/:queryId', {
-      controller: 'ResultCtrl',
-      templateUrl: 'template/results.html',
-      reloadOnSearch: false,
-      resolve: {
-        resultData: function($route, QueryResultData, catalog) {
-          return catalog.load().then(function() {
-            return QueryResultData($route.current.params.projectId, $route.current.params.queryId);
-          });
-        }
+    controller: 'ResultCtrl',
+    templateUrl: 'template/results.html',
+    reloadOnSearch: false,
+    resolve: {
+      resultData: function($route, QueryResultData, catalog) {
+        return catalog.load().then(function() {
+          return QueryResultData($route.current.params.projectId, $route.current.params.queryId);
+        });
       }
-    })
+    }
+  })
+  .when('/build', {
+    controller: 'BuildCtrl',
+    templateUrl: 'template/build.html'
+  })
   .otherwise({
     redirectTo: '/splash'
   });

@@ -54,7 +54,7 @@ function($rootScope, $http, $q, $timeout, catalog, rootServices, appConfig) {
     };
 
     function checkIdentity() {
-      return $http.get(loginUrl + 'authenticated/identity'//, {headers: identityHeaders}
+      return $http.get(loginUrl + 'authenticated/identity', {headers: identityHeaders}
       ).then(function(response) {
     	  // check to see if we already have a good credential
         if ( typeof response.data.userId!='undefined'){
