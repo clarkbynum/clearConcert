@@ -31,3 +31,8 @@ position: relative;
 .ui-li.ui-last-child{
 	border-bottom-width:0px;
 }
+
+.ui-content .ui-listview, .ui-panel-inner > .ui-listview {
+margin: -15px;
+margin-top: 0px;
+}
