@@ -1,0 +1,65 @@
+<div>
+  <section id="Summary">
+    <div jqm-textarea ng-model="item['dc:title']" focus-on-page-shown></div>
+  </section>
+  <section id="Due Date">
+    <input date-input type="date" ng-model="item['rtc_cm:due']" style="width:100%;">
+  </section>
+  <section id="Estimate">
+  <section id="Estimate" class="mobiSelect">
+    <input type="number" min="0" ng-model="estimate.amount" style="width:100%;">
+    <mobi-select ng-model="estimate.unit">
+      <mobi-option ng-repeat="unit in estimateUnits" value="unit.id">
+        {{unit.title}}
+      </mobi-option>
+    </mobi-select>
+  </section>
+  <section id="Filed Against">
+    <mobi-select ng-model="$parent.filedAgainst" ng-change="item['rtc_cm:filedAgainst']['rdf:resource'] = $parent.filedAgainst['rdf:resource']">
+    <mobi-option ng-repeat="o in projectArea.categories" value="o">
+    {{o['dc:title']}}
+    </mobi-option>
+    </mobi-select>
+  </section>
+  <section id="State">
+    <mobi-select ng-model="item['rtc_cm:state']['rdf:resource']">
+    <mobi-option ng-repeat="o in stateOptions" value="o['rdf:resource']">
+    {{o['dc:title']}}
+    </mobi-option>
+    </mobi-select>
+  </section>
+  <section id="Severity">
+    <mobi-select ng-model="item['oslc_cm:severity']['rdf:resource']">
+    <mobi-option ng-repeat="o in severityOptions" value="o['rdf:resource']">
+    {{o['dc:title']}}
+    </mobi-option>
+    </mobi-select>
+  </section>
+  <section id="Owner">
+    <mobi-select ng-model="item['rtc_cm:ownedBy']['rdf:resource']">
+    <mobi-option ng-repeat="o in ownerOptions" value="o['rdf:resource']">
+    {{o['dc:title']}}
+    </mobi-option>
+    </mobi-select>
+  </section>
+  <section id="Priority">
+    <mobi-select ng-model="item['oslc_cm:priority']['rdf:resource']">
+    <mobi-option ng-repeat="o in priorityOptions" value="o['rdf:resource']">
+    {{o['dc:title']}}
+    </mobi-option>
+    </mobi-select>
+  </section>
+  <section id="Description">
+    <div ng-model="item['dc:description']" contenteditable focus-on-page-shown></div>
+  </section>
+  <section id="Project Area">
+    <mobi-select ng-model="projectArea" ng-change="setProjectArea(projectArea)">
+    <mobi-option ng-repeat="o in catalog.list()" value="o">{{o.title}}</mobi-option>
+    </mobi-select>
+  </section>
+  <section id="Type">
+    <mobi-select ng-model="$parent.itemType" ng-change="item['dc:type']['rdf:resource'] = $parent.itemType['rdf:resource']">
+    <mobi-option ng-repeat="o in typeOptions" value="o">{{o['dc:title']}}</mobi-option>
+    </mobi-select>
+  </section>
+</div>
