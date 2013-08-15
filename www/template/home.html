@@ -26,7 +26,63 @@
 			</span>
 		</a> -->
 	</div>
-	Im the home page
+	
+	<div>
+		<div style="height:18px;margin:8px;">Welcome to ClearConcert</div>
+		<div jqm-theme="b">
+		    <ul jqm-listview style="">
+		      
+		      <li jqm-li-divider>Pending Work</li>
+		      <li jqm-li-entry jqm-theme="b" class="ui-icon-alt" ng-click="selectProject(project)">
+		        None
+		      </li>
+		      <li jqm-li-link jqm-theme="b" class="ui-icon-alt" ng-click="selectProject(project)" ng-repeat="project in filterBuilds(projects())">
+		        <a>{{project.title}}</a>
+		      </li>
+	      </ul>
+	  </div>
+	  <div jqm-theme="b" style="padding-top:8px">
+	      <ul jqm-listview style="">
+		      <li jqm-li-divider>Favorites</li>
+		      
+		    </ul>
+	  </div>
+	  <div style="padding-top:15px">
+	  	<div id="row1" style="position:relative;width:100%">
+	  		<div id="cell1" style="position:absolute;width:50%;height:200px;left:0px; border-width:0px 0px 0px 0px;border-color:#e6e6e6;border-style:solid;background-color:#333333;">
+	  			<div id="favQueryAmount" style="position:absolute;height:50px;width:70px;right:5px;top:5px;opacity:0.8;color:#29A2E6;text-align:center;font-size:60px;color:white;">90</div>
+	  			<div style="position:absolute;top:20px;left:8px;width:100%">
+	  				<img src="images/star.png" style="width:100px;height:100px"/>
+	  			</div>
+	  			<div style="color:white;position:absolute;bottom:8px;left:8px;font-size:32px;">Queries</div>
+	  		</div>
+	  		<div id="cell2" style="position:absolute;width:50%;height:200px;right:0px; border-width:0px 0px 0px 4px;border-color:#e6e6e6;border-style:solid;background-color:#333333;">
+	  			<div id="favSearchAmount" style="position:absolute;height:50px;width:70px;right:5px;top:5px;opacity:0.8;color:#29A2E6;text-align:center;font-size:60px;color:white;">90</div>
+	  			<div style="position:absolute;top:20px;left:8px;width:100%">
+	  				<img src="images/star.png" style="width:100px;height:100px"/>
+	  			</div>
+	  			<div style="color:white;position:absolute;bottom:8px;left:8px;font-size:32px;">Search</div>
+	  		</div>
+	  		<div id="cell3" style="position:absolute;width:50%;height:200px;top:200px;left:0px; border-width:4px 0px 0px 0px;border-color:#e6e6e6;border-style:solid;background-color:#333333;">
+	  			<div id="favItemAmount" style="position:absolute;height:50px;width:70px;right:5px;top:5px;opacity:0.8;color:#29A2E6;text-align:center;font-size:60px;color:white;">90</div>
+	  			<div style="position:absolute;top:20px;left:8px;width:100%">
+	  				<img src="images/star.png" style="width:100px;height:100px"/>
+	  			</div>
+	  			<div style="color:white;position:absolute;bottom:8px;left:8px;font-size:32px;">Work Items</div>
+	  		</div>
+			<div id="cell4" style="position:absolute;width:50%;height:200px;top:200px;right:0px; border-width:4px 0px 0px 4px;border-color:#e6e6e6;border-style:solid;background-color:#333333;">
+				<div id="favBuildAmount" style="position:absolute;height:50px;width:70px;right:5px;top:5px;opacity:0.8;color:#29A2E6;text-align:center;font-size:60px;color:white;">90</div>
+	  			<div style="position:absolute;top:20px;left:8px;width:100%">
+	  				<img src="images/star.png" style="width:100px;height:100px"/>
+	  			</div>
+	  			<div style="color:white;position:absolute;bottom:8px;left:8px;font-size:32px;">Builds</div>
+	  		</div>	  		
+
+	  	</div>
+	  </div>
+
+	</div>
+
 	
 </div>
 
