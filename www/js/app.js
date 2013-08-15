@@ -93,6 +93,10 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
     controller: 'BuildCtrl',
     templateUrl: 'template/build.html'
   })
+  .when('/favorites/:favoriteType', {
+    controller: 'FavoriteCtrl',
+    templateUrl: 'template/favorites.html'
+  })
   .otherwise({
     redirectTo: '/splash'
   });
