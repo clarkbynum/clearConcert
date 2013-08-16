@@ -41,8 +41,7 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
     templateUrl: 'template/search-projects.html',
     resolve: {
       loadCatalog: loadCatalog
-    },
-    animation: 'page-slide'
+    }
   })
   .when('/search/:query/:projectId', {
     controller: 'ResultCtrl',
@@ -54,8 +53,7 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
         });
       },
       loadCatalog: loadCatalog
-    },
-    animation: 'page-slide'
+    }
   })
   .when('/workitem/:id/', {
     controller: 'WorkItemCtrl',
@@ -65,28 +63,19 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
       loadCatalog: loadCatalog
     }
   })
-  .when('/workitem/:id/:prop', {
-    controller: 'WorkItemCtrl',
-    templateUrl: 'template/workitem-edit.html',
-    resolve: {
-      workItem: resolveWorkItem
-    }
-  })
   .when('/query', {
     controller: 'QueryCtrl',
     templateUrl: 'template/query.html',
     resolve: {
       loadCatalog: loadCatalog
-    },
-    animation: 'page-slide'
+    }
   })
   .when('/query/:projectId', {
     controller: 'QueryCtrl',
     templateUrl: 'template/query-select.html',
     resolve: {
       loadCatalog: loadCatalog
-    },
-    animation: 'page-slide'
+    }
   })
   .when('/query/:projectId/:queryId', {
     controller: 'ResultCtrl',
@@ -98,29 +87,27 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
           return QueryResultData($route.current.params.projectId, $route.current.params.queryId);
         });
       }
-    },
-    animation: 'page-slide'
+    }
   })
   .when('/build', {
     controller: 'BuildCtrl',
-    templateUrl: 'template/build.html',
-    animation: 'page-slide'
+    templateUrl: 'template/build.html'
   })
+<<<<<<< HEAD
   .when('/favorites/:favoriteType', {
     controller: 'FavoriteCtrl',
-    templateUrl: 'template/favorites.html',
-    animation: 'page-slide'
+    templateUrl: 'template/favorites.html'
   })
+=======
   .when('/build/:proj', {
 	  controller: 'BuildCtrl',
-	  templateUrl: 'template/projbuilds.html',
-    animation: 'page-slide'
+	  templateUrl: 'template/projbuilds.html'
   })
   .when('/build/:proj/:build', {
 	controller: 'BuildCtrl',
-	templateUrl: 'template/buildresults.html',
-    animation: 'page-slide'
+	templateUrl: 'template/buildresults.html'
   })  
+>>>>>>> 438ea826e2599252e25142fec35aa9d16b319f8b
   .otherwise({
     redirectTo: '/splash'
   });
@@ -154,8 +141,8 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
 
 }])
 
-.run(['settings','auth','$rootScope', '$location', '$http', '$templateCache',
-  function(settings, auth, $rootScope, $location, $http, $templateCache){
+.run(['settings','auth','$rootScope', '$location',
+  function(settings, auth, $rootScope, $location){
   //just skip this so we can develop ui
   //return;
   if (settings.repository) {
@@ -184,20 +171,6 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
   $rootScope.openExternalBrowser = function(url) {
     window.open(url, "_system");
   };
-
-  //Make templates out of all the work item edit types
-  $http.get('template/workitem-edit-types.html').then(function(response) {
-  
-    var htmlObject = document.createElement('div');
-    htmlObject.innerHTML = response.data;
-    var sections = htmlObject.getElementsByTagName('section');
-    
-    for(var i = 0; i < sections.length; i++){
-      var url = 'template/edit/' + sections[i].id + '.html';
-      $templateCache.put(url, '<div>' + sections[i].innerHTML + '</div>');
-    }
-
-  });
 
 }])
 

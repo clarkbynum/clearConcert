@@ -1,0 +1,23 @@
+<div jqm-page jqm-theme="a">
+  <div jqm-header>
+    <a class="ui-btn-left" ng-click="$back()">
+      <span class="ui-btn-inner">
+        <span class="ui-btn-text"><</span>
+      </span>
+    </a>
+    <h1>Builds</h1>
+  </div>
+  <div jqm-theme="b">
+    <div style=""  jqm-textinput ng-model="resultFilterInput" placeholder="Filter Results..."></div>
+    <div style="height:12px;"></div>
+    <div>
+	    <ul jqm-listview style="">
+	      
+	      <li jqm-li-divider>builds ({{buildResults.length}})</li>
+	      <li jqm-li-link jqm-theme="b" class="ui-icon-alt" ng-click="selectResult(result)" ng-repeat="result in buildResults">
+	        <a>{{result.name}}</a>
+			<a>{{result.state}}</a>
+	      </li>
+	    </ul>
+  </div>
+</div>
