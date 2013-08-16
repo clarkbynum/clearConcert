@@ -1,14 +1,13 @@
 <div jqm-page jqm-theme="a">
   <div jqm-header>
-    <a ng-click="state.panel='left'" class="ui-btn-left ui-btn ui-btn-corner-all ui-btn-icon-notext ui-btn-up-c"> 
+    <a class="ui-btn ui-btn-up-c ui-btn-left ui-btn-corner-all" ng-click="$back()">
       <span class="ui-btn-inner">
-        <span class="ui-icon ui-icon-bars">&nbsp;
-        </span>
+        <span class="ui-btn-text"><</span>
       </span>
     </a>
     <h1>Queries</h1>
   </div>
-  <div jqm-theme="a">
+  <div jqm-theme="b">
     <div style="margin:8px"  jqm-textinput ng-model="resultFilterInput" placeholder="Filter Project Areas..."></div>
 
     <ul jqm-listview style="padding-top:12px;">

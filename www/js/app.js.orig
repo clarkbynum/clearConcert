@@ -41,8 +41,7 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
     templateUrl: 'template/search-projects.html',
     resolve: {
       loadCatalog: loadCatalog
-    },
-    animation: 'page-slide'
+    }
   })
   .when('/search/:query/:projectId', {
     controller: 'ResultCtrl',
@@ -54,8 +53,7 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
         });
       },
       loadCatalog: loadCatalog
-    },
-    animation: 'page-slide'
+    }
   })
   .when('/workitem/:id/', {
     controller: 'WorkItemCtrl',
@@ -70,16 +68,14 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
     templateUrl: 'template/query.html',
     resolve: {
       loadCatalog: loadCatalog
-    },
-    animation: 'page-slide'
+    }
   })
   .when('/query/:projectId', {
     controller: 'QueryCtrl',
     templateUrl: 'template/query-select.html',
     resolve: {
       loadCatalog: loadCatalog
-    },
-    animation: 'page-slide'
+    }
   })
   .when('/query/:projectId/:queryId', {
     controller: 'ResultCtrl',
@@ -91,29 +87,27 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
           return QueryResultData($route.current.params.projectId, $route.current.params.queryId);
         });
       }
-    },
-    animation: 'page-slide'
+    }
   })
   .when('/build', {
     controller: 'BuildCtrl',
-    templateUrl: 'template/build.html',
-    animation: 'page-slide'
+    templateUrl: 'template/build.html'
   })
+<<<<<<< HEAD
   .when('/favorites/:favoriteType', {
     controller: 'FavoriteCtrl',
-    templateUrl: 'template/favorites.html',
-    animation: 'page-slide'
+    templateUrl: 'template/favorites.html'
   })
+=======
   .when('/build/:proj', {
 	  controller: 'BuildCtrl',
-	  templateUrl: 'template/projbuilds.html',
-    animation: 'page-slide'
+	  templateUrl: 'template/projbuilds.html'
   })
   .when('/build/:proj/:build', {
 	controller: 'BuildCtrl',
-	templateUrl: 'template/buildresults.html',
-    animation: 'page-slide'
+	templateUrl: 'template/buildresults.html'
   })  
+>>>>>>> 438ea826e2599252e25142fec35aa9d16b319f8b
   .otherwise({
     redirectTo: '/splash'
   });
