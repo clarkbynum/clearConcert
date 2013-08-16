@@ -1,0 +1,22 @@
+<div jqm-page jqm-theme="a">
+  <div jqm-header>
+    <a class="ui-btn-left" ng-click="$back()">
+      <span class="ui-btn-inner">
+        <span class="ui-btn-text"><</span>
+      </span>
+    </a>
+    <h1>Favorites</h1>
+  </div>
+  <div jqm-theme="b">
+    
+    <div style="height:12px;"></div>
+    <div>
+	    <ul jqm-listview style="">
+	      
+	      <li jqm-li-divider>{{favoriteType}}</li>
+	      <li jqm-li-link jqm-theme="b" class="ui-icon-alt" ng-repeat="favorite in favorites">
+	        <a>{{favorite.title}}</a>
+	      </li>
+	    </ul>
+  </div>
+</div>

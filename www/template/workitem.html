@@ -1,13 +1,18 @@
 <div jqm-page jqm-theme="a">
 	<div jqm-header>
-		<a class="ui-btn ui-btn-up-c ui-btn-left ui-btn-icon-left ui-btn-corner-all" ng-click="$back()">
-	      <span class="ui-btn-inner">
-	        <span class="ui-btn-text">Back</span>
-	        <span class="ui-icon"><</span>
-	      </span>
-	    </a>
+		<a class="ui-btn ui-btn-up-c ui-btn-left ui-btn-corner-all" ng-click="$back()">
+      <span class="ui-btn-inner">
+        <span class="ui-btn-text"><</span>
+      </span>
+    </a>
 		<h1>{{resource['dc:type']['dc:title'] || 'Work Item'}}</h1>
 	</div>
+
+
   <div ng-include="'template/workitem-view.html'">
   </div>
+
+  
+
+
 </div>

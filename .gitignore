@@ -1,4 +1,5 @@
 platforms/android/assets/www
 platforms/ios/www
 .DS_Store
-
+platforms/android/local.properties
+platforms/android/bin

@@ -1,6 +1,11 @@
 angular.module('clearConcert').
-controller('WorkItemCtrl', ['$scope','$location', 'workItem', 'catalog', 'settings','$http', function($scope,$location, workItem, catalog, settings, $http){
+controller('WorkItemCtrl', ['$scope','$location', 'workItem', 'catalog', 'settings','$http', '$routeParams', '$loadDialog', '$window', function($scope, $location, workItem, catalog, settings, $http, $routeParams, $loadDialog, $window){
 	console.log(workItem);
+
+	$scope.editProperty = $routeParams.prop;
+
+	$scope.editPop = false;
+
 	function init() {
 		if (workItem.isNew) {
 			$scope.setProjectArea(catalog.list()[0]);
@@ -27,6 +32,49 @@ controller('WorkItemCtrl', ['$scope','$location', 'workItem', 'catalog', 'settin
 			$scope.typeOptions = data;
 		});
 	}
+
+	$scope.edit = function(what) {
+    	$scope.originalItemData = angular.copy($scope.item);
+    	$scope.editProperty = what;
+    	$location.path("workitem/$0/$1".format(workItem.identifier, what));
+  	};
+
+	$scope.cancelEdit = function() {
+    	angular.extend(workItem.item, $scope.originalItemData);
+  	};
+
+	function transitionFromEdit() {
+    	$window.history.back();
+  	}
+
+  	$scope.save = function() {
+    	workItem.item['rtc_cm:estimate'] = estimateToMS($scope.estimate.amount, $scope.estimate.unit);
+    	return workItem.$save().then(renderItem, function(response) {
+      		if (response.status === 412) {
+        		$error("Cannot save.\nWork item is out of sync with repository.\nWork item has been reloaded, try again.", true);
+      		} else {
+        		$dialog(response.data['oslc_cm:message'], "View in Web")
+        		.then(function(isViewInWeb) {
+          			if (isViewInWeb) {
+            			$scope.openExternalBrowser(workItem.item['rdf:resource']);
+          			}
+        		});
+      		}
+      	transitionFromEdit();
+    });
+  };
+
+  $scope.saveEdit = function() {
+    if ($scope.isNew()) {
+      transitionFromEdit();
+    } else {
+      var promise = $scope.save().then($scope.editDone, $scope.editDone);
+      //promiseTracker('fullSpin')
+        //.addPromise(promise, 'Saving $0...'.format($scope.editProperty));
+    	$loadDialog.waitFor(promise, 'Saving...');
+    	return promise;
+    }
+  };
 
 	function renderItem() {
 		if (workItem.isNew) return;
@@ -61,6 +109,7 @@ controller('WorkItemCtrl', ['$scope','$location', 'workItem', 'catalog', 'settin
 			state: workItem.resource['rtc_cm:state']['dc:identifier']
 					}
 		}).then(function(response) {
+			console.log([workItem.resource['rtc_cm:state']]);
 			$scope.stateOptions = [workItem.resource['rtc_cm:state']].concat(response.data);
 		});
 
@@ -117,7 +166,12 @@ controller('WorkItemCtrl', ['$scope','$location', 'workItem', 'catalog', 'settin
 			}
 		});
 
-		$scope.$apply();
+		if(!$scope.$$phase){
+			$scope.$apply();
+		}else{
+			$location.path("workitem/$0".format(workItem.identifier));
+		}
+		
 	}
 
 	$scope.setProjectArea = function(projectArea) {
