@@ -100,6 +100,10 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
   .when('/build/:proj/:build', {
 	controller: 'BuildCtrl',
 	templateUrl: 'template/buildresults.html'
+  })
+  .when('/build/:proj/:build/:result', {
+	controller: 'BuildCtrl',
+	templateUrl: 'template/buildresultdetails.html'
   })  
   .otherwise({
     redirectTo: '/splash'

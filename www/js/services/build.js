@@ -48,13 +48,14 @@ angular.module('clearConcert')
 				$http.get(url).success(function(data) {
 					var useable = []
 					var stuff = data['oslc_cm:results'];
-					for(var i in stuff) {
-						var newObj = {};
-						newObj['name'] = stuff[i]['dc:name'];
-						newObj['state'] = stuff[i]['oslc_auto:state'];
-						useable.push(newObj);
-					}
-					deferred.resolve(useable);
+				for(var i in stuff) {
+					var newObj = {};
+					newObj['name'] = stuff[i]['dc:name'];
+					newObj['state'] = stuff[i]['oslc_auto:state'];
+					newObj['resultId'] = stuff[i]['dc:identifier'];
+					useable.push(newObj);
+				}
+				deferred.resolve(useable);
 				});
 				return deferred.promise;
 			};
@@ -64,10 +65,74 @@ angular.module('clearConcert')
 					return getData(data);
 				});
 			};
+
+			var getDetails = function(result) {
+				var deferred = $q.defer();
+				$http.get("$0oslc/automation/results/$1".format(settings.repository, result)).success(function(data) {
+					var detObj = {};
+					detObj['label'] = data['dc:name'];
+					detObj['definition'] = data['oslc_auto:plan']['rdf:resource'];
+					detObj['creator'] = data['dc:creator']['rdf:resource'];
+					detObj['start'] = data['oslc_auto:started'];
+					detObj['end'] = data['oslc_auto:ended'];
+					detObj['logs'] = data['oslc_auto:contributions']['rdf:resource'];
+					deferred.resolve(detObj);
+				});
+				return deferred.promise;
+			};
+
+			var getDetailDefinition = function(detObj) {
+				var deferred = $q.defer();
+				var headers = {
+					'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+					'Cache-Control': 'max-age=0'
+				};
+				$http.get(detObj['definition'], {headers: headers}).success(function(data) {
+					var xml = parser.parseFromString(data, 'text/xml');
+					var definition = xml.getElementsByTagName("plan")[0].getElementsByTagName("title")[0].firstChild.textContent;
+					detObj['definition'] = definition;
+					deferred.resolve(detObj);
+				});
+				return deferred.promise;
+			};
+
+			var getDetailCreator = function(detObj) {
+				var deferred = $q.defer();
+				$http.get(detObj['creator']).success(function(data) {
+					detObj['creator'] = data['foaf:name'];
+					deferred.resolve(detObj);
+				});
+				return deferred.promise;
+			};
+			var getDetailLogs = function(detObj) { 
+				var deferred = $q.defer();
+				$http.get(detObj['logs']).success(function(data) {
+					detObj['logs'] = [];
+					for (var i in data['oslc_cm:results']) {
+						if (data['oslc_cm:results'][i]['rtc_build:contributionType'] == "com.ibm.team.build.common.model.IBuildResultContribution.log") {
+							logObj = {};
+							logObj['filename'] = data['oslc_cm:results'][i]['oslc_auto:fileName'];
+							logObj['filesize'] = data['oslc_cm:results'][i]['oslc_auto:fileSize'];
+							detObj['logs'].push(logObj);
+						}
+					}
+					deferred.resolve(detObj);
+				});
+				return deferred.promise;
+			};
+
+			this.detailsForResult = function(result) {
+				return getDetails(result).then(function(dets) {
+					return getDetailDefinition(dets).then(function(detsWithDefinition) {
+						return getDetailCreator(detsWithDefinition).then(function(detsWithCreator) {
+							return getDetailLogs(detsWithCreator);
+						});
+					});
+				});
+			};
 			//test
 			var parser = new DOMParser();
 			this.buildsForProject = function(projectId) {
-				console.log(projectId);
 				var headers = {
 					'Accept': 'application/rdf+xml, application/xml, text/html'
 				};
@@ -76,7 +141,6 @@ angular.module('clearConcert')
 					var xml = parser.parseFromString(response.data, 'text/xml');
 					var builds = [];
 					angular.forEach(xml.getElementsByTagName("plan"), function(plan) {
-						console.log(plan);
 						var title = plan.getElementsByTagName("title")[0].firstChild.textContent;
 						if (plan.getElementsByTagName("description")[0].firstChild == null) {
 							var description = "";

@@ -38,16 +38,28 @@ controller('BuildCtrl',['$scope', '$loadDialog', '$location', '$routeParams', 'c
 				$scope.projBuilds = build.buildsForProject($routeParams['proj']);
 			}
 			$scope.buildResults = [];
-			if ($routeParams['proj'] && $routeParams['build']) {
+			if ($routeParams['proj'] && $routeParams['build'] && !$routeParams['result']) {
 				var promise = build.resultsForBuild($routeParams['build'], $routeParams['proj']).then(function(data) {
 					$scope.buildResults = data;
 					return data;
 
 				});
 				console.log(promise);
-				$loadDialog.waitFor(promise, "waiting...");
+				$loadDialog.waitFor(promise, "Fetching Results...");
 
 			}
+			$scope.resultDetail = {};
+			if ($routeParams['proj'] && $routeParams['build'] && $routeParams['result']) {
+				var promise = build.detailsForResult($routeParams['result']).then(function(data) {
+					$scope.resultDetail = data;
+					return data;
+				});
+				$loadDialog.waitFor(promise, "Fetching Details...");
+			}
+			$scope.selectResult = function(selectedResult) {
+				console.log("/build/$0/$1/$2".format($routeParams['proj'], $routeParams['build'], selectedResult.resultId));
+				$location.path("/build/$0/$1/$2".format($routeParams['proj'], $routeParams['build'], selectedResult.resultId));
+			};
 			$scope.selectBuild = function(selectedBuild) {	
 				//build.resultsForBuild(selectedBuild, $routeParams['proj']).then(function(){
 				$location.path("/build/$0/$1".format($routeParams['proj'], selectedBuild.identifier));
