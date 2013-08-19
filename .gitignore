@@ -1,5 +1,6 @@
 platforms/android/assets/www
 platforms/ios/www
+platforms/ios_good/www
 .DS_Store
 platforms/android/local.properties
 platforms/android/bin
