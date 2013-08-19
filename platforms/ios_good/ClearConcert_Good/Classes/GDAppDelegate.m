@@ -32,8 +32,8 @@
 @synthesize savedLaunchOptions;
 
 // *** change the app ID and version here to the ID and version enabled on the GC
-NSString* kappId = @"com.clearblade.clearconcert.good";
-NSString* kappVersion = @"1.0.0.0";
+NSString* kappId = @"test.clearblade.clearconcert.good";
+NSString* kappVersion = @"0.0.1";
 
 - (BOOL) application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
 {    

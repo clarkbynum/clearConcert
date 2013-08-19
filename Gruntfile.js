@@ -34,6 +34,9 @@ module.exports = function(grunt){
     				from: '<!--CORDOVA LIB-->',
     				to: '<script src="cordova.js"></script>'
     			}, {
+    				from: '<!--GOOD-->',
+    				to: '<script type="text/javascript" charset="utf-8" src="GoodDynamics.js"></script>'
+    			},{
     				from: '<script src="http://localhost:1337/livereload.js"></script>',
     				to: ''
     			}, {
@@ -90,6 +93,11 @@ module.exports = function(grunt){
 					'platforms/ios/www/cordova.js': '../ClearCommon/ios/www/cordova.js',
 					'platforms/android/assets/www/cordova.js': '../ClearCommon/android/www/cordova.js',
 					'platforms/ios_good/www/cordova.js': '../ClearCommon/ios/www/cordova.js',
+				}
+			},
+			goodJS: {
+				files: {
+					'platforms/ios_good/www/GoodDynamics.js': '../ClearCommon/ios/www/GoodDynamics.js',
 				}
 			},
 			clearCommon: {
