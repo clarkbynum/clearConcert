@@ -1,10 +1,8 @@
 <div jqm-page jqm-theme="a">
 	<div jqm-header>
-		<a class="ui-btn ui-btn-up-c ui-btn-left ui-btn-corner-all" ng-click="$back()">
-      <span class="ui-btn-inner">
-        <span class="ui-btn-text"><</span>
-      </span>
-    </a>
+		<div style="width:100%" ng-click="$back()">
+			<img src="images/back.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;position:absolute;">
+		</div>
 		<h1>Repository</h1>
 	</div>
 	<div jqm-textinput ng-model="repositoryUrl" placeholder="Repository Url" type="">
@@ -12,16 +10,16 @@
 	<ul jqm-listview>
 		<li jqm-li-entry>
 			<div class="ui-grid-a">
-				<div class="ui-block-a">
+				<div class="ui-block-a subTitle">
 					Allow untrusted
 				</div>
-				<div class="ui-block-b">
+				<div class="ui-block-b" style="text-align:right;">
 					<div jqm-flip mini="true" ng-model="allowUntrusted"></div>
 				</div>
 			</div>
 			
 		</li>
 	</ul>
-	<a style="margin:40px" jqm-button ng-click="onRepositoryDone(repositoryUrl, allowUntrusted)">Continue ></a>
+	<a style="margin:40px" jqm-theme="b" jqm-button ng-click="onRepositoryDone(repositoryUrl, allowUntrusted)">Continue ></a>
 	
 </div>

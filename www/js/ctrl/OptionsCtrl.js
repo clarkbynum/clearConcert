@@ -1,5 +1,5 @@
 angular.module('clearConcert')
-.controller('OptionsCtrl', ['$scope','$location', function($scope,$location){
+.controller('OptionsCtrl', ['$scope','$location', 'auth', function($scope,$location, auth){
 	$scope.search={
 		text:""
 	};
@@ -17,6 +17,12 @@ angular.module('clearConcert')
 		$scope.$hidePanel();
 		$location.path('/' + target);
 	};
+
+	$scope.logout = function() {
+		console.log('logged out');
+		$scope.$hidePanel();
+		auth.logout();
+	  };
 
 
 }]);
