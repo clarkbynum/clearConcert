@@ -504,7 +504,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: ClearBlade LLC";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Michael Sprague (7SLJQ5598D)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -533,7 +533,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = ClearConcert_Good;
-				PROVISIONING_PROFILE = "3936F05C-D20A-4D61-B22C-1B69EAAC5DE7";
+				PROVISIONING_PROFILE = "C1FA7C8E-6F3E-4957-AF92-6849B2E331BB";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
