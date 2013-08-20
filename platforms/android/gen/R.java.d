@@ -1,0 +1,25 @@
+/Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/gen/com/clearblade/clearconcert/R.java \
+ : /Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/res/drawable/icon.png \
+/Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/res/drawable/splash.png \
+/Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/res/drawable-hdpi/ic_launcher.png \
+/Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/res/drawable-hdpi/icon.png \
+/Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/res/drawable-ldpi/ic_launcher.png \
+/Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/res/drawable-ldpi/icon.png \
+/Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/res/drawable-mdpi/ic_launcher.png \
+/Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/res/drawable-mdpi/icon.png \
+/Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/res/drawable-xhdpi/ic_launcher.png \
+/Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/res/drawable-xhdpi/icon.png \
+/Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/res/layout/main.xml \
+/Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/res/values/strings.xml \
+/Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/res/xml/config.xml \
+/Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/bin/res/drawable/icon.png \
+/Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/bin/res/drawable/splash.png \
+/Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/bin/res/drawable-hdpi/ic_launcher.png \
+/Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/bin/res/drawable-hdpi/icon.png \
+/Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/bin/res/drawable-ldpi/ic_launcher.png \
+/Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/bin/res/drawable-ldpi/icon.png \
+/Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/bin/res/drawable-mdpi/ic_launcher.png \
+/Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/bin/res/drawable-mdpi/icon.png \
+/Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/bin/res/drawable-xhdpi/ic_launcher.png \
+/Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/bin/res/drawable-xhdpi/icon.png \
+/Users/michael_sprague/Developer/ClearBlade/ClearConcertV3/platforms/android/bin/AndroidManifest.xml \

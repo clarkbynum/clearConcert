@@ -19,7 +19,7 @@
 
 //
 //  AppDelegate.m
-//  ClearConcert_Good
+//  Blank_Good
 //
 //  Created by ___FULLUSERNAME___ on ___DATE___.
 //  Copyright ___ORGANIZATIONNAME___ ___YEAR___. All rights reserved.
@@ -45,8 +45,8 @@
 
     int cacheSizeMemory = 8 * 1024 * 1024; // 8MB
     int cacheSizeDisk = 32 * 1024 * 1024; // 32MB
-    //NSURLCache* sharedCache = [[[NSURLCache alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"] autorelease];
-    //[NSURLCache setSharedURLCache:sharedCache];
+    NSURLCache* sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
+    [NSURLCache setSharedURLCache:sharedCache];
 
     self = [super init];
     return self;
@@ -61,10 +61,10 @@
 {
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
 
-    //self.window = [[[UIWindow alloc] initWithFrame:screenBounds] autorelease];
+    self.window = [[UIWindow alloc] initWithFrame:screenBounds];
     self.window.autoresizesSubviews = YES;
 
-    //self.viewController = [[[MainViewController alloc] init] autorelease];
+    self.viewController = [[MainViewController alloc] init];
     self.viewController.useSplashScreen = YES;
 
     // Set your app's start page by setting the <content src='foo.html' /> tag in config.xml.
@@ -81,7 +81,7 @@
 }
 
 // this happens while we are running ( in the background, or from within our own app )
-// only valid if ClearConcert_Good-Info.plist specifies a protocol to handle
+// only valid if Blank_Good-Info.plist specifies a protocol to handle
 - (BOOL)application:(UIApplication*)application handleOpenURL:(NSURL*)url
 {
     if (!url) {
@@ -99,8 +99,8 @@
 }
 
 // repost the localnotification using the default NSNotificationCenter so multiple plugins may respond
-- (void)            application:(UIApplication*)application
-    didReceiveLocalNotification:(UILocalNotification*)notification
+- (void)           application:(UIApplication*)application
+   didReceiveLocalNotification:(UILocalNotification*)notification
 {
     // re-post ( broadcast )
     [[NSNotificationCenter defaultCenter] postNotificationName:CDVLocalNotification object:notification];

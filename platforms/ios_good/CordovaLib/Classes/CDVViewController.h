@@ -22,14 +22,15 @@
 #import "CDVAvailability.h"
 #import "CDVInvokedUrlCommand.h"
 #import "CDVCommandDelegate.h"
-#import "CDVCommandQueue.h"
 #import "CDVWhitelist.h"
 #import "CDVScreenOrientationDelegate.h"
-#import "CDVPlugin.h"
+
+@class CDVCommandQueue;
+@class CDVCommandDelegateImpl;
 
 @interface CDVViewController : UIViewController <UIWebViewDelegate, CDVScreenOrientationDelegate>{
     @protected
-    id <CDVCommandDelegate> _commandDelegate;
+    CDVCommandDelegateImpl* _commandDelegate;
     @protected
     CDVCommandQueue* _commandQueue;
     NSString* _userAgent;
@@ -48,7 +49,7 @@
 @property (nonatomic, readwrite, copy) NSString* wwwFolderName;
 @property (nonatomic, readwrite, copy) NSString* startPage;
 @property (nonatomic, readonly, strong) CDVCommandQueue* commandQueue;
-@property (nonatomic, readonly, strong) id <CDVCommandDelegate> commandDelegate;
+@property (nonatomic, readonly, strong) CDVCommandDelegateImpl* commandDelegate;
 @property (nonatomic, readonly) NSString* userAgent;
 
 + (NSDictionary*)getBundlePlist:(NSString*)plistName;
@@ -66,7 +67,6 @@
 
 - (id)getCommandInstance:(NSString*)pluginName;
 - (void)registerPlugin:(CDVPlugin*)plugin withClassName:(NSString*)className;
-- (void)registerPlugin:(CDVPlugin*)plugin withPluginName:(NSString*)pluginName;
 
 - (BOOL)URLisAllowed:(NSURL*)url;
 

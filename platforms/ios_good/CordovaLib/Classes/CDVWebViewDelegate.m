@@ -68,9 +68,7 @@ typedef enum {
     if (![self isJsLoadTokenSet:webView]) {
         _state = STATE_WAITING_FOR_FINISH;
         [self setLoadToken:webView];
-        if ([_delegate respondsToSelector:@selector(webViewDidStartLoad:)]) {
-            [_delegate webViewDidStartLoad:webView];
-        }
+        [_delegate webViewDidStartLoad:webView];
         [self pollForPageLoadFinish:webView];
     }
 }
@@ -82,9 +80,7 @@ typedef enum {
     }
     if ([self isPageLoaded:webView]) {
         _state = STATE_SHOULD_LOAD_MISSING;
-        if ([_delegate respondsToSelector:@selector(webViewDidFinishLoad:)]) {
-            [_delegate webViewDidFinishLoad:webView];
-        }
+        [_delegate webViewDidFinishLoad:webView];
     } else {
         [self performSelector:@selector(pollForPageLoaded) withObject:webView afterDelay:50];
     }
@@ -92,11 +88,7 @@ typedef enum {
 
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    BOOL shouldLoad = YES;
-
-    if ([_delegate respondsToSelector:@selector(webView:shouldStartLoadWithRequest:navigationType:)]) {
-        shouldLoad = [_delegate webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
-    }
+    BOOL shouldLoad = [_delegate webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
 
     if (shouldLoad) {
         BOOL isTopLevelNavigation = [request.URL isEqual:[request mainDocumentURL]];
@@ -112,9 +104,7 @@ typedef enum {
 {
     if (_state == STATE_NORMAL) {
         if (_loadCount == 0) {
-            if ([_delegate respondsToSelector:@selector(webViewDidStartLoad:)]) {
-                [_delegate webViewDidStartLoad:webView];
-            }
+            [_delegate webViewDidStartLoad:webView];
             _loadCount += 1;
         } else if (_loadCount > 0) {
             _loadCount += 1;
@@ -138,10 +128,8 @@ typedef enum {
 {
     if (_state == STATE_NORMAL) {
         if (_loadCount == 1) {
-            if ([_delegate respondsToSelector:@selector(webViewDidFinishLoad:)]) {
-                [_delegate webViewDidFinishLoad:webView];
-            }
-            _loadCount = -1;
+            [_delegate webViewDidFinishLoad:webView];
+            _loadCount -= 1;
         } else if (_loadCount > 1) {
             _loadCount -= 1;
         }
@@ -155,10 +143,8 @@ typedef enum {
 {
     if (_state == STATE_NORMAL) {
         if (_loadCount == 1) {
-            if ([_delegate respondsToSelector:@selector(webView:didFailLoadWithError:)]) {
-                [_delegate webView:webView didFailLoadWithError:error];
-            }
-            _loadCount = -1;
+            [_delegate webView:webView didFailLoadWithError:error];
+            _loadCount -= 1;
         } else if (_loadCount > 1) {
             _loadCount -= 1;
         }

@@ -41,11 +41,11 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>com.clearblade.clearconcert.good</string>
+			<string>test.clearblade.clearconcert.good</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.clearblade.clearconcert.good.sc</string>
-				<string>com.clearblade.clearconcert.good.sc2</string>
+				<string>test.clearblade.clearconcert.good.sc</string>
+				<string>test.clearblade.clearconcert.good.sc2</string>
 			</array>
 		</dict>
 	</array>

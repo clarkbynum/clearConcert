@@ -19,11 +19,6 @@
 
 #import "CDVPlugin.h"
 
-NSString* const CDVPageDidLoadNotification = @"CDVPageDidLoadNotification";
-NSString* const CDVPluginHandleOpenURLNotification = @"CDVPluginHandleOpenURLNotification";
-NSString* const CDVPluginResetNotification = @"CDVPluginResetNotification";
-NSString* const CDVLocalNotification = @"CDVLocalNotification";
-
 @interface CDVPlugin ()
 
 @property (readwrite, assign) BOOL hasPendingOperation;
@@ -46,7 +41,7 @@ NSString* const CDVLocalNotification = @"CDVLocalNotification";
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAppTerminate) name:UIApplicationWillTerminateNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMemoryWarning) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURL:) name:CDVPluginHandleOpenURLNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReset) name:CDVPluginResetNotification object:theWebView];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReset) name:CDVPluginResetNotification object:nil];
 
         self.webView = theWebView;
     }
@@ -69,7 +64,7 @@ NSString* const CDVLocalNotification = @"CDVLocalNotification";
     // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveLocalNotification:) name:CDVLocalNotification object:nil];
 
     // Added in 2.5.0
-    // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageDidLoad:) name:CDVPageDidLoadNotification object:self.webView];
+    // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageDidLoad:) name:CDVPageDidLoadNotification object:nil];
 }
 
 - (void)dispose

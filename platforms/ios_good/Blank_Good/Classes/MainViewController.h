@@ -16,39 +16,25 @@
  specific language governing permissions and limitations
  under the License.
  */
+
 //
-//  main.m
-//  ClearConcert_Good
+//  MainViewController.h
+//  Blank_Good
 //
 //  Created by ___FULLUSERNAME___ on ___DATE___.
 //  Copyright ___ORGANIZATIONNAME___ ___YEAR___. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "GDAppDelegate.h"
-#import <GD/GDios.h>
-/*
-int main(int argc, char* argv[])
-{
-    @autoreleasepool {
-        int retVal = UIApplicationMain(argc, argv, nil, @"AppDelegate");
-        return retVal;
-    }
-}
-*/
-int main(int argc, char* argv[])
-{
-    int retVal = 0;
-#if !(__has_feature(objc_arc))
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-#else
-    @autoreleasepool {
-#endif
-        [GDiOS initialiseWithClassConformingToUIApplicationDelegate:[GDAppDelegate class]]; retVal = UIApplicationMain(argc, argv, nil, NSStringFromClass([GDAppDelegate class])); [GDiOS finalise];
-#if !(__has_feature(objc_arc)) 
-        [pool release];
-#else 
-    }
-#endif
-        return retVal;
-    }
+#import <Cordova/CDVViewController.h>
+#import <Cordova/CDVCommandDelegateImpl.h>
+#import <Cordova/CDVCommandQueue.h>
+
+@interface MainViewController : CDVViewController
+
+@end
+
+@interface MainCommandDelegate : CDVCommandDelegateImpl
+@end
+
+@interface MainCommandQueue : CDVCommandQueue
+@end
