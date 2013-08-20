@@ -52,8 +52,7 @@
             return @"none";
 
         case ReachableViaWWAN:
-            // Return value of '2g' is deprecated as of 2.6.0 and will be replaced with 'cellular' in 3.0.0
-            return @"2g";
+            return @"2g"; // no generic default, so we use the lowest common denominator
 
         case ReachableViaWiFi:
             return @"wifi";
@@ -67,8 +66,7 @@
 {
     return [theConnectionType isEqualToString:@"2g"] ||
            [theConnectionType isEqualToString:@"3g"] ||
-           [theConnectionType isEqualToString:@"4g"] ||
-           [theConnectionType isEqualToString:@"cellular"];
+           [theConnectionType isEqualToString:@"4g"];
 }
 
 - (void)updateReachability:(CDVReachability*)reachability
@@ -113,7 +111,6 @@
         self.internetReach = [CDVReachability reachabilityForInternetConnection];
         self.connectionType = [self w3cConnectionTypeFor:self.internetReach];
         [self.internetReach startNotifier];
-        [self printDeprecationNotice];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateConnectionType:)
                                                      name:kReachabilityChangedNotification object:nil];
         if (&UIApplicationDidEnterBackgroundNotification && &UIApplicationWillEnterForegroundNotification) {
@@ -122,11 +119,6 @@
         }
     }
     return self;
-}
-
-- (void)printDeprecationNotice
-{
-    NSLog(@"DEPRECATION NOTICE: The Connection ReachableViaWWAN return value of '2g' is deprecated as of Cordova version 2.6.0 and will be changed to 'cellular' in a future release. ");
 }
 
 @end

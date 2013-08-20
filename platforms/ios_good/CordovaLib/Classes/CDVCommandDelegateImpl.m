@@ -55,11 +55,7 @@
 
 - (void)evalJsHelper2:(NSString*)js
 {
-    CDV_EXEC_LOG(@"Exec: evalling: %@", [js substringToIndex:MIN([js length], 160)]);
     NSString* commandsJSON = [_viewController.webView stringByEvaluatingJavaScriptFromString:js];
-    if ([commandsJSON length] > 0) {
-        CDV_EXEC_LOG(@"Exec: Retrieved new exec messages by chaining.");
-    }
 
     [_commandQueue enqueCommandBatch:commandsJSON];
 }
@@ -82,16 +78,21 @@
 
 - (void)sendPluginResult:(CDVPluginResult*)result callbackId:(NSString*)callbackId
 {
-    CDV_EXEC_LOG(@"Exec(%@): Sending result. Status=%@", callbackId, result.status);
     // This occurs when there is are no win/fail callbacks for the call.
-    if ([@"INVALID" isEqualToString : callbackId]) {
+    if ([@"INVALID" isEqualToString:callbackId]) {
         return;
     }
     int status = [result.status intValue];
     BOOL keepCallback = [result.keepCallback boolValue];
-    NSString* argumentsAsJSON = [result argumentsAsJSON];
+    id message = result.message == nil ? [NSNull null] : result.message;
 
-    NSString* js = [NSString stringWithFormat:@"cordova.require('cordova/exec').nativeCallback('%@',%d,%@,%d)", callbackId, status, argumentsAsJSON, keepCallback];
+    // Use an array to encode the message as JSON.
+    message = [NSArray arrayWithObject:message];
+    NSString* encodedMessage = [message JSONString];
+    // And then strip off the outer []s.
+    encodedMessage = [encodedMessage substringWithRange:NSMakeRange(1, [encodedMessage length] - 2)];
+    NSString* js = [NSString stringWithFormat:@"cordova.require('cordova/exec').nativeCallback('%@',%d,%@,%d)",
+        callbackId, status, encodedMessage, keepCallback];
 
     [self evalJsHelper:js];
 }
@@ -119,6 +120,11 @@
 - (id)getCommandInstance:(NSString*)pluginName
 {
     return [_viewController getCommandInstance:pluginName];
+}
+
+- (void)registerPlugin:(CDVPlugin*)plugin withClassName:(NSString*)className
+{
+    [_viewController registerPlugin:plugin withClassName:className];
 }
 
 - (void)runInBackground:(void (^)())block

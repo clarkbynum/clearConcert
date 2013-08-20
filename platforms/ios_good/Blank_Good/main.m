@@ -16,29 +16,33 @@
  specific language governing permissions and limitations
  under the License.
  */
-
 //
-//  AppDelegate.h
-//  ClearConcert_Good
+//  main.m
+//  Blank_Good
 //
 //  Created by ___FULLUSERNAME___ on ___DATE___.
 //  Copyright ___ORGANIZATIONNAME___ ___YEAR___. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import "GDAppDelegate.h"
+#import <GD/GDiOS.h>
 
-#import <Cordova/CDVViewController.h>
-
-@interface AppDelegate : NSObject <UIApplicationDelegate>{}
-
-// invoke string is passed to your app on launch, this is only valid if you
-// edit ClearConcert_Good-Info.plist to add a protocol
-// a simple tutorial can be found here :
-// http://iphonedevelopertips.com/cocoa/launching-your-own-application-via-a-custom-url-scheme.html
-
-@property (nonatomic, strong) IBOutlet UIWindow* window;
-@property (nonatomic, strong) IBOutlet CDVViewController* viewController;
-
-- (BOOL) appStart:(UIApplication*)application withOptions:(NSDictionary*)launchOptions;
-
-@end
+int main(int argc, char* argv[])
+{
+    int retVal = 0;
+#if !(__has_feature(objc_arc))
+    NSAutoreleasePool* pool = [[NSautoreleasePool alloc] init];
+#else
+    @autoreleasepool {
+#endif
+        [GDiOS initialiseWithClassConformingToUIApplicationDelegate:[GDAppDelegate class]];
+        retVal = UIApplicationMain(argc, argv, nil, NSStringFromClass([GDAppDelegate class]));
+        [GDiOS finalise];
+#if !(__has_feature(objc_arc))
+        [pool release];
+#else
+    }
+#endif
+    return retVal;
+}

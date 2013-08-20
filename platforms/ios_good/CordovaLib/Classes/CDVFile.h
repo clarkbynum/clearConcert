@@ -21,7 +21,6 @@
 #import "CDVPlugin.h"
 
 enum CDVFileError {
-    NO_ERROR = 0,
     NOT_FOUND_ERR = 1,
     SECURITY_ERR = 2,
     ABORT_ERR = 3,
@@ -77,7 +76,6 @@ extern NSString* const kCDVAssetsLibraryPrefix;
 
 - (void)readAsText:(CDVInvokedUrlCommand*)command;
 - (void)readAsDataURL:(CDVInvokedUrlCommand*)command;
-- (void)readAsArrayBuffer:(CDVInvokedUrlCommand*)command;
 - (NSString*)getMimeTypeFromPath:(NSString*)fullPath;
 - (void)write:(CDVInvokedUrlCommand*)command;
 - (void)testFileExists:(CDVInvokedUrlCommand*)command;
