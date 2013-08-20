@@ -13,11 +13,11 @@ import android.webkit.WebView;
 
 public class ClearConcertView extends CordovaWebViewClient {
 	
-	ClearConcert ctx;
+	ClearConcertAndroid ctx;
 	
 	public ClearConcertView(DroidGap ctx) {
 		super(ctx);
-		this.ctx = (ClearConcert) ctx;
+		this.ctx = (ClearConcertAndroid) ctx;
 	}
 	
 	@Override

@@ -1,0 +1,30 @@
+<div jqm-page jqm-theme="a">
+  <div jqm-header>
+    <a class="ui-btn-left" ng-click="$back()">
+      <span class="ui-btn-inner">
+        <span class="ui-btn-text"></span>
+      </span>
+    </a>
+    <h1>Builds</h1>
+  </div>
+  <div jqm-theme="b">
+	  <div>Label: {{resultDetail.label}}</div>
+	  <div>Creator: {{resultDetail.creator}}</div>
+	  <div>Definition: {{resultDetail.definition}}</div>
+	  <div>Started at: {{resultDetail.start}}</div>
+	  <div>Ended at: {{resultDetail.end}}</div>
+	  <div>
+		  <h4>Logs</h4>
+		  <table>
+			  <tr>
+				  <th>File Name</th>
+				  <th>File Size</th>
+			  </tr>
+			  <tr ng-repeat="log in resultDetail.logs">
+				  <td>{{log.filename}}</td>
+				  <td>{{log.filesize}}</td>
+			  </tr>
+		  </table>
+	  </div>
+  </div>
+</div>

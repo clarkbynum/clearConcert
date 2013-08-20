@@ -1,0 +1,27 @@
+<!--
+<div class="toolbar">
+  <a class="btn btn-toolbar" ng-tap="cancelEdit()">Cancel</a>
+  <h1>{{editProperty}}</h1>
+  <a class="btn btn-toolbar right" ng-tap="saveEdit()">{{ isNew() && "Done" || "Save" }} </a>
+</div>
+<div class="page full with-toolbar scroll">
+  <ng-include src="'template/edit/' + editProperty + '.html'"></ng-include>
+</div>
+-->
+<div jqm-page jqm-theme="a">
+	<div jqm-header>
+		<a class="ui-btn ui-btn-up-c ui-btn-left ui-btn-icon-left ui-btn-corner-all" ng-click="$back()">
+	      <span class="ui-btn-inner">
+	        <span class="ui-btn-text">Cancel</span>
+	      </span>
+	    </a>
+	    <a class="ui-btn ui-btn-up-c ui-btn-right ui-btn-icon-left ui-btn-corner-all" ng-click="saveEdit()">
+	      <span class="ui-btn-inner">
+	        <span class="ui-btn-text">Save</span>
+	      </span>
+	    </a>
+		<h1>{{editProperty}}</h1>
+	</div>
+
+	<ng-include src="'template/edit/' + editProperty + '.html'"></ng-include>
+</div>

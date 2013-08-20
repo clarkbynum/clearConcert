@@ -66,6 +66,13 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
     },
     animation: 'page-slide'
   })
+  .when('/workitem/:id/:prop', {
+    controller: 'WorkItemCtrl',
+    templateUrl: 'template/workitem-edit.html',
+    resolve: {
+      workItem: resolveWorkItem
+    }
+  })
   .when('/query', {
     controller: 'QueryCtrl',
     templateUrl: 'template/query.html',
@@ -113,6 +120,11 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
   .when('/build/:proj/:build', {
 	controller: 'BuildCtrl',
 	templateUrl: 'template/buildresults.html',
+  	animation: 'page-slide'
+  })
+  .when('/build/:proj/:build/:result', {
+	controller: 'BuildCtrl',
+	templateUrl: 'template/buildresultdetails.html',
     animation: 'page-slide'
   })  
   .otherwise({
@@ -148,8 +160,8 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
 
 }])
 
-.run(['settings','auth','$rootScope', '$location',
-  function(settings, auth, $rootScope, $location){
+.run(['settings','auth','$rootScope', '$location', '$http', '$templateCache',
+  function(settings, auth, $rootScope, $location, $http, $templateCache){
   //just skip this so we can develop ui
   //return;
   if (settings.repository) {
@@ -178,6 +190,20 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
   $rootScope.openExternalBrowser = function(url) {
     window.open(url, "_system");
   };
+
+  //Make templates out of all the work item edit types
+  $http.get('template/workitem-edit-types.html').then(function(response) {
+  
+    var htmlObject = document.createElement('div');
+    htmlObject.innerHTML = response.data;
+    var sections = htmlObject.getElementsByTagName('section');
+    
+    for(var i = 0; i < sections.length; i++){
+      var url = 'template/edit/' + sections[i].id + '.html';
+      $templateCache.put(url, '<div>' + sections[i].innerHTML + '</div>');
+    }
+
+  });
 
 }])
 

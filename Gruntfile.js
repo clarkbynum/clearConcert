@@ -24,6 +24,26 @@ module.exports = function(grunt){
     				to: 'ClearJazz'
     			}]
   			},
+  			iosGood: {
+    			src: ['<%= www %>/index.html'],             // source files array (supports minimatch)
+    			dest: 'platforms/ios_good/www/index.html',             // destination directory or file
+    			replacements: [{ 
+      				from: '../../ClearCommon/common',                   // string replacement
+      				to: 'ClearCommon' 
+    			}, {
+    				from: '<!--CORDOVA LIB-->',
+    				to: '<script src="cordova.js"></script>'
+    			}, {
+    				from: '<!--GOOD-->',
+    				to: '<script type="text/javascript" charset="utf-8" src="GoodDynamics.js"></script>'
+    			},{
+    				from: '<script src="http://localhost:1337/livereload.js"></script>',
+    				to: ''
+    			}, {
+    				from: '../../ClearJazz/common',
+    				to: 'ClearJazz'
+    			}]
+  			},
   			android: {
     			src: ['<%= www %>/index.html'],             // source files array (supports minimatch)
     			dest: 'platforms/android/assets/www/index.html',             // destination directory or file
@@ -52,6 +72,14 @@ module.exports = function(grunt){
 					dest: 'platforms/ios/www'
 				}]
 			},
+			iosGood: {
+				files: [{
+					expand: true, 
+					cwd: 'www/', 
+					src: ['**/*'], 
+					dest: 'platforms/ios_good/www'
+				}]
+			},
 			android: {
 				files: [{
 					expand: true, 
@@ -63,7 +91,13 @@ module.exports = function(grunt){
 			cordovaJS: {
 				files: {
 					'platforms/ios/www/cordova.js': '../ClearCommon/ios/www/cordova.js',
-					'platforms/android/assets/www/cordova.js': '../ClearCommon/android/www/cordova.js'
+					'platforms/android/assets/www/cordova.js': '../ClearCommon/android/www/cordova.js',
+					'platforms/ios_good/www/cordova.js': '../ClearCommon/ios/www/cordova.js',
+				}
+			},
+			goodJS: {
+				files: {
+					'platforms/ios_good/www/GoodDynamics.js': '../ClearCommon/ios/www/GoodDynamics.js',
 				}
 			},
 			clearCommon: {
@@ -76,12 +110,22 @@ module.exports = function(grunt){
 					expand: true,
 					cwd: '../ClearCommon/common/',
 					src: ['**/*'],
+					dest: 'platforms/ios_good/www/ClearCommon/'
+				}, {
+					expand: true,
+					cwd: '../ClearCommon/common/',
+					src: ['**/*'],
 					dest: 'platforms/android/assets/www/ClearCommon/'
 				}, {
 					expand: true, 
 					cwd: '../ClearCommon/ios/www/', 
 					src: ['**/*'], 
 					dest: 'platforms/ios/www/ClearCommon/'
+				}, {
+					expand: true, 
+					cwd: '../ClearCommon/ios/www/', 
+					src: ['**/*'], 
+					dest: 'platforms/ios_good/www/ClearCommon/'
 				}, {
 					expand: true, 
 					cwd: '../ClearCommon/android/assets/www/',
@@ -99,6 +143,11 @@ module.exports = function(grunt){
 					expand: true,
 					cwd: '../ClearJazz/common/',
 					src: ['**/*'],
+					dest: 'platforms/ios_good/www/ClearJazz/'
+				}, {
+					expand: true,
+					cwd: '../ClearJazz/common/',
+					src: ['**/*'],
 					dest: 'platforms/android/assets/www/ClearJazz/'
 				}]
 			}
@@ -106,7 +155,8 @@ module.exports = function(grunt){
 
 		clean: {
 			android: ['platforms/android/assets/www/'],
-			ios: ['platforms/ios/www/']
+			ios: ['platforms/ios/www/'],
+			iosGood: ['platforms/ios_good/www/']
 		},
 
 		karma: {
