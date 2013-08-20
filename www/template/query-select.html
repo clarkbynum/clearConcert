@@ -13,13 +13,11 @@
     <ul jqm-listview style="padding-top:12px;">
     	
       <li jqm-li-divider>{{projectTitle}}</li>
-      <li jqm-li-entry ng-repeat="query in filterQueries(queries)" >
-        <a ng-click="selectQuery(query)">
-          {{query.title}}
-        </a>
-        <span class="right no-result-text" ng-show="query.noResults">
-          No Results
-        </span>
+      <li jqm-li-link jqm-theme="b" class="ui-icon-alt" ng-repeat="query in filterQueries(queries)" ng-click="selectQuery(query)">
+       {{query.title}}
+      </li>
+      <li ng-show="query.noResults" jqm-li-entry class="right no-result-text">
+         No Results
       </li>
     </ul>
   </div>

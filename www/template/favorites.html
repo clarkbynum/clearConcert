@@ -13,9 +13,9 @@
     <div>
 	    <ul jqm-listview style="">
 	      
-	      <li jqm-li-divider>{{favoriteType}}</li>
-	      <li jqm-li-link jqm-theme="b" class="ui-icon-alt" ng-repeat="favorite in favorites">
-	        <a>{{favorite.title}}</a>
+	      <li jqm-li-divider>{{title}}</li>
+	      <li jqm-li-link jqm-theme="b" class="ui-icon-alt" ng-repeat="favorite in favs" ng-click="selectQuery(favorite)">
+	        {{favorite.queryId}}</a>
 	      </li>
 	    </ul>
   </div>

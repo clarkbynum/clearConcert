@@ -1,9 +1,30 @@
+//types
+// 1 - query
+// 2 - work item
+// 3 - search
+// 4 - build
+
 angular.module('clearConcert')
 .factory('newFavorites', ['storage', 'settings' , function(storage, settings){
+	
+
+	var getFavsByType = function(repository, type){
+		var favs = getFavs();
+		var ret =[];
+		for (var i = 0; i < favs.length; i++) {
+			if (favs[i].type==type && favs[i].repositoryId === repository){
+				ret.push(favs[i]);
+			}
+		};
+		
+		return ret;
+	}
+
 	var getFavs = function(){
 		var	favs = JSON.parse(localStorage['favorites']);
 		return favs;
 	}
+
 	var addFav = function(fav){
 		var rawFavs = localStorage['favorites'];
 		if (typeof rawFavs === 'string') {
@@ -82,7 +103,8 @@ angular.module('clearConcert')
 		addFav: addFav,
 		removeFav: removeFav,
 		newQueryFav: newQueryFav,
-		checkFav: checkFav
+		checkFav: checkFav,
+		getFavsByType: getFavsByType
 	};
 	return Favorites;
 

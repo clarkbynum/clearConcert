@@ -1,12 +1,11 @@
 
 <div jqm-page jqm-theme="a">
 	<div jqm-header>
-		<a ng-click="state.panel='left'" class="ui-btn-left ui-btn ui-btn-corner-all ui-btn-icon-notext ui-btn-up-c">	
-			<span class="ui-btn-inner">
-				<span class="ui-icon ui-icon-bars">&nbsp;
-				</span>
-			</span>
-		</a>
+		<a class="ui-btn ui-btn-up-c ui-btn-left ui-btn-corner-all" ng-click="$back()">
+      <span class="ui-btn-inner">
+        <span class="ui-btn-text"><</span>
+      </span>
+    </a>
 		<h1>Settings</h1>
 	</div>
 	<div  jqm-theme="a" style="padding-top:8px">
@@ -21,7 +20,7 @@
 			<li jqm-li-entry>Show Exceptions</li>
 		</ul>
 		<div style="height:80px;"></div>
-		<div jqm-button ng-click="logout()">Log out</div>
+		<div jqm-button style="margin-left:40px;margin-right:40px;" ng-click="logout()">Log out</div>
 		<div ng-click="onRepositoryDone(repositoryUrl)">Report a Bug</div>
 		<ul jqm-listview>
 			<li jqm-li-entry>About ClearConcert</li>

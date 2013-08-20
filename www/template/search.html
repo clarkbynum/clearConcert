@@ -1,11 +1,10 @@
 <div jqm-page jqm-theme="a">
 	<div jqm-header>
-		<a ng-click="state.panel='left'" class="ui-btn-left ui-btn ui-btn-corner-all ui-btn-icon-notext ui-btn-up-c">	
-			<span class="ui-btn-inner">
-				<span class="ui-icon ui-icon-bars">&nbsp;
-				</span>
-			</span>
-		</a>
+		<a class="ui-btn ui-btn-up-c ui-btn-left ui-btn-corner-all" ng-click="$back()">
+      <span class="ui-btn-inner">
+        <span class="ui-btn-text"><</span>
+      </span>
+    </a>
 		<h1>Search</h1>
 	</div>
 	<div  style="padding-top:8px">
@@ -22,7 +21,7 @@
   					<div class="ui-block-a">
   						Tags
   					</div>
-  					<div class="ui-block-b">
+  					<div class="ui-block-b" style="text-align:right">
   						<div jqm-flip mini="true" ng-model="search.includeTags">
   						</div>
   					</div>
@@ -33,16 +32,30 @@
   					<div class="ui-block-a">
   						Keywords 
   					</div>
-  					<div class="ui-block-b">
+  					<div class="ui-block-b" style="text-align:right">
   						<div jqm-flip mini="true" ng-model="search.includeKeywords">
   						</div>
   					</div>
   				</div>
-  				 
-  				
   			</li>
-  			<li jqm-li-divider>Project Areas</li>
+  			
   		</ul>
+      <ul jqm-listview style="padding-top:12px;">
+      
+        <li jqm-li-divider>Project Areas ({{projects().length}})</li>
+        <li jqm-li-entry jqm-theme="b" class="ui-icon-alt" ng-repeat="project in projects()">
+          
+          <div class="ui-grid-a">
+            <div class="ui-block-a">
+              <a>{{project.title}}</a>
+            </div>
+            <div class="ui-block-b" style="text-align:right">
+              <div jqm-flip mini="true" ng-model="project.include" >
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 

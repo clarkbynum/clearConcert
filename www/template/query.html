@@ -13,7 +13,7 @@
     <ul jqm-listview style="padding-top:12px;">
       
       <li jqm-li-divider>Project Areas ({{projects().length}})</li>
-      <li jqm-li-entry ng-click="selectProject(project)" ng-repeat="project in filterQueries(projects())">
+      <li jqm-li-link jqm-theme="b" class="ui-icon-alt" ng-click="selectProject(project)" ng-repeat="project in filterQueries(projects())">
         <a>{{project.title}}</a>
       </li>
     </ul>

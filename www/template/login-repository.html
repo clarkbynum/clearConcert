@@ -11,8 +11,15 @@
 	</div>
 	<ul jqm-listview>
 		<li jqm-li-entry>
-			<div>Allow untrusted</div>
-			<div jqm-flip mini="true" ng-model="allowUntrusted"></div>
+			<div class="ui-grid-a">
+				<div class="ui-block-a">
+					Allow untrusted
+				</div>
+				<div class="ui-block-b">
+					<div jqm-flip mini="true" ng-model="allowUntrusted"></div>
+				</div>
+			</div>
+			
 		</li>
 	</ul>
 	<a style="margin:40px" jqm-button ng-click="onRepositoryDone(repositoryUrl, allowUntrusted)">Continue ></a>

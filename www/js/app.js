@@ -63,7 +63,8 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
     resolve : {
       workItem: resolveWorkItem,
       loadCatalog: loadCatalog
-    }
+    },
+    animation: 'page-slide'
   })
   .when('/query', {
     controller: 'QueryCtrl',
