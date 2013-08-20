@@ -1,8 +1,8 @@
 <div jqm-page jqm-theme="a">
 	<div jqm-header>
-		<a ng-click="state.panel='left'" class="ui-btn-left ui-btn ui-btn-corner-all ui-btn-icon-notext ui-btn-up-c">	
+		<a ng-click="state.panel='left'" class="ui-btn-left ui-btn ui-btn-corner-all ui-btn-icon-notext ui-btn-up-b">	
 			<span class="ui-btn-inner">
-				<span class="ui-icon ui-icon-bars">&nbsp;
+				<span class="ui-icon-alt ui-icon ui-icon-bars">&nbsp;
 				</span>
 			</span>
 		</a>
@@ -14,7 +14,7 @@
 		</div>
 		<div  style="position:absolute;right:0;">
 			<form ng-submit="search.text && searchPressed(search.text)">
-	      		<div jqm-theme="c" jqm-textinput style="margin:1px;"type="search" placeholder="Search for work items" ng-model="search.text"></div>
+	      		<div jqm-theme="a" class="ui-icon-alt" jqm-textinput style="margin:1px;"type="search" placeholder="Search for work items" ng-model="search.text"></div>
 	    	</form>
 	    </div>
 		<h1></h1>
@@ -28,11 +28,9 @@
 	</div>
 	
 	<div>
-		<div style="height:18px;margin:8px;">Welcome to ClearConcert</div>
 		<div jqm-theme="b">
+			<div class="homeDivider">Pending Work</div>
 		    <ul jqm-listview style="">
-		      
-		      <li jqm-li-divider>Pending Work</li>
 		      <li jqm-li-entry jqm-theme="b" class="ui-icon-alt" ng-click="selectProject(project)">
 		        None
 		      </li>
@@ -41,12 +39,9 @@
 		      </li>
 	      </ul>
 	  </div>
-	  <div jqm-theme="b" style="padding-top:8px">
-	      <ul jqm-listview style="">
-		      <li jqm-li-divider>Favorites</li>
-		      
-		    </ul>
-	  </div>
+
+	  <div class="homeDivider">Favorites</div>
+	      
 	  <div style="padding-top:15px">
 	  	<div id="row1" style="position:relative;width:100%">
 	  		<div id="cell1" ng-click="go('favorites/1')" style="position:absolute;width:50%;height:200px;left:0px; border-width:0px 0px 0px 0px;border-color:#e6e6e6;border-style:solid;background-color:#333333;">
