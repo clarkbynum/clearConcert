@@ -1,11 +1,11 @@
 <div jqm-page jqm-theme="a">
   <div jqm-header>
-    <a class="ui-btn ui-btn-up-c ui-btn-left ui-btn-corner-all" ng-click="$back()">
-      <span class="ui-btn-inner">
-        <span class="ui-btn-text"><</span>
-      </span>
-    </a>
-    <h1>Queries</h1>
+    <div style="width:100%" ng-click="$back()">
+      <img src="images/back.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;position:absolute;">
+    </div>
+      <div style="text-align:center;width:100%" ng-click="go('')">
+        <img src="images/home.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;">
+    </div>
 	<a ng-click="setFavorite()" class="ui-btn-right ui-btn ui-btn-corner-all ui-btn-icon-notext ui-btn-up-c">	
 			<span class="ui-btn-inner">
 				<span >
@@ -33,7 +33,7 @@
       <li jqm-li-entry ng-show="totalResults == 0" style="line-height: 80px; text-align: center;">
         <i class="icon-remove"></i> No Results Found
       </li>
-      <li jqm-li-link class="ui-icon-alt" ng-repeat="workItem in filterResults(results)" ng-click="go(workItem)">
+      <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-repeat="workItem in filterResults(results)" ng-click="go(workItem)">
        <img ng-src="{{workItem.resource['dc:type']['rtc_cm:iconUrl']}}"/>
           {{workItem.item['dc:identifier']}} {{workItem.item['dc:title'].unescapeHTML()}}
       </li>

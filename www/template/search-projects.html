@@ -1,12 +1,14 @@
 <div jqm-page jqm-theme="a">
   <div jqm-header>
-    <a class="ui-btn ui-btn-up-c ui-btn-left ui-btn-corner-all" ng-click="$back()">
-      <span class="ui-btn-inner">
-        <span class="ui-btn-text"><</span>
-      </span>
-    </a>
-    <h1>Results</h1>
+   <div style="width:100%" ng-click="$back()">
+      <img src="images/back.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;position:absolute;">
+    </div>
+    <div style="text-align:center;width:100%" ng-click="go('')">
+      <img src="images/home.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;">
+    </div>
   </div>
+  <div style="height:12px;"></div>
+    
   <div jqm-theme="b">
     <ul jqm-listview class="full">
       <li jqm-li-entry ng-show="moreLoading.active();">
@@ -16,15 +18,17 @@
         </p>
       </li>
     </ul>
-    <div style="padding: 10px;">
-      <h2 class="content-title">Results for '{{query}}' by project:</h2>
-      <ul jqm-listview>
-        <li jqm-li-link class="pair ui-icon-alt" ng-repeat="result in results" ng-click="resultPressed(result)">
-          <a style="max-width:75%; padding-right:25%;">{{result.project.title}}</a>
-          <span class="right">({{result.total}})</span>
-        </li>
-      </ul>
-    </div>
+  </div>
+  <div jqm-theme="b">
+    <ul jqm-listview>
+      <li jqm-li-divider>Results for '{{query}}' by project:</li>
+      
+      <li jqm-li-link jqm-theme="a" class="pair ui-icon-alt" ng-repeat="result in results" ng-click="resultPressed(result)">
+        <a style="max-width:75%; padding-right:25%;">{{result.project.title}}</a>
+        <span class="right">({{result.total}})</span>
+      </li>
+    </ul>
+    
   </div>
 </div>
 
