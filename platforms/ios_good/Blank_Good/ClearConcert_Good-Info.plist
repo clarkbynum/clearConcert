@@ -26,7 +26,7 @@
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
-	<string>test.clearblade.clearconcert.good</string>
+	<string>com.clearblade.clearconcert.good</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -41,11 +41,11 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>test.clearblade.clearconcert.good</string>
+			<string>com.clearblade.clearconcert.good</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>test.clearblade.clearconcert.good.sc</string>
-				<string>test.clearblade.clearconcert.good.sc2</string>
+				<string>com.clearblade.clearconcert.good.sc</string>
+				<string>com.clearblade.clearconcert.good.sc2</string>
 			</array>
 		</dict>
 	</array>

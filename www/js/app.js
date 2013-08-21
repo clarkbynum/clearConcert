@@ -1,6 +1,6 @@
 //todo remove ngfocus and ngblur
 
-angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
+var clearConcert = angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz', 'mobiSelect'])
 
 .config(['$routeProvider',
   function($routeProvider){

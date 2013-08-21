@@ -105,7 +105,7 @@ angular.module('clearConcert')
       //   }
       // }
       // Dialog.message("Login Failed", message);
-      alert("Login Failed: "+message);
+      alert("Login Failed: " + message);
     });
     //promiseTracker('fullSpin').addPromise(promise, 'Logging in...');
     return promise;
