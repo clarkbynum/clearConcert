@@ -33,7 +33,7 @@ angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'])
     //controller: 'SettingsCtrl',
   })
   .when('/login-recent', {
-    templateUrl: '../../ClearJazz/common/template/login-recent.html',
+    templateUrl: 'template/login-recent.html',
     controller: 'LoginCtrl'
   })
   .when('/search',{

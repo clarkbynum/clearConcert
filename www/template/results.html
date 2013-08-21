@@ -1,19 +1,19 @@
 <div jqm-page jqm-theme="a">
-  <div jqm-header>
-    <div style="width:100%" ng-click="$back()">
-      <img src="images/back.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;position:absolute;">
+  <div jqm-header style="height:42px">
+    <div style="width:100px;height:40px;position:absolute;" ng-click="$back()">
+      <img src="images/back.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;">
     </div>
-      <div style="text-align:center;width:100%" ng-click="go('')">
+      <div style="text-align:center;width:100%;position:absolute;" ng-click="go('')">
         <img src="images/home.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;">
     </div>
-	<a ng-click="setFavorite()" class="ui-btn-right ui-btn ui-btn-corner-all ui-btn-icon-notext ui-btn-up-c">	
+	<div ng-click="setFavorite()" class="ui-btn-right">	
 			<span class="ui-btn-inner">
 				<span >
 					<img ng-show="isFav" src="images/star.png"  style="width:24px;height:24px"/>
 					<img ng-show="!isFav" src="images/star_off.png" style="width:24px;height:24px" />
 				</span>
 			</span>
-		</a>
+		</div>
 
   </div>
   <div jqm-theme="b">

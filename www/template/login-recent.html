@@ -1,0 +1,17 @@
+<div jqm-page jqm-theme="a">
+	<div jqm-header>
+		<div style="width:100%" ng-click="$back()">
+			<img src="images/back.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;position:absolute;">
+		</div>
+      </span>
+    </a>
+		<h1>Recent</h1>
+	</div>
+	<div class="content scroll page with-toolbar">
+		<ul jqm-listview>
+			<li jqm-li-entry ng-repeat="r in repos" ng-click="setRepoFromRecent(r)">
+			<a ng-click="setRepoFromRecent(r)">{{r.username && r.username + '@' || ''}}{{r.repository | stripUrlProtocol}}</a>
+			</li>
+		</ul>
+	</div>
+</div>
