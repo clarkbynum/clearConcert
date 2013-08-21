@@ -1,11 +1,11 @@
 <div jqm-page jqm-theme="a">
   <div jqm-header>
-    <a class="ui-btn-left" ng-click="$back()">
-      <span class="ui-btn-inner">
-        <span class="ui-btn-text"><</span>
-      </span>
-    </a>
-    <h1>Builds</h1>
+   <div style="width:100%" ng-click="$back()">
+      <img src="images/back.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;position:absolute;">
+    </div>
+      <div style="text-align:center;width:100%" ng-click="go('')">
+        <img src="images/home.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;">
+    </div>
   </div>
   <div jqm-theme="b">
     <div style=""  jqm-textinput ng-model="resultFilterInput" placeholder="Filter Project Areas..."></div>
@@ -14,7 +14,7 @@
 	    <ul jqm-listview style="">
 	      
 	      <li jqm-li-divider>Project Areas ({{projects().length}})</li>
-	      <li jqm-li-link jqm-theme="b" class="ui-icon-alt" ng-click="selectProject(project)" ng-repeat="project in filterBuilds(projects())">
+	      <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-click="selectProject(project)" ng-repeat="project in filterBuilds(projects())">
 	        <a>{{project.title}}</a>
 	      </li>
 	    </ul>

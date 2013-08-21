@@ -56,6 +56,10 @@ angular.module('clearConcert')
 			};
 
 			$scope.go = function(wi){
+				if (wi == ''){
+					$location.path('/');
+					return;
+				}
 				$location.path('/workitem/' + wi.identifier)
 			};
 

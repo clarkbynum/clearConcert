@@ -1,30 +1,42 @@
 <div jqm-page jqm-theme="a">
   <div jqm-header>
-    <a class="ui-btn-left" ng-click="$back()">
-      <span class="ui-btn-inner">
-        <span class="ui-btn-text"></span>
-      </span>
-    </a>
-    <h1>Builds</h1>
+   <div style="width:100%" ng-click="$back()">
+      <img src="images/back.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;position:absolute;">
+    </div>
+      <div style="text-align:center;width:100%" ng-click="go('')">
+        <img src="images/home.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;">
+    </div>
   </div>
   <div jqm-theme="b">
-	  <div>Label: {{resultDetail.label}}</div>
-	  <div>Creator: {{resultDetail.creator}}</div>
-	  <div>Definition: {{resultDetail.definition}}</div>
-	  <div>Started at: {{resultDetail.start}}</div>
-	  <div>Ended at: {{resultDetail.end}}</div>
+  	<div class="subSection">
+			<div class="subTitle">Build Label</div>
+			<div class="subEntry">{{resultDetail.label}}</div>
+		</div>
+		<div class="subSection">
+			<div class="subTitle">Requestor</div>
+			<div class="subEntry">{{resultDetail.creator}}</div>
+		</div>
+		<div class="subSection">
+			<div class="subTitle">Definition</div>
+			<div class="subEntry">{{resultDetail.definition}}</div>
+		</div>
+		<div class="subSection">
+			<div class="subTitle">Started at:</div>
+			<div class="subEntry">{{resultDetail.start}}</div>
+		</div>
+		<div class="subSection">
+			<div class="subTitle">Ended at:</div>
+			<div class="subEntry">{{resultDetail.end}}</div>
+		</div>
+	  
 	  <div>
-		  <h4>Logs</h4>
-		  <table>
-			  <tr>
-				  <th>File Name</th>
-				  <th>File Size</th>
-			  </tr>
-			  <tr ng-repeat="log in resultDetail.logs">
-				  <td>{{log.filename}}</td>
-				  <td>{{log.filesize}}</td>
-			  </tr>
-		  </table>
-	  </div>
+	  	<ul jqm-listview style="padding-top:12px;">
+      
+	      <li jqm-li-divider>Logs ({{resultDetail.logs.length}})</li>
+	      <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-click="selectProject(project)" ng-repeat="log in resultDetail.logs">
+	        <a>{{log.filename}}{{log.filesize}}</a>
+	      </li>
+    	</ul>
+    </div>
   </div>
 </div>

@@ -58,8 +58,13 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
   $scope.projects = function() {
       return catalog.list();
     };
-    
+  $scope.go = function(target) {
+    $location.path('/');
+  };
+
   if ($scope.query) {
     $scope.searchAllProjects($scope.query);
   }
+
+
 }]);

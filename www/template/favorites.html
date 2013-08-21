@@ -1,11 +1,11 @@
 <div jqm-page jqm-theme="a">
   <div jqm-header>
-    <a class="ui-btn-left" ng-click="$back()">
-      <span class="ui-btn-inner">
-        <span class="ui-btn-text"><</span>
-      </span>
-    </a>
-    <h1>Favorites</h1>
+   <div style="width:100%" ng-click="$back()">
+      <img src="images/back.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;position:absolute;">
+    </div>
+      <div style="text-align:center;width:100%" ng-click="go('')">
+        <img src="images/home.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;">
+    </div>
   </div>
   <div jqm-theme="b">
     
@@ -13,7 +13,7 @@
     <div>
 	    <ul jqm-listview style="">
 	      
-	      <li jqm-li-divider>{{title}}</li>
+	      <li jqm-li-divider>Favorite {{title}}</li>
 	      <li jqm-li-link jqm-theme="b" class="ui-icon-alt" ng-repeat="favorite in favs" ng-click="selectQuery(favorite)">
 	        {{favorite.queryId}}</a>
 	      </li>

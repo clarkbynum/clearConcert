@@ -44,6 +44,10 @@ function($scope, catalog, $location, $log, query, $loadDialog, $routeParams) {
     });
   };
 
+  $scope.go = function(target) {
+    $location.path('/'+target);
+  };
+
   $scope.selectQuery = function(queryObj) {
     query.resultsForQuery(projectId, queryObj.queryId).then(function(result) {
       if (result.items.length === 0) {

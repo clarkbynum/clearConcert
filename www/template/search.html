@@ -1,20 +1,20 @@
 <div jqm-page jqm-theme="a">
 	<div jqm-header>
-		<a class="ui-btn ui-btn-up-c ui-btn-left ui-btn-corner-all" ng-click="$back()">
-      <span class="ui-btn-inner">
-        <span class="ui-btn-text"><</span>
-      </span>
-    </a>
-		<h1>Search</h1>
+		<div style="width:100%" ng-click="$back()">
+      <img src="images/back.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;position:absolute;">
+    </div>
+      <div style="text-align:center;width:100%" ng-click="go('')">
+        <img src="images/home.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;">
+    </div>
 	</div>
 	<div  style="padding-top:8px">
     <div jqm-textinput ng-model="criteria" placeholder="Phrase or work item ID" type="">
       </div>
-      <a jqm-button style="margin-left:40px;margin-right:40px" ng-click="searchPressed(criteria)">Search</a>
+      <a jqm-button jqm-theme="b" style="margin-left:40px;margin-right:40px" ng-click="searchPressed(criteria)">Search</a>
     <div style="height:20px"></div>
 		<div jqm-theme="b">
 
-  		<ul jqm-listview>
+  		<ul jqm-listview jqm-theme="a">
   			<li jqm-li-divider>Advanced Filters</li>
   			<li jqm-li-entry>
   				<div class="ui-grid-a">

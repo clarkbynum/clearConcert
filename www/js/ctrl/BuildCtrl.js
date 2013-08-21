@@ -78,4 +78,7 @@ controller('BuildCtrl',['$scope', '$loadDialog', '$location', '$routeParams', 'c
 					}
 				});
 			};
+			$scope.go = function(target) {
+			    $location.path('/'+target);
+			  };
 			}]);
