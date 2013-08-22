@@ -1,0 +1,27 @@
+<p style="font-size: 14px; text-align: center;">
+  Fill in all fields and press 'Create' to submit a new work item.
+</p>
+<ul ng-tap="edit('Summary')">
+  <li>
+    <a><img src="images/book.png"> Summary</a>
+  </li>
+  <li><p>{{item['dc:title']}}</p></li>  
+</ul>
+<ul>
+  <li ng-tap="edit('Type')" class="pair">
+    <a><img ng-src="{{itemType['rtc_cm:iconUrl']}}"> Type</a>
+    <span class="right" ng-bind="itemType['dc:title']"></span>
+  </li>
+  <li ng-tap="edit('Project Area')" class="pair">
+    <a><img src="images/projectArea.gif"> Project Area</a>
+    <span class="right">{{projectArea.title}}</span>
+  </li>
+  <li ng-tap="edit('Filed Against')" class="pair">
+    <a><img src="images/database_table.png"> Filed Against</a>
+    <span class="right">{{filedAgainst['dc:title']}}</span>
+  </li>
+</ul>
+<ul ng-tap="edit('Description')">
+  <li><a><img src="images/book.png"> Description</a></li>
+  <li><p ng-bind-html-unsafe="item['dc:description'] | ellipsis:300"></p></li>
+</ul>

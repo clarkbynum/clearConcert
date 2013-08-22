@@ -6,23 +6,23 @@ var clearConcert = angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'
   function($routeProvider){
    $routeProvider.when('/', {
     templateUrl: 'template/home.html',
-    animation: 'page-slide',
+    animation: 'page-pop',
     controller: 'HomeCtrl'
   })
    .when('/splash', {
     templateUrl: 'template/splash.html',
-    animation: 'page-slide',
+    animation: 'page-pop',
    controller: 'LoginCtrl'
   })
   .when('/login-repository',{
     controller: 'LoginCtrl',
     templateUrl: 'template/login-repository.html',
-    animation: 'page-slide'
+    animation: 'page-pop'
   })
   .when('/login-credentials', {
     templateUrl:'template/login-credentials.html',
     controller: 'LoginCtrl',
-    animation: 'page-slide'
+    animation: 'page-pop'
   })
   .when('/settings', {
     templateUrl:'template/settings.html',
@@ -46,7 +46,7 @@ var clearConcert = angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'
     resolve: {
       loadCatalog: loadCatalog
     },
-    animation: 'page-slide'
+    animation: 'page-pop'
   })
   .when('/search/:query/:projectId', {
     controller: 'ResultCtrl',
@@ -59,7 +59,7 @@ var clearConcert = angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'
       },
       loadCatalog: loadCatalog
     },
-    animation: 'page-slide'
+    animation: 'page-pop'
   })
   .when('/workitem/:id/', {
     controller: 'WorkItemCtrl',
@@ -68,7 +68,7 @@ var clearConcert = angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'
       workItem: resolveWorkItem,
       loadCatalog: loadCatalog
     },
-    animation: 'page-slide'
+    animation: 'page-pop'
   })
   .when('/workitem/:id/:prop', {
     controller: 'WorkItemCtrl',
@@ -77,13 +77,23 @@ var clearConcert = angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'
       workItem: resolveWorkItem
     }
   })
+  .when('/create-workitem', {
+      controller: 'WorkItemCtrl',
+      templateUrl: 'template/workitem.html',
+      resolve: {
+        workItem: function(workItems, settings) {
+          return workItems.create(settings.repository);
+        },
+        loadCatalog: loadCatalog
+      }
+    })
   .when('/query', {
     controller: 'QueryCtrl',
     templateUrl: 'template/query.html',
     resolve: {
       loadCatalog: loadCatalog
     },
-    animation: 'page-slide'
+    animation: 'page-pop'
   })
   .when('/query/:projectId', {
     controller: 'QueryCtrl',
@@ -91,7 +101,7 @@ var clearConcert = angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'
     resolve: {
       loadCatalog: loadCatalog
     },
-    animation: 'page-slide'
+    animation: 'page-pop'
   })
   .when('/query/:projectId/:queryId', {
     controller: 'ResultCtrl',
@@ -104,32 +114,32 @@ var clearConcert = angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'
         });
       }
     },
-    animation: 'page-slide'
+    animation: 'page-pop'
   })
   .when('/build', {
     controller: 'BuildCtrl',
     templateUrl: 'template/build.html',
-    animation: 'page-slide'
+    animation: 'page-pop'
   })
   .when('/favorites/:favoriteType', {
     controller: 'FavoriteCtrl',
     templateUrl: 'template/favorites.html',
-    animation: 'page-slide'
+    animation: 'page-pop'
   })
   .when('/build/:proj', {
 	  controller: 'BuildCtrl',
 	  templateUrl: 'template/projbuilds.html',
-    animation: 'page-slide'
+    animation: 'page-pop'
   })
   .when('/build/:proj/:build', {
 	controller: 'BuildCtrl',
 	templateUrl: 'template/buildresults.html',
-  	animation: 'page-slide'
+  	animation: 'page-pop'
   })
   .when('/build/:proj/:build/:result', {
 	controller: 'BuildCtrl',
 	templateUrl: 'template/buildresultdetails.html',
-    animation: 'page-slide'
+    animation: 'page-pop'
   })  
   .otherwise({
     redirectTo: '/splash'
