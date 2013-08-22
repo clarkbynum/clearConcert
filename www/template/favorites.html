@@ -1,22 +1,28 @@
 <div jqm-page jqm-theme="a">
-  <div jqm-header>
-   <div style="width:100%" ng-click="$back()">
-      <img src="images/back.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;position:absolute;">
-    </div>
-      <div style="text-align:center;width:100%" ng-click="go('')">
-        <img src="images/home.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;">
-    </div>
+  <div jqm-header style="height:42px;">
+    <div style="width:100%;position:absolute;" ng-click="$back()">
+    <img src="images/back.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;position:absolute;">
   </div>
-  <div jqm-theme="b">
-    
-    <div style="height:12px;"></div>
-    <div>
-	    <ul jqm-listview style="">
-	      
-	      <li jqm-li-divider>Favorite {{title}}</li>
-	      <li jqm-li-link jqm-theme="b" class="ui-icon-alt" ng-repeat="favorite in favs" ng-click="selectQuery(favorite)">
-	        {{favorite.queryId}}</a>
-	      </li>
-	    </ul>
+  <div style="text-align:center;width:100%;position:absolute;" ng-click="goHome()">
+    <img src="images/home.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;">
   </div>
+  <div style="position:absolute;right:8px;" ng-click="goConfig()">
+    <img src="images/config.png" style="width:24px;height:24px;margin-top:6px;">
+  </div>
+</div>
+<div jqm-theme="b">
+
+  <div style="height:12px;"></div>
+  <div>
+   <ul jqm-listview style="">
+
+     <li jqm-li-divider>Favorite {{title}}</li>
+     <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-repeat="favorite in favs" ng-click="selectQuery(favorite)" ng-show="favTypeQuery">
+       {{favorite.queryId}}</a>
+     </li>
+     <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-repeat="favorite in favs" ng-click="selectItems(favorite)" ng-show="favTypeItem">
+      {{favorite.itemId}}</a>
+    </li>
+  </ul>
+</div>
 </div>

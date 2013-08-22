@@ -1,11 +1,9 @@
 <div jqm-page jqm-theme="a">
 	<div jqm-header>
-		<a ng-click="state.panel='left'" class="ui-btn-left ui-btn ui-btn-corner-all ui-btn-icon-notext ui-btn-up-b">	
-			<span class="ui-btn-inner">
-				<span class="ui-icon-alt ui-icon ui-icon-bars">&nbsp;
-				</span>
-			</span>
-		</a>
+		
+		<div class="backButton" ng-click="state.panel='left'">
+			 <img src="images/panel2.png" class="backButtonImage">
+		</div>
 		<div style="display:none" class="ui-btn-right ui-btn ui-btn-corner-all ui-btn-icon-notext ui-btn-up-c">	
 			<span class="ui-btn-inner">
 				<span class="ui-icon ui-icon-search">&nbsp;
@@ -36,48 +34,56 @@
 	
 	<div>
 		<div jqm-theme="b">
-			<div class="homeDivider">Pending Work</div>
-		    <ul jqm-listview style="">
-		      <li jqm-li-entry jqm-theme="b" class="ui-icon-alt" ng-click="selectProject(project)">
-		        None
-		      </li>
-		      <li jqm-li-link jqm-theme="b" class="ui-icon-alt" ng-click="selectProject(project)" ng-repeat="project in filterBuilds(projects())">
-		        <a>{{project.title}}</a>
-		      </li>
-	      </ul>
+			<div class="subTitle">Pending Work</div>
+			<div class="listGroup" style="margin-left:8px;width:95%;border-left-color:#0071BC; border-left-width:2px; border-left-style:solid;">
+			    <ul jqm-listview style="margin-left:0px;">
+			      <li jqm-li-link jqm-theme="b" class="ui-icon-alt" >
+			        <a>Android 2.2 has strange menu</a>
+			      </li>
+			      <li jqm-li-link jqm-theme="b" class="ui-icon-alt">
+			        <a>iphone black screen</a>
+			      </li>
+			      <li jqm-li-link jqm-theme="b" class="ui-icon-alt" ng-click="selectProject(project)" ng-repeat="project in filterBuilds(projects())">
+			        <a>{{project.title}}</a>
+			      </li>
+		     	</ul>
+		     </div>
 	  </div>
-
-	  <div class="homeDivider">Favorites</div>
+	  <div style="height:15px;">
+	  <div class="subTitle" style="padding-top:15px">Favorites</div>
 	      
-	  <div style="padding-top:15px">
+	  <div style="padding-top:8px">
 	  	<div id="row1" style="position:relative;width:100%">
-	  		<div id="cell1" ng-click="go('favorites/1')" style="position:absolute;width:50%;height:200px;left:0px; border-width:0px 0px 0px 0px;border-color:#e6e6e6;border-style:solid;background-color:#333333;">
-	  			<div id="favQueryAmount" style="position:absolute;height:50px;width:70px;right:5px;top:5px;opacity:0.8;color:#29A2E6;text-align:center;font-size:50px;color:white;">90</div>
-	  			<div style="position:absolute;top:20px;left:8px;width:100%">
-	  				<img src="images/star.png" style="width:80px;height:80px"/>
+	  		<div id="cell1" ng-click="go('favorites/1')" class="tile topleft" >
+	  			
+	  			<div class="tileTitle">Queries</div>
+	  			<div class="tileIcon">
+	  				<img src="images/panelQueries.png" style="width:30px;height:30px"/>
 	  			</div>
-	  			<div style="color:white;position:absolute;bottom:8px;left:8px;font-size:28px;">Queries</div>
+	  			<div id="favQueryAmount" class="tileCount">9</div>
+	  			</div>
+	  		<div id="cell2" ng-click="go('favorites/3')" class="tile topRight">
+	  			<div class="tileTitle">Search</div>
+	  			<div class="tileIcon">
+	  				<img src="images/panelSearch.png" style="width:30px;height:30px"/>
+	  			</div>
+	  			<div id="favSearchAmount" class="tileCount">22</div>
 	  		</div>
-	  		<div id="cell2" ng-click="go('favorites/3')" style="position:absolute;width:50%;height:200px;right:0px; border-width:0px 0px 0px 4px;border-color:#e6e6e6;border-style:solid;background-color:#333333;">
-	  			<div id="favSearchAmount" style="position:absolute;height:50px;width:70px;right:5px;top:5px;opacity:0.8;color:#29A2E6;text-align:center;font-size:50px;color:white;">90</div>
-	  			<div style="position:absolute;top:20px;left:8px;width:100%">
-	  				<img src="images/star.png" style="width:80px;height:80px"/>
+	  		<div id="cell3" ng-click="go('favorites/2')" class="tile bottomRight">
+	  			<div class="tileTitle">Work Items</div>
+
+	  			<div class="tileIcon">
+	  				<img src="images/panelCreate.png" style="width:30px;height:30px"/>
 	  			</div>
-	  			<div style="color:white;position:absolute;bottom:8px;left:8px;font-size:28px;">Search</div>
+	  			
+	  			<div id="favItemAmount" class="tileCount">0</div>
 	  		</div>
-	  		<div id="cell3" ng-click="go('favorites/2')" style="position:absolute;width:50%;height:200px;top:200px;left:0px; border-width:4px 0px 0px 0px;border-color:#e6e6e6;border-style:solid;background-color:#333333;">
-	  			<div id="favItemAmount" style="position:absolute;height:50px;width:70px;right:5px;top:5px;opacity:0.8;color:#29A2E6;text-align:center;font-size:50px;color:white;">90</div>
-	  			<div style="position:absolute;top:20px;left:8px;width:100%">
-	  				<img src="images/star.png" style="width:80px;height:80px"/>
+			<div id="cell4" ng-click="go('favorites/4')" class="tile bottomLeft">
+				<div class="tileTitle">Builds</div>
+	  			<div class="tileIcon">
+	  				<img src="images/panelBuilds.png" style="width:30px;height:30px"/>
 	  			</div>
-	  			<div style="color:white;position:absolute;bottom:8px;left:8px;font-size:28px;">Work Items</div>
-	  		</div>
-			<div id="cell4" ng-click="go('favorites/4')" style="position:absolute;width:50%;height:200px;top:200px;right:0px; border-width:4px 0px 0px 4px;border-color:#e6e6e6;border-style:solid;background-color:#333333;">
-				<div id="favBuildAmount" style="position:absolute;height:50px;width:70px;right:5px;top:5px;opacity:0.8;color:#29A2E6;text-align:center;font-size:50px;color:white;">90</div>
-	  			<div style="position:absolute;top:20px;left:8px;width:100%">
-	  				<img src="images/star.png" style="width:80px;height:80px"/>
-	  			</div>
-	  			<div style="color:white;position:absolute;bottom:8px;left:8px;font-size:28px;">Builds</div>
+	  			<div id="favBuildAmount" class="tileCount">2</div>
 	  		</div>	  		
 
 	  	</div>
