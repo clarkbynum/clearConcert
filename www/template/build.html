@@ -8,13 +8,14 @@
     </div>
   </div>
   <div jqm-theme="b">
-    <div style=""  jqm-textinput ng-model="resultFilterInput" placeholder="Filter Project Areas..."></div>
+    <div style=""  jqm-theme="a" jqm-textinput ng-model="projectFilter" placeholder="Filter Project Areas..."></div>
     <div style="height:12px;"></div>
     <div>
 	    <ul jqm-listview style="">
 	      
-	      <li jqm-li-divider>Project Areas ({{projects().length}})</li>
-	      <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-click="selectProject(project)" ng-repeat="project in filterBuilds(projects())">
+	      <li jqm-li-divider>Project Areas ({{projects.length}})</li>
+	      <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-click="selectProject(project)" 
+        ng-repeat="project in projects | filter:projectFilter">
 	        <a>{{project.title}}</a>
 	      </li>
 	    </ul>

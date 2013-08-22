@@ -7,13 +7,14 @@
     </div>
   </div>
   <div jqm-theme="b">
-    <div style=""  jqm-textinput ng-model="resultFilterInput" placeholder="Filter Results..."></div>
+    <div style=""  jqm-theme="a" jqm-textinput ng-model="logFilter" placeholder="Filter Results..."></div>
     <div style="height:12px;"></div>
     <div>
 	    <ul jqm-listview style="">
 	      
 	      <li jqm-li-divider>builds ({{buildResults.length}})</li>
-	      <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-click="selectResult(result)" ng-repeat="result in buildResults">
+	      <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-click="selectResult(result)" 
+        ng-repeat="result in buildResults | filter:logFilter">
 	        <a>{{result.name}}</a>
 			<a>{{result.state}}</a>
 	      </li>

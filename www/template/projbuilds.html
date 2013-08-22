@@ -8,13 +8,14 @@
     </div>
   </div>
   <div jqm-theme="b">
-    <div style=""  jqm-textinput ng-model="resultFilterInput" placeholder="Filter Builds..."></div>
+    <div style=""  jqm-theme="a" jqm-textinput ng-model="buildFilter" placeholder="Filter Builds..."></div>
     <div style="height:12px;"></div>
     <div>
 	    <ul jqm-listview style="">
 	      
 	      <li jqm-li-divider>builds ({{projBuilds.length}})</li>
-	      <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-click="selectBuild(build)" ng-repeat="build in filterBuilds(projBuilds)">
+	      <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-click="selectBuild(build)" 
+        ng-repeat="build in projBuilds | filter:buildFilter">
 	        <a>{{build.title}}</a>
 			<a>{{build.description}}</a>
 	      </li>
