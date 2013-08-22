@@ -19,8 +19,11 @@
 	    </div>-->
 
 	    <form id="searchForm" ng-submit="search.text && searchPressed(search.text)">
-                <input id="searchBox" ng-model="search.text" placeholder="Search for work items" type="text"/>              
+                  
+                <input id="searchBox" ng-model="search.text" placeholder="Search for work items" type="text"/>
+                <span id="clearIcon" ng-hide="showX()" ng-click="clearSearch($event)">X</span> 
             </form>
+            
 		<h1></h1>
 		
 		<!-- <a ng-click="state.panel='right'" class="ui-btn-right ui-btn ui-btn-corner-all ui-btn-icon-notext ui-btn-up-c">	
