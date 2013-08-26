@@ -8,12 +8,13 @@
     </div>
   </div>
   <div jqm-theme="b">
-    <div style="margin:8px" jqm-textinput ng-model="resultFilterInput" placeholder="Filter Queries..."></div>
+    <div jqm-theme="a" style="margin:8px" jqm-textinput ng-model="queryResultsFilter" placeholder="Filter Queries..."></div>
 
     <ul jqm-listview style="padding-top:12px;">
     	
       <li jqm-li-divider>{{projectTitle}}</li>
-      <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-repeat="query in filterQueries(queries)" ng-click="selectQuery(query)">
+      <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-repeat="query in queries | filter: queryResultsFilter" 
+      ng-click="selectQuery(query)">
        {{query.title}}
       </li>
       <li ng-show="query.noResults" jqm-li-entry class="right no-result-text">

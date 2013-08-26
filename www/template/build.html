@@ -11,9 +11,8 @@
     <div style=""  jqm-theme="a" jqm-textinput ng-model="projectFilter" placeholder="Filter Project Areas..."></div>
     <div style="height:12px;"></div>
     <div>
-	    <ul jqm-listview style="">
-	      
-	      <li jqm-li-divider>Project Areas ({{projects.length}})</li>
+      <span jqm-li-divider>Project Areas ({{projects.length}})</span>
+	    <ul jqm-listview jqm-theme="a">    
 	      <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-click="selectProject(project)" 
         ng-repeat="project in projects | filter:projectFilter">
 	        <a>{{project.title}}</a>

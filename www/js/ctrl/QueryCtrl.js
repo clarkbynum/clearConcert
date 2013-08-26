@@ -4,9 +4,8 @@ function($scope, catalog, $location, $log, query, $loadDialog, $routeParams) {
 
   var projectId = $routeParams.projectId;
 
-	$scope.projects = function() {
-	    return catalog.list();
-	  };
+	$scope.projects = catalog.list();
+
 	$scope.getProjectQueries = function(projectId) {
     var promise = query.queriesForProject(projectId).then(function(queries) {
       $scope.queries = queries;
@@ -49,8 +48,9 @@ function($scope, catalog, $location, $log, query, $loadDialog, $routeParams) {
   };
 
   $scope.selectQuery = function(queryObj) {
-    query.resultsForQuery(projectId, queryObj.queryId).then(function(result) {
-      if (result.items.length === 0) {
+    $scope.getProjectQueries(projectId, queryObj.queryId).then(function(result) {
+    //query.resultsForQuery(projectId, queryObj.queryId).then(function(result) {
+      if (result.length === 0) {
         queryObj.noResults = true;
       } else {
         $location.path("/query/$0/$1".format(projectId, queryObj.queryId));

@@ -7,14 +7,16 @@
         <img src="images/home.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;">
       </div>
     </div>
-  </div>
+  
   <div jqm-theme="b">
-    <div style="margin:8px"  jqm-textinput ng-model="resultFilterInput" placeholder="Filter Project Areas..."></div>
+    <div style="margin:8px" jqm-theme="a" jqm-textinput ng-model="queryFilter" placeholder="Filter Project Areas..."></div>
 
+  <span jqm-li-divider>Project Areas ({{projects.length}})</span>
     <ul jqm-listview style="padding-top:12px;">
       
-      <li jqm-li-divider>Project Areas ({{projects().length}})</li>
-      <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-click="selectProject(project)" ng-repeat="project in filterQueries(projects())">
+      
+      <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-click="selectProject(project)" 
+      ng-repeat="project in projects | filter: queryFilter">
         <a>{{project.title}}</a>
       </li>
     </ul>

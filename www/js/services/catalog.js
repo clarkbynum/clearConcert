@@ -29,7 +29,7 @@ function($http, $rootScope, $q, settings, $timeout, $log) {
             return resource.indexOf(project.projectId) > -1;
           });
         });
-        console.log(catalogList);
+        
         return catalogList;
       });
     }).then(function(catalogList) {
