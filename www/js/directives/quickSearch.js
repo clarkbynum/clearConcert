@@ -9,7 +9,7 @@ angular.module('clearConcert')
             label: '@'
         },
         
-        template: '<form id="form" ng-submit="searchPressed(search.text)"><img src="images/search.png" ng-hide="showInput"><input placeholder="Search for work items" type="search" ng-model="search" ng-show="showInput"></input></form>',
+        template: '<form id="form" ng-submit="searchPressed(search)"><img src="images/search.png" ng-hide="showInput"><input placeholder="Search for work items" type="search" ng-model="search" ng-show="showInput"></input></form>',
         
         transclude: true,
         
