@@ -35,24 +35,25 @@
 	<div>
 		<div jqm-theme="b">
 			<div class="subTitle">Pending Work</div>
-			<div class="listGroup" style="margin-left:8px;width:95%;border-left-color:#0071BC; border-left-width:2px; border-left-style:solid;">
-			    <ul jqm-listview style="margin-left:0px;">
-			      <li jqm-li-link jqm-theme="b" class="ui-icon-alt" >
-			        <a>Android 2.2 has strange menu</a>
+			<div class="list-group" >
+			    <ul jqm-listview style="">
+			      <li jqm-li-entry jqm-theme="b" class="ui-icon-alt" >
+			        <span>Android 2.2 has strange...</span>
+			        <span class="right">Approval</span>
 			      </li>
-			      <li jqm-li-link jqm-theme="b" class="ui-icon-alt">
-			        <a>iphone black screen</a>
+			      <li jqm-li-entry jqm-theme="b" class="ui-icon-alt">
+			        <span>iphone black screen...</span>
+			        <span class="right">Approval</span>
 			      </li>
-			      <li jqm-li-link jqm-theme="b" class="ui-icon-alt" ng-click="selectProject(project)" ng-repeat="project in filterBuilds(projects())">
+			      <li jqm-li-entry jqm-theme="b" class="ui-icon-alt" ng-click="selectProject(project)" ng-repeat="project in filterBuilds(projects())">
 			        <a>{{project.title}}</a>
 			      </li>
 		     	</ul>
 		     </div>
 	  </div>
-	  <div style="height:15px;">
-	  <div class="subTitle" style="padding-top:15px">Favorites</div>
+	  <div class="subTitle" style="padding-top:10px">Favorites</div>
 	      
-	  <div style="padding-top:8px">
+	  <div style="padding-top:4px;height:315px;">
 	  	<div id="row1" style="position:relative;width:100%">
 	  		<div id="cell1" ng-click="go('favorites/1')" class="tile topleft" >
 	  			
@@ -62,7 +63,7 @@
 	  			</div>
 	  			<div id="favQueryAmount" class="tileCount">9</div>
 	  			</div>
-	  		<div id="cell2" ng-click="go('favorites/3')" class="tile topRight">
+	  		<div id="cell2" ng-click="go('favorites/3')" class="topRight tile "> 
 	  			<div class="tileTitle">Search</div>
 	  			<div class="tileIcon">
 	  				<img src="images/panelSearch.png" style="width:30px;height:30px"/>

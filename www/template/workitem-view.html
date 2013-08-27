@@ -1,64 +1,76 @@
-  <ul jqm-listview ng-click="edit('Summary')">
-    <li jqm-li-entry>
-      <a><img src="images/book.png"> Summary</a>
-    </li>
-    <li jqm-li-entry><p>{{item['dc:title'].unescapeHTML()}}</p></li>  
-  </ul>
-  <ul jqm-listview>
-    <li jqm-li-entry>
-      <span class="left"><img src="images/summary.gif"> Identifier</span>
-      <span class="right">{{item['dc:identifier']}}</span>
-    </li>
-    <li jqm-li-entry class="pair">
-      <span class="left"><img src="images/date_add.png"> Created</span>
-      <span class="right" time-ago="item['dc:created']"></span>
-    </li>
-    <li jqm-li-entry class="pair">
-    <span class="left"><img src="images/date_next.png"> {{item['rtc_cm:resolved'] && 'Resolved' || 'Modified'}}</span>
-    <span class="right" time-ago="item['rtc_cm:resolved'] || item['dc:modified']"></span>
-    </li>
-    <li jqm-li-entry class="pair" ng-show="resource['rtc_cm:plannedFor']['dc:title']">
-      <span class="left"><img src="images/time.png"> Planned For</span>
-      <span class="right">
-        {{resource['rtc_cm:plannedFor']['dc:title']}}
-        <span time-ago="resource['rtc_cm:plannedFor']['rtc_cm:endDate']"></span>
-      </span>
-    </li>
-    <li jqm-li-entry class="pair">
-      <span class="left"><img src="images/projectArea.gif"> Project Area</span>
-      <span class="right">{{resource['rtc_cm:projectArea']['dc:title']}}</span>
-    </li>
-  </ul>
-  <ul jqm-listview>
-    <li jqm-li-entry class="pair" ng-show="resource['rtc_cm:filedAgainst']['dc:title']" ng-click="edit('Filed Against')">
-      <a><img src="images/database_table.png"> Filed Against</a>
-      <span class="right">{{resource['rtc_cm:filedAgainst']['dc:title']}}</span>
-    </li>
-    <li jqm-li-entry class="pair" ng-click="edit('State')">
-      <a><img ng-src="{{resource['rtc_cm:state']['rtc_cm:iconUrl']}}"> State</a>
-      <span class="right">{{resource['rtc_cm:state']['dc:title']}}</span>
-    </li>
-    <li jqm-li-entry class="pair" ng-click="edit('Severity')">
-      <a><img ng-src="{{resource['oslc_cm:severity']['rtc_cm:iconUrl']}}"> Severity</a>
-      <span class="right">{{resource['oslc_cm:severity']['dc:title']}}</span>
-    </li>
-    <li jqm-li-entry class="pair" ng-show="ownerOptions.length" ng-click="edit('Owner')">
-      <a><img src="images/user.png"> Owner</a>
-      <span class="right">{{resource['rtc_cm:ownedBy']['dc:title']}}</span>
-    </li>
-    <li jqm-li-entry class="pair" ng-click="edit('Priority')">
-      <a><img ng-src="{{resource['oslc_cm:priority']['rtc_cm:iconUrl']}}">Priority</a>
-      <span class="right">{{resource['oslc_cm:priority']['dc:title']}}</span>
-    </li>
-    <li jqm-li-entry class="pair" ng-click="edit('Due Date')">
-      <a><img src="images/date.png"> Due Date</a>
-      <span class="right" time-ago="item['rtc_cm:due']"></span>
-    </li>
-    <li jqm-li-entry class="pair" ng-click="edit('Estimate')">
-      <a><img src="images/thumb_up.png"> Estimate</a>
-      <span class="right">{{(estimate.amount||0) + ' ' + estimateIdToTitle(estimate.unit)}}</span>
-    </li>
-  </ul>
+  <div class="list-group" >
+    <ul jqm-listview ng-click="edit('Summary')">
+     
+      <li jqm-li-entry  >
+        <a><img src="images/book.png"> Summary</a>
+      </li>
+      <li jqm-li-entry><p>{{item['dc:title'].unescapeHTML()}}</p></li>  
+    </ul>
+  </div>
+  <div class="list-group" >
+    <ul jqm-listview>
+      <li jqm-li-entry>
+        <span class="left"><img src="images/summary.gif"> Identifier</span>
+        <span class="right">{{item['dc:identifier']}}</span>
+      </li>
+      
+      <li jqm-li-entry class="pair">
+        <span class="left"><img src="images/date_add.png"> Created</span>
+        <span class="right" time-ago="item['dc:created']"></span>
+      </li>
+      <li jqm-li-entry class="pair">
+      <span class="left"><img src="images/date_next.png"> {{item['rtc_cm:resolved'] && 'Resolved' || 'Modified'}}</span>
+      <span class="right" time-ago="item['rtc_cm:resolved'] || item['dc:modified']"></span>
+      </li>
+      <li jqm-li-entry class="pair" ng-show="resource['rtc_cm:plannedFor']['dc:title']">
+        <span class="left"><img src="images/time.png"> Planned For</span>
+        <span class="right">
+          {{resource['rtc_cm:plannedFor']['dc:title']}}
+          <span time-ago="resource['rtc_cm:plannedFor']['rtc_cm:endDate']"></span>
+        </span>
+      </li>
+      <li jqm-li-entry class="pair">
+        <span class="left"><img src="images/projectArea.gif"> Project Area</span>
+        <span class="right">{{resource['rtc_cm:projectArea']['dc:title']}}</span>
+      </li>
+    </ul>
+  </div>
+  <div class="list-group" >
+    <ul jqm-listview>
+      <li jqm-li-entry  >
+        <span class="">Type</span>
+        <span class="right">{{resource['dc:type']['dc:title']}}</span>
+      </li>
+      <li jqm-li-entry class="pair" ng-show="resource['rtc_cm:filedAgainst']['dc:title']" ng-click="edit('Filed Against')">
+        <a><img src="images/database_table.png"> Filed Against</a>
+        <span class="right">{{resource['rtc_cm:filedAgainst']['dc:title']}}</span>
+      </li>
+      <li jqm-li-entry class="pair" ng-click="edit('State')">
+        <a><img ng-src="{{resource['rtc_cm:state']['rtc_cm:iconUrl']}}"> State</a>
+        <span class="right">{{resource['rtc_cm:state']['dc:title']}}</span>
+      </li>
+      <li jqm-li-entry class="pair" ng-click="edit('Severity')">
+        <a><img ng-src="{{resource['oslc_cm:severity']['rtc_cm:iconUrl']}}"> Severity</a>
+        <span class="right">{{resource['oslc_cm:severity']['dc:title']}}</span>
+      </li>
+      <li jqm-li-entry class="pair" ng-show="ownerOptions.length" ng-click="edit('Owner')">
+        <a><img src="images/user.png"> Owner</a>
+        <span class="right">{{resource['rtc_cm:ownedBy']['dc:title']}}</span>
+      </li>
+      <li jqm-li-entry class="pair" ng-click="edit('Priority')">
+        <a><img ng-src="{{resource['oslc_cm:priority']['rtc_cm:iconUrl']}}">Priority</a>
+        <span class="right">{{resource['oslc_cm:priority']['dc:title']}}</span>
+      </li>
+      <li jqm-li-entry class="pair" ng-click="edit('Due Date')">
+        <a><img src="images/date.png"> Due Date</a>
+        <span class="right" time-ago="item['rtc_cm:due']"></span>
+      </li>
+      <li jqm-li-entry class="pair" ng-click="edit('Estimate')">
+        <a><img src="images/thumb_up.png"> Estimate</a>
+        <span class="right">{{(estimate.amount||0) + ' ' + estimateIdToTitle(estimate.unit)}}</span>
+      </li>
+    </ul>
+  </div>
   <ul jqm-listview ng-click="edit('Description')">
     <li jqm-li-entry><a><img src="images/book.png"> Description</a></li>
     <li jqm-li-entry><p ng-bind-html-unsafe="item['dc:description'] | ellipsis:300"></p></li>
