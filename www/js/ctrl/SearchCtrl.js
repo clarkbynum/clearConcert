@@ -3,6 +3,7 @@ angular.module('clearConcert')
 function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
 
 	$scope.query = $routeParams.query || '';
+	$scope.isFav = false;
 	//We page our requests: Only send 20 requests out at a time.
   //This is because the server is so slow sometimes
   var requestPageSize = 20;
