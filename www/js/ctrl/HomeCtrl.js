@@ -5,11 +5,41 @@ function($scope, $location){
 		text:""
 	};
 
+	
+	$scope.textHasFocus = false;
+
+	$scope.captureClick = function(e){
+		var elem = angular.element(e.srcElement);
+		console.log(elem);
+		if(elem.hasClass("clear") || elem.hasClass("searchImg")){
+			console.log("button");
+			var form = elem.parent();
+			console.log(form);
+			var htmlTxtBox = form.children()[1];
+			console.log(htmlTxtBox);
+			var txtBox = angular.element(htmlTxtBox);
+			
+			//htmlTxtBox.focus();
+			$scope.textHasFocus=true;
+			//setTimeout("angular.element(document.getElementById('searchBox')).css('width','50px')",10);
+			//setTimeout("angular.element(document.getElementById('searchBox')).css({'width':'500px','transition':'width 1s'})",10);
+			
+			setTimeout("document.getElementById('searchBox').focus()", 10);
+		} else{
+			//txtBox.css({"width":"50px", "transition":"1s"})
+			$scope.textHasFocus = false;
+		}
+	}	
+
 	$scope.clearSearch = function(e){
         
-       angular.element(e.srcElement).parent().children()[0].focus();
+       var textBox = angular.element(e.srcElement).parent().children()[1];
+       console.log(textBox);
+       textBox.focus();
+       //console.log(document.activeElement);
+       
 
-        $scope.search.text = "";
+       $scope.search.text = "";
     };
     
     $scope.showX = function () {
