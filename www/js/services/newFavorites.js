@@ -21,8 +21,13 @@ angular.module('clearConcert')
 	}
 
 	var getFavs = function(){
-		var	favs = JSON.parse(localStorage['favorites']);
-		return favs;
+		var rawFavs = localStorage['favorites'];
+		
+		if(rawFavs) {
+			return JSON.parse(localStorage['favorites']);
+		} else {
+			return {};
+		}
 	}
 
 	var addFav = function(fav){
