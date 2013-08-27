@@ -4,15 +4,36 @@
 	<div style="font-size:16px;font-weight:lighter;">
 		<ul jqm-listview>
 			
-			<li jqm-li-entry ng-click="go('create-workitem')"><img src="images/panelCreate.png">Create Item</li>
-			<li jqm-li-entry ng-click="go('search')"><img src="images/panelSearch.png" style="width:24px;height:24px;">Search</li>
-			<li  jqm-li-entry ng-click="go('query')"><img src="images/panelQueries.png">Queries</li>
-			<li jqm-li-entry ng-click="go('build')"><img src="images/panelBuilds.png">Builds</li>
-			<li jqm-li-entry ng-click="go('settings')"><img src="images/panelSettings.png">Settings</li>
-			<li jqm-li-entry ng-click="go('about')">About</li>
-			<li jqm-li-entry ng-click="go('problem')">Report a problem</li>
-			<li jqm-li-entry ng-click="logout()">Logout</li>
-		</ul>
+			<li jqm-li-entry has-thumb ng-click="go('create-workitem')" style="padding: .2em 0px;">
+				<img src="images/panelCreate.png" style="width:24px;height:24px;">
+				<span style="margin-left:18px;">Create Item</span>
+			</li>
+			<li jqm-li-entry ng-click="go('search')" style="padding: .2em 0px;">
+				<img src="images/panelSearch.png" style="width:24px;height:24px;">
+				<span style="margin-left:18px">Search</span>
+			</li>
+			<li  jqm-li-entry ng-click="go('query')" style="padding: .2em 0px;">
+				<img src="images/panelQueries.png" style="width:24px;height:24px;">
+				<span style="margin-left:18px">Queries</span>
+			</li>
+			<li jqm-li-entry ng-click="go('build')" style="padding: .2em 0px;">
+				<img src="images/panelBuilds.png" style="width:24px;height:24px;">
+				<span style="margin-left:18px">Builds</span>
+			</li>
+			<li jqm-li-entry ng-click="go('settings')" style="padding: .2em 0px;">
+				<img src="images/panelSettings.png" style="width:24px;height:24px;">
+				<span style="margin-left:18px">Settings</span>
+			</li>
+			<li jqm-li-entry ng-click="go('about')" style="padding: .2em 0px;">
+				<span style="margin-left:18px">About</span>
+			</li>
+			<li jqm-li-entry ng-click="go('problem')" style="padding: .2em 0px;">
+				<span style="margin-left:18px">Report a problem</span>
+			</li>
+			<li jqm-li-entry ng-click="logout()" style="padding: .2em 0px;">
+				<span style="margin-left:18px">Logout</span>
+			</li>
+		</ul> 
 	</div>
 
 	

@@ -1,11 +1,12 @@
 <div jqm-page jqm-theme="a">
 	<div jqm-header>
-		<a class="ui-btn ui-btn-up-c ui-btn-left ui-btn-corner-all" ng-click="$back()">
-      <span class="ui-btn-inner">
-        <span class="ui-btn-text"><</span>
-      </span>
-    </a>
-		<h1>{{resource['dc:type']['dc:title'] || 'Work Item'}}</h1>
+		<div class="backButton" ng-click="$back()">
+      <img src="images/back.png" style="width:24px;height:24px;">
+    </div>
+      <div style="text-align:center;width:100%" ng-click="go('')">
+        <img src="images/home.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;">
+    </div>
+		
 	</div>
 
   <div ng-switch="isNew()">
