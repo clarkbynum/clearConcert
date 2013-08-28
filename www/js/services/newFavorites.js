@@ -18,7 +18,7 @@ angular.module('clearConcert')
 		};
 		
 		return ret;
-	}
+	};
 
 	var getFavs = function(){
 		var rawFavs = localStorage['favorites'];
@@ -28,7 +28,7 @@ angular.module('clearConcert')
 		} else {
 			return {};
 		}
-	}
+	};
 
 	var addFav = function(fav){
 		var rawFavs = localStorage['favorites'];

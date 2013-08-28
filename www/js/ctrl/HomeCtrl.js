@@ -5,19 +5,9 @@ function($scope, $location){
 		text:""
 	};
 
-	$scope.clearSearch = function(e){
-        
-       angular.element(e.srcElement).parent().children()[0].focus();
-
-        $scope.search.text = "";
-    };
-    
-    $scope.showX = function () {
-    	return $scope.search.text ==="";
-};
-
 	$scope.searchPressed = function(criteria){
 		//If it's a number, go straight to it
+		console.log('called');
 		$scope.$hidePanel();
 		if (criteria == +criteria) {
 			$location.path('/workitem/$0'.format(criteria));

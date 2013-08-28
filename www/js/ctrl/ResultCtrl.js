@@ -80,43 +80,41 @@ angular.module('clearConcert')
 		var favorite = favorites.getSearchFavorite(query, projectId);
 		return {
 			advancedFilterOptions: true,
-title: function() {
-	return query + ': ' + catalog.byId(projectId).title;
-},
-fetch: function(pageSize) {
-	return search.getResultsForProject(projectId, query, pageSize);
-},
-//Use $timeout to make sure we load for at least a short time, or else
-//it just looks like ugly scrolling if our internet is too fast and we
-//get the results back before 'Loading More' appears
-loadMore: function(pageUrl) {
-	var timeoutPromise = $timeout(function(){}, 750);
-	return search.getMoreResults(pageUrl).then(function(result) {
-		return timeoutPromise.then(function() {
-			return result;
-		});
-	});
-},
-	clear: function() {
-		search.clearCache();
-	},
-	setFavorite: function() {
-		if (newFavorites.checkFav(projectId, queryId, 2)) {
-			console.log("remove");
-			newFavorites.removeFav(projectId, queryId, 2);
-		} else {
-			console.log("add");
-			var newFav = newFavorites.newQueryFav(projectId, queryId, 2);
-			newFavorites.addFav(newFav);
-		}
-	},
-	isFavorite: function() {
-		return newFavorites.checkFav(projectId, queryId, 1);
-	}
-
-
-};
-};
+			title: function() {
+				return query + ': ' + catalog.byId(projectId).title;
+			},
+			fetch: function(pageSize) {
+				return search.getResultsForProject(projectId, query, pageSize);
+			},
+			//Use $timeout to make sure we load for at least a short time, or else
+			//it just looks like ugly scrolling if our internet is too fast and we
+			//get the results back before 'Loading More' appears
+			loadMore: function(pageUrl) {
+				var timeoutPromise = $timeout(function(){}, 750);
+				return search.getMoreResults(pageUrl).then(function(result) {
+					return timeoutPromise.then(function() {
+						return result;
+					});
+				});
+			},
+			clear: function() {
+				search.clearCache();
+			},
+			setFavorite: function() {
+				if (newFavorites.checkFav(projectId, queryId, 2)) {
+					console.log("remove");
+					newFavorites.removeFav(projectId, queryId, 2);
+				} else {
+					console.log("add");
+					var newFav = newFavorites.newQueryFav(projectId, queryId, 2);
+					newFavorites.addFav(newFav);
+				}
+			},
+			isFavorite: function() {
+				return newFavorites.checkFav(projectId, queryId, 1);
+			}
+		};
+	};
 }])
 .factory('QueryResultData', ['query', 'favorites', 'catalog', '$q', '$timeout', 'newFavorites', function(query, favorites, catalog, $q, $timeout, newFavorites) {
 	return function createQueryResultData(projectId, queryId) {
