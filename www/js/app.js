@@ -152,6 +152,7 @@ var clearConcert = angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'
     } else {
       var promise = workItems.get(settings.repository, id).$fetch().then(function(item) {
         if (typeof item.status == 'undefined'){
+          //item.$getAllLinks();
           return item.$getAllResources();
         }else{
          window.history.back();

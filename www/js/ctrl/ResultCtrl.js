@@ -8,7 +8,7 @@ angular.module('clearConcert')
 			$scope.totalResults = -1;
 			$scope.fetch = function() {
 				var promise = resultData.fetch(PAGE_SIZE).then(function(result) {
-					$scope.results = $scope.results.concat(result);
+					$scope.results = $scope.results.concat(result.items);
 					nextPageUrl = result.next;
 					$scope.totalResults = result.total;
 				});
