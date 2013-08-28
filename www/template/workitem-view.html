@@ -7,7 +7,7 @@
       <li jqm-li-entry><p>{{item['dc:title'].unescapeHTML()}}</p></li>  
     </ul>
   </div>
-  <div class="list-group" >
+  <div class="list-group" style="border-right-width:3px;">
     <ul jqm-listview>
       <li jqm-li-entry>
         <span class="left"><img src="images/summary.gif"> Identifier</span>
@@ -71,33 +71,66 @@
       </li>
     </ul>
   </div>
-  <ul jqm-listview ng-click="edit('Description')">
-    <li jqm-li-entry><a><img src="images/book.png"> Description</a></li>
-    <li jqm-li-entry><p ng-bind-html-unsafe="item['dc:description'] | ellipsis:300"></p></li>
-  </ul>
+  <div class="list-group" >
+    <ul jqm-listview ng-click="edit('Description')">
+      <li jqm-li-entry><a><img src="images/book.png"> Description</a></li>
+      <li jqm-li-entry><p ng-bind-html-unsafe="item['dc:description'] | ellipsis:300"></p></li>
+    </ul>
+  </div>
 
-  <button style="margin-bottom: 8px;" class="btn full" ng-click="openExternalBrowser(item['rdf:resource'])">
+  <div class="list-group" jqm-theme="b">
+    <ul jqm-listview>
+      <li jqm-li-divider jqm-theme="b">Links</li>
+      <li jqm-li-entry>
+        <span>540 Open new .... </span>
+        <span class="right">Parent</span>
+      </li>
+      <li jqm-li-entry>
+        <span>99 Expand the total amount of allowed... </span>
+        <span class="right">Child</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="list-group" jqm-theme="b">
+    <ul jqm-listview>
+      <li jqm-li-divider jqm-theme="b">Approvals</li>
+      <li jqm-li-entry>
+        <span>August 27,2013</span>
+        <span class="right">Pending</span>
+      </li>
+      <li jqm-li-entry>
+        <span>July 15, 2013 </span>
+        <span class="right">Approved</span>
+      </li>
+    </ul>
+  </div>
+<!--   <button style="margin-bottom: 8px;" class="btn full" ng-click="openExternalBrowser(item['rdf:resource'])">
     Open Work Item in Browser
-  </button>
-
-  <h2 class="content-title" style="margin-bottom: 5px;">Comments ({{comments.length}})</h2>
+  </button> -->
+<a jqm-button jqm-theme="b" style="margin:40px" ng-click="openExternalBrowser(item['rdf:resource'])">Open Work Item in Browser</a>
+<div class="subTitle">Comments ({{comments.length}})</div>
+  <!-- <h2 class="content-title" style="margin-bottom: 5px;">Comments ({{comments.length}})</h2> -->
   <form ng-submit="!newCommentLoading && newComment.text.length && submitComment()">
     <input type="text" ng-model="newComment.text" placeholder="Add a Comment..." style="width:87%; height: 40px;" ng-disabled="newCommentLoading">
-    <button class="btn btn-normal btn-primary" style="float:right; width:13%; position: absolute;" type="submit" ng-disabled="newCommentLoading">
-      <i ng-class="newCommentLoading && 'icon-spin icon-refresh' || 'icon-comment'"></i>
+    <button class="btn btn-normal btn-primary" style="float:right; width:13%; height:40px;position: absolute;" type="submit" ng-disabled="newCommentLoading">
+      <!-- <i ng-class="newCommentLoading && 'icon-spin icon-refresh' || 'icon-comment'"></i> -->
+      <img src="images/comments_add.png">
     </button>
+
   </form>
-  <ul jqm-listview style="margin-top: 5px;" id="comment-list">
-    <span ng-repeat="comment in comments">
-      <li jqm-li-entry style="border-radius: 0;"
-          ng-style="{'border-bottom': !$last && 'none'}"
-          rtc-comment="#comment-list" rtc-comment-if="newCommentAdded">
-        {{comment['dc:creator']['dc:title'].length != null && comment['dc:creator']['dc:title'] || "No Name"  }}
-        <span style="position:absolute; right:7px;; font-weight: normal;" time-ago="comment['dc:created']"></span>
-        <p ng-bind-html-unsafe="comment['dc:description']"></p>
-      </li>
-    </span>
-  </ul>
+  <div class="list-group" style="border-right-width:3px;" >
+    <ul jqm-listview style="margin-top: 5px;" id="comment-list">
+      <span ng-repeat="comment in comments">
+        <li jqm-li-entry style="border-radius:0;"
+            rtc-comment="#comment-list" rtc-comment-if="newCommentAdded">
+          <span style="font-weight:bold">{{comment['dc:creator']['dc:title'].length != null && comment['dc:creator']['dc:title'] || "No Name"  }}</span>
+          <span style="position:absolute; right:7px;; font-weight: normal;" time-ago="comment['dc:created']"></span>
+          <p ng-bind-html-unsafe="comment['dc:description']"></p>
+        </li>
+      </span>
+    </ul>
+  </div>
   <div style="margin: 30px;"></div>
   </div>
 </div>

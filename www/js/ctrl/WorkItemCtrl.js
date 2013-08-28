@@ -24,6 +24,10 @@ controller('WorkItemCtrl', ['$scope','$location', 'workItem', 'catalog', 'settin
 		return workItem.isNew;
 	};
 
+	$scope.go = function(target) {
+    $location.path('/'+target);
+  };
+
 	function buildTypeList(projectId) {
 		return $http.get(settings.repository+'oslc/types/'+projectId).success(function(data) {
 			if (typeof data == "string") {

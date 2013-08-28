@@ -14,7 +14,7 @@ angular.module('clearConcert')
 				});
 				$loadDialog.waitFor(promise, "Loading Results");
 			};
-			$scope.isFav = resultData.isFavorite();
+			//$scope.isFav = resultData.isFavorite();
 			$scope.loadMore = function() {
 				if ($scope.remaining() > 0 && $scope.results.length > 0) {
 					var promise = resultData.loadMore(nextPageUrl).then(function(result) {

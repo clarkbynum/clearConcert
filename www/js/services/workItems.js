@@ -186,6 +186,8 @@ function($http, $q, settings, $cacheFactory, catalog, $log) {
         self.$timestamp = new Date();
         setData(response.data);
         return self;
+      }, function(response){
+        return response;
       });
     };
 

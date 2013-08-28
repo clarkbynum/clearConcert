@@ -151,7 +151,19 @@ var clearConcert = angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'
       return workItems.create(settings.repository);
     } else {
       var promise = workItems.get(settings.repository, id).$fetch().then(function(item) {
-        return item.$getAllResources();
+        if (typeof item.status == 'undefined'){
+          return item.$getAllResources();
+        }else{
+         window.history.back();
+        }
+      });
+
+      promise.then(function() {
+        var deferred = $q.defer();
+        $rootScope.$on('$pageTransitionSuccess', function() {
+          deferred.resolve();
+        });
+        return deferred.promise;
       });
       $loadDialog.waitFor(promise, "Loading");
       //keep the spinner not just until the workitem is loaded, but the whole workitem page is parsed successfully
