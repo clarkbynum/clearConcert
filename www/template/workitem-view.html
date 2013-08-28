@@ -86,47 +86,47 @@
         <span>{{linkItem['oslc_cm:label']}} </span>
         <span class="right">Parent</span>
       </li>
-      <li jqm-li-entry ng-repeat="linkItem in item['rtc_cm:com.ibm.team.workitem.linktype.parentworkitem.children']">
+      <li jqm-li-entry ng-repeat="linkItem in item['rtc_cm:com.ibm.team.workitem.linktype.parentworkitem.children']" ng-click="navigateToLink(linkItem)">
         <span>{{linkItem['oslc_cm:label']}} </span>
         <span class="right">Child</span>
       </li>
-      <li jqm-li-entry ng-repeat="linkItem in item['rtc_cm:com.ibm.team.workitem.linktype.relatedworkitem.related']">
+      <li jqm-li-entry ng-repeat="linkItem in item['rtc_cm:com.ibm.team.workitem.linktype.relatedworkitem.related']" ng-click="navigateToLink(linkItem)">
         <span>{{linkItem['oslc_cm:label']}} </span>
         <span class="right">Related</span>
       </li>
-      <li jqm-li-entry ng-repeat="linkItem in item['rtc_cm:com.ibm.team.workitem.linktype.relatedartifact.relatedArtifact']">
+      <li jqm-li-entry ng-repeat="linkItem in item['rtc_cm:com.ibm.team.workitem.linktype.relatedartifact.relatedArtifact']" ng-click="navigateToLink(linkItem)">
         <span>{{linkItem['oslc_cm:label']}} </span>
         <span class="right">Artifact</span>
       </li>
-      <li jqm-li-entry ng-repeat="linkItem in item['rtc_cm:com.ibm.team.workitem.linktype.resolvesworkitem.resolves']">
+      <li jqm-li-entry ng-repeat="linkItem in item['rtc_cm:com.ibm.team.workitem.linktype.resolvesworkitem.resolves']" ng-click="navigateToLink(linkItem)">
         <span>{{linkItem['oslc_cm:label']}} </span>
         <span class="right">Resolves</span>
       </li>
-      <li jqm-li-entry ng-repeat="linkItem in item['rtc_cm:com.ibm.team.workitem.linktype.resolvesworkitem.resolvedBy']">
+      <li jqm-li-entry ng-repeat="linkItem in item['rtc_cm:com.ibm.team.workitem.linktype.resolvesworkitem.resolvedBy']" ng-click="navigateToLink(linkItem)">
         <span>{{linkItem['oslc_cm:label']}} </span>
         <span class="right">Resolved By</span>
       </li>
-       <li jqm-li-entry ng-repeat="linkItem in item['rtc_cm:com.ibm.team.workitem.linktype.duplicateworkitem.duplicateOf']">
+       <li jqm-li-entry ng-repeat="linkItem in item['rtc_cm:com.ibm.team.workitem.linktype.duplicateworkitem.duplicateOf']" ng-click="navigateToLink(linkItem)">
         <span>{{linkItem['oslc_cm:label']}} </span>
         <span class="right">Duplicate Of</span>
       </li>
-       <li jqm-li-entry ng-repeat="linkItem in item['rtc_cm:com.ibm.team.workitem.linktype.duplicateworkitem.duplicates']">
+       <li jqm-li-entry ng-repeat="linkItem in item['rtc_cm:com.ibm.team.workitem.linktype.duplicateworkitem.duplicates']" ng-click="navigateToLink(linkItem)">
         <span>{{linkItem['oslc_cm:label']}} </span>
         <span class="right">Duplicates</span>
       </li>
-       <li jqm-li-entry ng-repeat="linkItem in item['rtc_cm:com.ibm.team.workitem.linktype.copiedworkitem.copiedFrom']">
+       <li jqm-li-entry ng-repeat="linkItem in item['rtc_cm:com.ibm.team.workitem.linktype.copiedworkitem.copiedFrom']" ng-click="navigateToLink(linkItem)">
         <span>{{linkItem['oslc_cm:label']}} </span>
         <span class="right">Copied From</span>
       </li>
-       <li jqm-li-entry ng-repeat="linkItem in item['rtc_cm:com.ibm.team.workitem.linktype.copiedworkitem.copies']">
+       <li jqm-li-entry ng-repeat="linkItem in item['rtc_cm:com.ibm.team.workitem.linktype.copiedworkitem.copies']" ng-click="navigateToLink(linkItem)">
         <span>{{linkItem['oslc_cm:label']}} </span>
         <span class="right">Copies</span>
       </li>
-       <li jqm-li-entry ng-repeat="linkItem in item['rtc_cm:com.ibm.team.workitem.linktype.blocksworkitem.blocks']">
+       <li jqm-li-entry ng-repeat="linkItem in item['rtc_cm:com.ibm.team.workitem.linktype.blocksworkitem.blocks']" ng-click="navigateToLink(linkItem)">
         <span>{{linkItem['oslc_cm:label']}} </span>
         <span class="right">Blocks</span>
       </li>
-       <li jqm-li-entry ng-repeat="linkItem in item['rtc_cm:com.ibm.team.workitem.linktype.blocksworkitem.dependsOn']">
+       <li jqm-li-entry ng-repeat="linkItem in item['rtc_cm:com.ibm.team.workitem.linktype.blocksworkitem.dependsOn']" ng-click="navigateToLink(linkItem)">
         <span>{{linkItem['oslc_cm:label']}} </span>
         <span class="right">Depends On</span>
       </li>
