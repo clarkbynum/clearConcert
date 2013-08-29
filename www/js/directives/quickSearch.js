@@ -1,6 +1,6 @@
 angular.module('clearConcert')
 
-.directive('searchbox', function($timeout) {
+.directive('searchbox', function($timeout, $location) {
     
     return {
         restrict: 'E',
@@ -9,7 +9,7 @@ angular.module('clearConcert')
             label: '@'
         },
         
-        template: '<form id="form"><button id="btn" ng-hide="showInput"><img src="images/search.png"></button><input placeholder="Search for work items" type="search" ng-model="search" ng-show="showInput"></input></form>',
+        template: '<form id="form" ng-submit="searchPressed(search)"><img src="images/headerSearch.png" style="padding-right:8px;padding-top:4px;" ng-hide="showInput"><input placeholder="Search for work items" type="search" ng-model="search" ng-show="showInput"></input></form>',
         
         transclude: true,
         
@@ -17,9 +17,9 @@ angular.module('clearConcert')
             scope.showInput = false;
             
         
-            var button = element.find('button'); 
-            var htmlBtn = button[0];
-            button.css({"height": "33px", "width":"42px", "cursor":"pointer"});      
+            var button = element.find('img'); 
+            
+            button.css({"height": "24px", "width":"24px", "cursor":"pointer"});      
             var input = element.find('input');
         
             button.bind("click", function() {
@@ -38,7 +38,17 @@ angular.module('clearConcert')
                 $timeout(function() { scope.$apply(); }, 500);           
             
                                        
-            });        
+            }); 
+
+                scope.searchPressed = function(criteria){
+                    //If it's a number, go straight to it
+                    
+                    if (criteria == +criteria) {
+                        $location.path('/workitem/$0'.format(criteria));
+                    } else { 
+                        $location.path('/search/$0'.format(criteria));
+                    }
+                };       
         }
     };
 })

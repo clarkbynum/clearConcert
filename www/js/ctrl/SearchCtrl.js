@@ -2,7 +2,15 @@ angular.module('clearConcert')
 .controller('SearchCtrl', ['$scope','$location','$routeParams','catalog', 'search', '$q', '$loadDialog',
 function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
 
-	$scope.query = $routeParams.query || '';
+	$scope.search = {
+     includeTags:"",
+     includeKeywords:""
+  };
+
+  $scope.$apply();
+  //console.log($scope.search.includeKeywords);
+
+  $scope.query = $routeParams.query || '';
 	$scope.isFav = false;
 	//We page our requests: Only send 20 requests out at a time.
   //This is because the server is so slow sometimes
@@ -15,6 +23,7 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
     );
     requests.forEach(function(request) {
       request.then(function(result) {
+        console.log(result);
         if (result.total > 0) {
           $scope.results.push(result);
         }
@@ -49,6 +58,7 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
 	
 	$scope.searchPressed = function(criteria) {
     //If it's a number, go straight to it
+    console.log($scope.search.includeTags);
     if (criteria == +criteria) {
       $location.path('/workitem/$0'.format(criteria));
     } else { 
@@ -56,9 +66,10 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
     }
   };
 
-  $scope.projects = function() {
-      return catalog.list();
-    };
+  $scope.projects = catalog.list();
+  console.log($scope.projects);
+
+    
   $scope.go = function(target) {
     $location.path('/');
   };

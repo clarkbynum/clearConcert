@@ -12,7 +12,20 @@ function($http, $q, settings, $cacheFactory, catalog, $log) {
     "Accept": "application/rdf+xml"
   };
 
-  var defaultPropsToGet = ['dc:type','dc:identifier','dc:title','oslc_cm:severity','rtc_cm:state','rtc_cm:ownedBy','oslc_cm:priority','rtc_cm:projectArea','rtc_cm:filedAgainst','dc:created','rtc_cm:plannedFor','dc:modified','rtc_cm:due','rtc_cm:estimate','rtc_cm:resolved','rtc_cm:resolvedBy','dc:description','rtc_cm:comments'];
+  var defaultPropsToGet = ['dc:type','dc:identifier','dc:title','oslc_cm:severity','rtc_cm:state','rtc_cm:ownedBy','oslc_cm:priority','rtc_cm:projectArea','rtc_cm:filedAgainst','dc:created','rtc_cm:plannedFor','dc:modified','rtc_cm:due','rtc_cm:estimate','rtc_cm:resolved','rtc_cm:resolvedBy','dc:description','rtc_cm:comments',
+    'rtc_cm:com.ibm.team.workitem.linktype.parentworkitem.parent',
+    'rtc_cm:com.ibm.team.workitem.linktype.parentworkitem.children',
+    'rtc_cm:com.ibm.team.workitem.linktype.relatedworkitem.related',
+    'rtc_cm:com.ibm.team.workitem.linktype.relatedartifact.relatedArtifact',
+    'rtc_cm:com.ibm.team.workitem.linktype.resolvesworkitem.resolves',
+    'rtc_cm:com.ibm.team.workitem.linktype.resolvesworkitem.resolvedBy',
+    'rtc_cm:com.ibm.team.workitem.linktype.duplicateworkitem.duplicateOf',
+    'rtc_cm:com.ibm.team.workitem.linktype.duplicateworkitem.duplicates',
+    'rtc_cm:com.ibm.team.workitem.linktype.copiedworkitem.copiedFrom',
+    'rtc_cm:com.ibm.team.workitem.linktype.copiedworkitem.copies',
+    'rtc_cm:com.ibm.team.workitem.linktype.blocksworkitem.blocks',
+    'rtc_cm:com.ibm.team.workitem.linktype.blocksworkitem.dependsOn'
+    ];
 
   function WorkItem(options) {
     var self = this;
@@ -165,6 +178,44 @@ function($http, $q, settings, $cacheFactory, catalog, $log) {
       });
     };
 
+    // self.$getLink = function(property, fetch) {
+    //   if (self.item[property] && self.item[property]['oslc_cm:collref']) {
+    //     var value = self.resource[property];
+    //     var modified = self.item['dc:modified'];
+    //    //If this was fetched after item was modified last (or if item was
+    //     //never modified), just use the old value
+    //     if (!fetch && value && (!modified || value.$timestamp > new Date(modified))) {
+    //       return $q.when(self);
+    //     } else {
+    //       console.log(self.item[property]);
+    //       return $http.get(self.item[property]['rdf:resource'], {headers:itemHeaders}).then(
+    //         function(response) {
+    //           self.resource[property] = response.data;
+    //           self.resource[property].$timestamp = new Date();
+    //         return self;
+    //       }, 
+    //       function(error){
+    //         $log.log("workitems.getResource: "+error);
+    //       });
+          
+    //     }
+    //   }
+    //   return $q.when(self);
+    // }
+
+    // self.$getAllLinks = function (fetch) {
+    //   var linksToDownload = ['rtc_cm:com.ibm.team.workitem.linktype.parentworkitem.parent'];
+    //   var promises = linksToDownload.map(function(res) {
+    //     return self.$getLink(res, fetch);
+    //   });
+    //   return $q.all(promises).then(function() {
+    //     //success
+    //     return self;
+    //   }, function(){
+    //     //error
+    //   })
+    // }
+
     //Can define just which properties to fetch
     self.$fetch = function() {
       var propsToGet;
@@ -186,6 +237,8 @@ function($http, $q, settings, $cacheFactory, catalog, $log) {
         self.$timestamp = new Date();
         setData(response.data);
         return self;
+      }, function(response){
+        return response;
       });
     };
 
