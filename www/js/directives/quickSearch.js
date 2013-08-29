@@ -9,7 +9,7 @@ angular.module('clearConcert')
             label: '@'
         },
         
-        template: '<form id="form" ng-submit="searchPressed(search)"><img src="images/search.png" ng-hide="showInput"><input placeholder="Search for work items" type="search" ng-model="search" ng-show="showInput"></input></form>',
+        template: '<form id="form" ng-submit="searchPressed(search)"><img src="images/headerSearch.png" style="padding-right:8px;padding-top:4px;" ng-hide="showInput"><input placeholder="Search for work items" type="search" ng-model="search" ng-show="showInput"></input></form>',
         
         transclude: true,
         
@@ -19,7 +19,7 @@ angular.module('clearConcert')
         
             var button = element.find('img'); 
             
-            button.css({"height": "33px", "width":"35px", "cursor":"pointer"});      
+            button.css({"height": "24px", "width":"24px", "cursor":"pointer"});      
             var input = element.find('input');
         
             button.bind("click", function() {
