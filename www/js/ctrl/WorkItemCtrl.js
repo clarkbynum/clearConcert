@@ -24,6 +24,15 @@ controller('WorkItemCtrl', ['$scope','$location', 'workItem', 'catalog', 'settin
 		return workItem.isNew;
 	};
 
+	$scope.go = function(target) {
+    	$location.path('/'+target);
+  	};
+
+  	$scope.navigateToLink = function(linkItem){
+  		var id = linkItem['rdf:resource'].substring(linkItem['rdf:resource'].lastIndexOf('/'))
+  		$location.path('/workitem'+id+'/')
+  	}
+
 	function buildTypeList(projectId) {
 		return $http.get(settings.repository+'oslc/types/'+projectId).success(function(data) {
 			if (typeof data == "string") {
@@ -189,8 +198,10 @@ controller('WorkItemCtrl', ['$scope','$location', 'workItem', 'catalog', 'settin
 			if (!$scope.itemType) {
 				$scope.itemType = $scope.typeOptions[0];
 			}
-			$scope.item['dc:type'] = $scope.item['dc:type'] || {};
-			$scope.item['dc:type']['rdf:resource'] = $scope.itemType['rdf:resource'];
+			if (typeof $scope.item != 'undefined') {
+				$scope.item['dc:type'] = $scope.item['dc:type'] || {};
+				$scope.item['dc:type']['rdf:resource'] = $scope.itemType['rdf:resource'];
+			}
 		});
 		$scope.projectArea = projectArea;
 		if ($scope.isNew() && projectArea.categories.length) {

@@ -8,13 +8,13 @@ angular.module('clearConcert')
 			$scope.totalResults = -1;
 			$scope.fetch = function() {
 				var promise = resultData.fetch(PAGE_SIZE).then(function(result) {
-					$scope.results = $scope.results.concat(result);
+					$scope.results = $scope.results.concat(result.items);
 					nextPageUrl = result.next;
 					$scope.totalResults = result.total;
 				});
 				$loadDialog.waitFor(promise, "Loading Results");
 			};
-			$scope.isFav = resultData.isFavorite();
+			//$scope.isFav = resultData.isFavorite();
 			$scope.loadMore = function() {
 				if ($scope.remaining() > 0 && $scope.results.length > 0) {
 					var promise = resultData.loadMore(nextPageUrl).then(function(result) {

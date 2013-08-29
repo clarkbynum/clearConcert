@@ -1,0 +1,111 @@
+<div jqm-page jqm-theme="a">
+	
+	<div jqm-header>
+		
+		<div class="backButton" ng-click="state.panel='left'">
+			 <img src="images/panel2.png" class="backButtonImage">
+		</div>
+		<div style="display:none" class="ui-btn-right ui-btn ui-btn-corner-all ui-btn-icon-notext ui-btn-up-c">	
+			<span class="ui-btn-inner">
+				<span class="ui-icon ui-icon-search">&nbsp;
+				</span>
+			</span>
+		</div>
+<<<<<<< HEAD
+		<!--<div  style="position:absolute;right:0;">
+			<form ng-submit="search.text && searchPressed(search.text)">
+	      		<div jqm-theme="a" class="ui-icon-alt" jqm-textinput style="margin:1px;"type="search" placeholder="Search for work items" ng-model="search.text"></div>
+	    	</form>
+	    </div>-->
+ 
+	    <form id="searchForm" ng-submit="search.text && searchPressed(search.text)">
+                  
+                <input id="searchBox" ng-model="search.text" placeholder="Search for work items" type="text"/>
+                <span id="clearIcon" ng-hide="showX()" ng-click="clearSearch($event)">X</span> 
+            </form>
+            
+=======
+
+	    <searchbox id="searchBox"></searchbox>
+
+	    <!--<form id="searchForm" ng-submit="search.text && searchPressed(search.text)">
+                <img class="searchImg" ng-hide="textHasFocus" src="images/search.png"></img> 
+                <input id="searchBox" ng-model="search.text" ng-show="textHasFocus" placeholder="Search for work items" 
+                type="text"/>
+                <span class="clear" id="clearIcon" ng-hide="showX()" ng-click="clearSearch($event)">X</span> 
+        </form>-->
+           
+>>>>>>> 6ea8bb05cccc33dccf5f3ab75fcf59ae4360008e
+		<h1></h1>
+		
+		<!-- <a ng-click="state.panel='right'" class="ui-btn-right ui-btn ui-btn-corner-all ui-btn-icon-notext ui-btn-up-c">	
+			<span class="ui-btn-inner">
+				<span class="ui-icon ui-icon-star">&nbsp;
+				</span>
+			</span>
+		</a> -->
+	</div>
+	
+	<div>
+		<div jqm-theme="b">
+			<div class="subTitle">Pending Work</div>
+			<div class="list-group" >
+			    <ul jqm-listview style="">
+			      <li jqm-li-entry jqm-theme="b" class="ui-icon-alt" >
+			        <span>Android 2.2 has strange...</span>
+			        <span class="right">Approval</span>
+			      </li>
+			      <li jqm-li-entry jqm-theme="b" class="ui-icon-alt">
+			        <span>iphone black screen...</span>
+			        <span class="right">Approval</span>
+			      </li>
+			      <li jqm-li-entry jqm-theme="b" class="ui-icon-alt" ng-click="selectProject(project)" ng-repeat="project in filterBuilds(projects())">
+			        <a>{{project.title}}</a>
+			      </li>
+		     	</ul>
+		     </div>
+	  </div>
+	  <div class="subTitle" style="padding-top:10px">Favorites</div>
+	      
+	  <div style="padding-top:4px;height:315px;">
+	  	<div id="row1" style="position:relative;width:100%">
+	  		<div id="cell1" ng-click="go('favorites/1')" class="tile topleft" >
+	  			
+	  			<div class="tileTitle">Queries</div>
+	  			<div class="tileIcon">
+	  				<img src="images/panelQueries.png" style="width:30px;height:30px"/>
+	  			</div>
+	  			<div id="favQueryAmount" class="tileCount">9</div>
+	  			</div>
+	  		<div id="cell2" ng-click="go('favorites/3')" class="topRight tile "> 
+	  			<div class="tileTitle">Search</div>
+	  			<div class="tileIcon">
+	  				<img src="images/panelSearch.png" style="width:30px;height:30px"/>
+	  			</div>
+	  			<div id="favSearchAmount" class="tileCount">22</div>
+	  		</div>
+	  		<div id="cell3" ng-click="go('favorites/2')" class="tile bottomRight">
+	  			<div class="tileTitle">Work Items</div>
+
+	  			<div class="tileIcon">
+	  				<img src="images/panelCreate.png" style="width:30px;height:30px"/>
+	  			</div>
+	  			
+	  			<div id="favItemAmount" class="tileCount">0</div>
+	  		</div>
+			<div id="cell4" ng-click="go('favorites/4')" class="tile bottomLeft">
+				<div class="tileTitle">Builds</div>
+	  			<div class="tileIcon">
+	  				<img src="images/panelBuilds.png" style="width:30px;height:30px"/>
+	  			</div>
+	  			<div id="favBuildAmount" class="tileCount">2</div>
+	  		</div>	  		
+
+	  	</div>
+	  </div>
+
+	</div>
+</div>
+
+</div>
+
