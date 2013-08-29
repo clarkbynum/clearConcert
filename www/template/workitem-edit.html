@@ -8,20 +8,18 @@
   <ng-include src="'template/edit/' + editProperty + '.html'"></ng-include>
 </div>
 -->
+
 <div jqm-page jqm-theme="a">
 	<div jqm-header>
-		<a class="ui-btn ui-btn-up-c ui-btn-left ui-btn-icon-left ui-btn-corner-all" ng-click="$back()">
-	      <span class="ui-btn-inner">
-	        <span class="ui-btn-text">Cancel</span>
-	      </span>
-	    </a>
-	    <a class="ui-btn ui-btn-up-c ui-btn-right ui-btn-icon-left ui-btn-corner-all" ng-click="saveEdit()">
-	      <span class="ui-btn-inner">
-	        <span class="ui-btn-text">Save</span>
-	      </span>
-	    </a>
+		<div style="font-size:16px;font-weight:lighter;color:black;padding:10px;text-shadow:none;" class="backButton" ng-click="$back()">
+      		Cancel
+    	</div>
+      	<div style="font-size:16px;font-weight:lighter;color:black;padding:10px;text-shadow:none;" class="ui-btn-right" ng-click="saveEdit()">	
+			Save
+		</div>
 		<h1>{{editProperty}}</h1>
 	</div>
 
 	<ng-include src="'template/edit/' + editProperty + '.html'"></ng-include>
+
 </div>
