@@ -8,7 +8,7 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
   };
 
   $scope.$apply();
-  console.log($scope.search.includeKeywords);
+  //console.log($scope.search.includeKeywords);
 
   $scope.query = $routeParams.query || '';
 	$scope.isFav = false;
@@ -23,6 +23,7 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
     );
     requests.forEach(function(request) {
       request.then(function(result) {
+        console.log(result);
         if (result.total > 0) {
           $scope.results.push(result);
         }

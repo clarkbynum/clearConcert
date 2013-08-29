@@ -1,6 +1,7 @@
 angular.module('clearConcert')
 .controller('ResultCtrl',['$scope', '$location', 'resultData', 'orderByFilter', 'filterFilter', '$loadDialog','newFavorites',
 		function($scope, $location, resultData, orderByFilter, filterFilter, $loadDialog, newFavorites){
+
 			var PAGE_SIZE = 25;
 			var nextPageUrl;
 
@@ -56,6 +57,7 @@ angular.module('clearConcert')
 			};
 
 			$scope.go = function(wi){
+				console.log('go');
 				if (wi == ''){
 					$location.path('/');
 					return;
@@ -63,8 +65,10 @@ angular.module('clearConcert')
 				$location.path('/workitem/' + wi.identifier)
 			};
 
+
 			$scope.isFavorite = resultData.isFavorite;
 			$scope.title = resultData.title();
+			
 
 			if (resultData.advancedFilterOptions) {
 				$scope.showResolvedSwitchEnabled = true;

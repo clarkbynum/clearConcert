@@ -3,7 +3,7 @@
 		<div class="backButton" ng-click="$back()">
       <img src="images/back.png" class="backButtonImage">
     </div>
-      <div style="text-align:center;width:100%" ng-click="go('')">
+      <div style="text-align:center;width:100%;" ng-click="go('')">
         <img src="images/home.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;">
     </div>
 	</div>
@@ -34,7 +34,7 @@
   						Keywords 
   					</div>
   					<div class="ui-block-b" style="text-align:right">
-  						<div jqm-flip mini="true" ng-model="search.includeKeywords" on-label="On" on-value="1 selected" off-label="Off" off-value="0">
+  						<div jqm-flip mini="true" jqm-theme="d" ng-model="search.includeKeywords" on-label="On" on-value="1 selected" off-label="Off" off-value="0">
   						</div>
   					</div>
   				</div>
@@ -51,7 +51,7 @@
               <a>{{project.title}}</a>
             </div>
             <div class="ui-block-b" style="text-align:right">
-              <div jqm-flip mini="true" ng-model="project.include" >
+              <div jqm-flip mini="true" jqm-theme="d" ng-model="project.include" on-label="On" on-value="1 selected" off-label="Off" off-value="0">
               </div>
             </div>
           </div>
