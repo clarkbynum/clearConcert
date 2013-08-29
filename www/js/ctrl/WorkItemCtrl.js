@@ -1,15 +1,17 @@
 angular.module('clearConcert').
 controller('WorkItemCtrl', ['$scope','$location', 'workItem', 'catalog', 'settings','$http', '$routeParams', '$loadDialog', '$window', function($scope, $location, workItem, catalog, settings, $http, $routeParams, $loadDialog, $window){
 	console.log(workItem);
-
-	$scope.editProperty = $routeParams.prop;
+	$scope.item = workItem.item;
+	  $scope.resource = workItem.resource;
+	  $scope.comments = workItem.comments;
+	  $scope.catalog = catalog;
+	  $scope.editProperty = $routeParams.prop;
 
 	$scope.editPop = false;
 
 	function init() {
 		if (workItem.isNew) {
 			$scope.setProjectArea(catalog.list()[0]);
-			debugger;
 			$scope.item['rtc_cm:filedAgainst'] = {'rdf:resource': catalog.list()[0].categories[0]['rdf:resource'] };
 			$scope.filedAgainst = catalog.list()[0].categories[0];
 		} else {
@@ -247,6 +249,30 @@ controller('WorkItemCtrl', ['$scope','$location', 'workItem', 'catalog', 'settin
 			s: 1
 		};
 		return Math.floor(multiplier[unit] * amount * 1000);
+	};
+
+	$scope.create = function() {
+	    if (!workItem.item['dc:title']) {
+	      return Dialog.error("Please add a summary before creating work item.");
+	    } 
+	    var promise = workItem.$create().then(function(newWorkItemId) {
+	      $scope.$nav.go('/workitem/$0'.format(newWorkItemId));
+	    }, function(response) { 
+	      $dialog(response.data['oslc_cm:message'] || response.data.errorMessage, "View in Web")
+	      .then(function(isViewInWeb) {
+	        if (isViewInWeb) {
+	          var projectRes = $scope.item['rtc_cm:projectArea']['rdf:resource'];
+	          angular.forEach(catalog.list(), function(item) {
+	            if (projectRes.indexOf(item.projectId) > -1) {
+	              $scope.openExternalBrowser(settings.repository + 'web/projects/' + item.title + '#action=com.ibm.team.workitem.newWorkItem');
+	            }
+	          });
+	        }
+	      });
+	    });
+	    promiseTracker('fullSpin')
+	      .addPromise(promise, 'Creating $0...'.format(workItem.item['dc:title']));
+	    
 	};
 
 }]);

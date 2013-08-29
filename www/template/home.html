@@ -32,27 +32,10 @@
 	</div>
 	
 	<div>
-		<div jqm-theme="b">
-			<div class="subTitle">Pending Work</div>
-			<div class="list-group" >
-			    <ul jqm-listview style="">
-			      <li jqm-li-entry jqm-theme="b" class="ui-icon-alt" >
-			        <span>Android 2.2 has strange...</span>
-			        <span class="right">Approval</span>
-			      </li>
-			      <li jqm-li-entry jqm-theme="b" class="ui-icon-alt">
-			        <span>iphone black screen...</span>
-			        <span class="right">Approval</span>
-			      </li>
-			      <li jqm-li-entry jqm-theme="b" class="ui-icon-alt" ng-click="selectProject(project)" ng-repeat="project in filterBuilds(projects())">
-			        <a>{{project.title}}</a>
-			      </li>
-		     	</ul>
-		     </div>
-	  </div>
+		
 	  <div class="subTitle" style="padding-top:10px">Favorites</div>
 	      
-	  <div style="padding-top:4px;height:315px;">
+	  <div style="padding-top:4px;height:240px;">
 	  	<div id="row1" style="position:relative;width:100%">
 	  		<div id="cell1" ng-click="go('favorites/1')" class="tile topleft" >
 	  			
@@ -88,7 +71,24 @@
 
 	  	</div>
 	  </div>
-
+	  <div jqm-theme="b">
+			<div class="subTitle" style="padding-top:10px">Pending Work</div>
+			<div class="list-group" >
+			    <ul jqm-listview style="">
+			      <li jqm-li-entry jqm-theme="b" class="ui-icon-alt" >
+			        <span>Android 2.2 has strange...</span>
+			        <span class="right">Approval</span>
+			      </li>
+			      <li jqm-li-entry jqm-theme="b" class="ui-icon-alt">
+			        <span>iphone black screen...</span>
+			        <span class="right">Approval</span>
+			      </li>
+			      <li jqm-li-entry jqm-theme="b" class="ui-icon-alt" ng-click="selectProject(project)" ng-repeat="project in filterBuilds(projects())">
+			        <a>{{project.title}}</a>
+			      </li>
+		     	</ul>
+		     </div>
+	  </div>
 	</div>
 </div>
 
