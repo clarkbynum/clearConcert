@@ -8,13 +8,13 @@
     </div>
 	</div>
 	<div  style="padding-top:8px">
-    <div jqm-textinput ng-model="criteria" placeholder="Phrase or work item ID" type="">
+    <div jqm-theme="a" jqm-textinput ng-model="criteria" placeholder="Phrase or work item ID">
       </div>
       <a jqm-button jqm-theme="b" style="margin-left:40px;margin-right:40px" ng-click="searchPressed(criteria)">Search</a>
     <div style="height:20px"></div>
 		<div jqm-theme="b">
 
-  		<ul jqm-listview jqm-theme="a">
+  		<ul jqm-listview jqm-theme="c">
   			<li jqm-li-divider>Advanced Filters</li>
   			<li jqm-li-entry>
   				<div class="ui-grid-a">
@@ -22,8 +22,9 @@
   						Tags
   					</div>
   					<div class="ui-block-b" style="text-align:right">
-  						<div jqm-flip mini="true" ng-model="search.includeTags">
-  						</div>
+              
+  						<div jqm-flip mini="true" jqm-theme="d" ng-model="search.includeTags" on-label="On" on-value="1" off-label="Off" off-value="0"></div>
+            
   					</div>
   				</div>
   			</li>
@@ -33,7 +34,7 @@
   						Keywords 
   					</div>
   					<div class="ui-block-b" style="text-align:right">
-  						<div jqm-flip mini="true" ng-model="search.includeKeywords">
+  						<div jqm-flip mini="true" ng-model="search.includeKeywords" on-label="On" on-value="1 selected" off-label="Off" off-value="0">
   						</div>
   					</div>
   				</div>
@@ -42,8 +43,8 @@
   		</ul>
       <ul jqm-listview style="padding-top:12px;">
       
-        <li jqm-li-divider>Project Areas ({{projects().length}})</li>
-        <li jqm-li-entry jqm-theme="b" class="ui-icon-alt" ng-repeat="project in projects()">
+        <li jqm-li-divider>Project Areas ({{projects.length}})</li>
+        <li jqm-li-entry jqm-theme="b" class="ui-icon-alt" ng-repeat="project in projects">
           
           <div class="ui-grid-a">
             <div class="ui-block-a">

@@ -15,6 +15,7 @@ function($http, $rootScope, $q, settings, $timeout, $log) {
     _catalogItems.length = 0;
     _isLoaded = false;
     return $http.get(repository + catalogPath).then(function(response) {
+      console.log(response);
       return parseCatalogItems(response.data);
     }).then(function(catalogList) {
     //	debugger;
@@ -43,6 +44,7 @@ function($http, $rootScope, $q, settings, $timeout, $log) {
   }
 
   function parseCatalogItems(data) {
+    console.log(data);
     var projects = [];
     var xml = parser.parseFromString(data, "text/xml");
     angular.forEach(xml.getElementsByTagName("ServiceProvider"), function(provider) {
