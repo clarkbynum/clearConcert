@@ -1,12 +1,13 @@
 angular.module('clearConcert')
-.controller('ResultCtrl',['$scope', '$location', 'resultData', 'orderByFilter', 'filterFilter', '$loadDialog','newFavorites',
-		function($scope, $location, resultData, orderByFilter, filterFilter, $loadDialog, newFavorites){
+.controller('ResultCtrl',['$scope', '$location', 'resultData', 'orderByFilter', 'filterFilter', '$loadDialog',
+		function($scope, $location, resultData, orderByFilter, filterFilter, $loadDialog){
 
 			var PAGE_SIZE = 25;
 			var nextPageUrl;
 
 			$scope.results = [];
 			$scope.totalResults = -1;
+			$scope.isFav = resultData.isFavorite();
 			$scope.fetch = function() {
 				var promise = resultData.fetch(PAGE_SIZE).then(function(result) {
 					console.log(result);
@@ -26,10 +27,15 @@ angular.module('clearConcert')
 					moreTracker.addPromise(promise);
 				}
 			};
-			$scope.setFavorite = function() {
-				resultData.setFavorite();
-				$scope.isFav = resultData.isFavorite();
+			$scope.addFavorite = function() {
+				resultData.addFavorite();
+				$scope.isFav = true;
 			};
+			
+			$scope.removeFavorite = function() {
+				resultData.removeFavorite();
+				$scope.isFav = false;
+			}
 
 			$scope.refresh = function() {
 				resultData.clear();
@@ -80,10 +86,9 @@ angular.module('clearConcert')
 
 			$scope.fetch();
 		}])
-.factory('SearchResultData', ['search', 'favorites', 'catalog', '$timeout', 'Favorites',
-                              function(search, favorites, catalog, $timeout, Favorites) {
+.factory('SearchResultData', ['search', 'catalog', '$timeout', 'Favorites',
+                              function(search, catalog, $timeout, Favorites) {
 	return function createSearchResultData(query, projectId) {
-		var favorite = favorites.getSearchFavorite(query, projectId);
 		return {
 			advancedFilterOptions: true,
 			title: function() {
@@ -106,25 +111,26 @@ angular.module('clearConcert')
 			clear: function() {
 				search.clearCache();
 			},
-			setFavorite: function() {
-				if (newFavorites.checkFav(projectId, queryId, 2)) {
-					console.log("remove");
-					newFavorites.removeFav(projectId, queryId, 2);
-				} else {
-					console.log("add");
-					var newFav = newFavorites.newQueryFav(projectId, queryId, 2);
-					newFavorites.addFav(newFav);
-				}
+			addFavorite: function() {
+				console.log("adding favorite");
+				var newFav = Favorites.newQueryFav(projectId, queryId, favoriteTypes.SEARCH);
+				Favorites.addFav(newFav);
 			},
+			
+			removeFavorite: function() {
+				console.log("remove");
+				Favorites.removeFav(projectId, queryId, favoriteTypes.SEARCH);
+			},
+			
 			isFavorite: function() {
-				return newFavorites.checkFav(projectId, queryId, 1);
+				return Favorites.checkFav(projectId, queryId, favoriteTypes.SEARCH);
 			}
 		};
 	};
 }])
-.factory('QueryResultData', ['query', 'favorites', 'catalog', '$q', '$timeout', 'newFavorites', function(query, favorites, catalog, $q, $timeout, newFavorites) {
+.factory('QueryResultData', ['query', 'catalog', '$q', '$timeout', 'Favorites',
+                             function(query, catalog, $q, $timeout, Favorites) {
 	return function createQueryResultData(projectId, queryId) {
-		var favorite = favorites.getQueryFavorite(projectId, queryId);
 
 		//We can't actually page the query results from the server because rtc 
 		//forces us to fetch them all at once. But we do page them client side
@@ -171,18 +177,19 @@ angular.module('clearConcert')
 				clear: function() {
 					query.clearCache();
 				},
-				setFavorite: function() {
-					if (newFavorites.checkFav(projectId, queryId, 1)) {
-						console.log("remove");
-						newFavorites.removeFav(projectId, queryId, 1);
-					} else {
-						console.log("add");
-						var newFav = newFavorites.newQueryFav(projectId, queryId, 1);
-						newFavorites.addFav(newFav);
-					}
+				addFavorite: function() {
+					console.log("adding favorite");
+					var newFav = Favorites.newQueryFav(projectId, queryId, favoriteTypes.QUERY);
+					Favorites.addFav(newFav);
 				},
+				
+				removeFavorite: function() {
+					console.log("remove");
+					Favorites.removeFav(projectId, queryId, favoriteTypes.QUERY);
+				},
+				
 				isFavorite: function() {
-					return newFavorites.checkFav(projectId, queryId, 1);
+					return Favorites.checkFav(projectId, queryId, favoriteTypes.QUERY);
 				}
 		};
 	};
