@@ -16,6 +16,7 @@ function($http, $rootScope, $q, settings, $timeout, $log) {
     _isLoaded = false;
     return $http.get(repository + catalogPath).then(function(response) {
       //console.log(response);
+      //console.log(response.data);
       return parseCatalogItems(response.data);
     }).then(function(catalogList) {
     //	debugger;

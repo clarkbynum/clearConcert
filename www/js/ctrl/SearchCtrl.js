@@ -7,15 +7,15 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
      includeKeywords:""
   };
 
-  //$scope.search.includeTags = 0;
-
-  $scope.$apply();
-  //console.log($scope.search.includeKeywords);
+  //sets the tag and keyword toggle switches to 'on'
+  $scope.search.includeTags = "1";
+  $scope.search.includeKeywords = "1";
 
   $scope.query = $routeParams.query || '';
 	$scope.isFav = false;
 	//We page our requests: Only send 20 requests out at a time.
   //This is because the server is so slow sometimes
+
   var requestPageSize = 20;
   function searchNextProjects(query) {
     function resolved() { $scope.resolvedCount++; }
@@ -26,8 +26,7 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
 
     requests.forEach(function(request) {
       request.then(function(result) {
-        //console.log(result);
-        if (result.total > 0 && result.project.include === "1") {
+        if (result.total > 0 && result.project.include==="1") {
           $scope.results.push(result);
         }
       }).then(resolved, resolved);
@@ -69,8 +68,13 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
     }
   };
 
-  $scope.projects = catalog.list();
+  $scope.projects = catalog.list(); 
+  var projects = $scope.projects;
 
+  //sets the project area toggle switches to 'on'
+  projects.forEach(function(project){
+    project.include = "1";
+  })
     
   $scope.go = function(target) {
     $location.path('/');
