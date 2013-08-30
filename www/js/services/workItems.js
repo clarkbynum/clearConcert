@@ -92,7 +92,7 @@ function($http, $q, settings, $cacheFactory, catalog, $log) {
         if (!fetch && value && (!modified || value.$timestamp > new Date(modified))) {
           return $q.when(self);
         } else {
-          console.log(self.item[property]);
+          //console.log(self.item[property]);
 
           //whelp, RTC doesnt support JSON on the jts calls which include information about users... back to
           //parsing xml

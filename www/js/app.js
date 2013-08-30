@@ -273,6 +273,6 @@ var clearConcert = angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'
 		settings.repository = null;
 		settings.username = null;
 		settings.password = null;
-		$location.path('/spash');
+		$location.path('/splash');
 	});
 }]);

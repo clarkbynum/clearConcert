@@ -7,6 +7,8 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
      includeKeywords:""
   };
 
+  //$scope.search.includeTags = 0;
+
   $scope.$apply();
 
   $scope.query = $routeParams.query || '';
@@ -26,8 +28,8 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
     
     requests.forEach(function(request) {
       request.then(function(result) {
-        console.log(result);
-        if (result.total > 0) {
+        //console.log(result);
+        if (result.total > 0 && result.project.include === "1") {
           $scope.results.push(result);
         }
       }).then(resolved, resolved);
@@ -61,7 +63,7 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
 	
 	$scope.searchPressed = function(criteria) {
     //If it's a number, go straight to it
-    console.log($scope.search.includeTags);
+    
     if (criteria == +criteria) {
       $location.path('/workitem/$0'.format(criteria));
     } else { 
@@ -70,7 +72,6 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
   };
 
   $scope.projects = catalog.list();
-  console.log($scope.projects);
 
   $scope.go = function(target) {
     $location.path('/');

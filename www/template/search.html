@@ -12,6 +12,7 @@
       </div>
       <a jqm-button jqm-theme="b" style="margin-left:40px;margin-right:40px" ng-click="searchPressed(criteria)">Search</a>
     <div style="height:20px"></div>
+   
 		<div jqm-theme="b">
 
   		<ul jqm-listview jqm-theme="c">
@@ -23,7 +24,7 @@
   					</div>
   					<div class="ui-block-b" style="text-align:right">
               
-  						<div jqm-flip mini="true" jqm-theme="d" ng-model="search.includeTags" on-label="On" on-value="1" off-label="Off" off-value="0"></div>
+  						<div jqm-flip mini="true" jqm-theme="d" ng-model="search.includeTags" on-label="On" on-value="1" off-label="Off" off-value="0" defaultValue="1"></div>
             
   					</div>
   				</div>
@@ -34,7 +35,7 @@
   						Keywords 
   					</div>
   					<div class="ui-block-b" style="text-align:right">
-  						<div jqm-flip mini="true" jqm-theme="d" ng-model="search.includeKeywords" on-label="On" on-value="1 selected" off-label="Off" off-value="0">
+  						<div jqm-flip mini="true" jqm-theme="d" ng-model="search.includeKeywords" on-label="On" on-value="1" off-label="Off" off-value="0">
   						</div>
   					</div>
   				</div>
@@ -51,7 +52,7 @@
               <a>{{project.title}}</a>
             </div>
             <div class="ui-block-b" style="text-align:right">
-              <div jqm-flip mini="true" jqm-theme="d" ng-model="project.include" on-label="On" on-value="1 selected" off-label="Off" off-value="0">
+              <div jqm-flip mini="true" ng-model="project.include" jqm-theme="d" on-label="On" on-value="1" off-label="Off" off-value="0">
               </div>
             </div>
           </div>

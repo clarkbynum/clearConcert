@@ -35,6 +35,46 @@ angular.module('clearConcert')
     return repositoryUrl;
   }
 
+  $scope.testConnection = function(repository){
+    settings.setUntrusted(true);
+
+    if (repository[repository.length-1] != '/') {
+      repository += '/';
+    }
+
+    var xhr = new XMLHttpRequest();
+
+    var rs0 = false;
+      var rs1 = false;
+      var rs2 = false;
+      var rs3 = false;
+      var rs4 = false;
+
+    xhr.onreadystatechange=function(){
+      
+      if(xhr.readyState == 0 && !rs0){
+        alert("request not initialized");
+        rs0 = true;
+      }else if(xhr.readyState == 1 && !rs1){
+        alert("server connection established");
+        rs1 = true;
+      }else if(xhr.readyState == 2 && !rs2){
+        rs2 = true;
+        alert("request received");
+      }else if(xhr.readyState == 3 && !rs3){
+        rs3 = true;
+        alert("processing request");
+      }else if(xhr.readyState == 4 && !rs4){
+        rs4 = true;
+        alert("request finished. Status: " + xhr.status + "Response Text: " + xhr.responseText);
+      }
+    }
+
+    xhr.open("GET", repository + "rootservices", true);
+    xhr.send();
+
+  };
+
   $scope.onRepositoryDone = function(repositoryUrl, allowUntrusted){
     if (angular.isDefined(allowUntrusted)) {
       settings.setUntrusted(allowUntrusted);

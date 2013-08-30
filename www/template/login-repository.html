@@ -14,12 +14,17 @@
 					Allow untrusted
 				</div>
 				<div class="ui-block-b" style="text-align:right;">
-					<div jqm-flip mini="true" ng-model="allowUntrusted"></div>
+					
 				</div>
 			</div>
 			
 		</li>
 	</ul>
+	<div style="padding:10px;">
+		<div jqm-flip mini="true" ng-model="allowUntrusted"></div>
+	</div>
 	<a style="margin:40px" jqm-theme="b" jqm-button ng-click="onRepositoryDone(repositoryUrl, allowUntrusted)">Continue ></a>
+
+	<a style="margin:40px" jqm-theme="b" jqm-button ng-click="testConnection(repositoryUrl)">Test Connection ></a>
 	
 </div>

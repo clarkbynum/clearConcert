@@ -9,6 +9,7 @@ angular.module('clearConcert')
 			$scope.totalResults = -1;
 			$scope.fetch = function() {
 				var promise = resultData.fetch(PAGE_SIZE).then(function(result) {
+					console.log(result);
 					$scope.results = $scope.results.concat(result.items);
 					nextPageUrl = result.next;
 					$scope.totalResults = result.total;
@@ -57,7 +58,7 @@ angular.module('clearConcert')
 			};
 
 			$scope.go = function(wi){
-				console.log('go');
+				
 				if (wi == ''){
 					$location.path('/');
 					return;
