@@ -8,19 +8,22 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
   };
 
   $scope.$apply();
-  //console.log($scope.search.includeKeywords);
 
   $scope.query = $routeParams.query || '';
-	$scope.isFav = false;
-	//We page our requests: Only send 20 requests out at a time.
-  //This is because the server is so slow sometimes
+  $scope.isFav = false;
+  
+  //We page our requests: Only send 20 requests out at a time.
+  //This is because the server is slow sometimes
   var requestPageSize = 20;
   function searchNextProjects(query) {
-    function resolved() { $scope.resolvedCount++; }
+    function resolved() {
+    	$scope.resolvedCount++;
+    }
 
     var requests = search.getProjectResultCounts(
       query, $scope.resolvedCount, requestPageSize
     );
+    
     requests.forEach(function(request) {
       request.then(function(result) {
         console.log(result);
@@ -69,10 +72,17 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
   $scope.projects = catalog.list();
   console.log($scope.projects);
 
-    
   $scope.go = function(target) {
     $location.path('/');
   };
+  
+  $scope.addFavorite = function() {
+	  $scope.isFav = true;
+  }
+  
+  $scope.removeFavorite = function() {
+	  $scope.isFav = false;
+  }
 
   if ($scope.query) {
     $scope.searchAllProjects($scope.query);

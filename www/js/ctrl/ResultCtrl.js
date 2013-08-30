@@ -79,7 +79,8 @@ angular.module('clearConcert')
 
 			$scope.fetch();
 		}])
-.factory('SearchResultData', ['search', 'favorites', 'catalog', '$timeout', 'newFavorites', function(search, favorites, catalog, $timeout, newFavorites) {
+.factory('SearchResultData', ['search', 'favorites', 'catalog', '$timeout', 'Favorites',
+                              function(search, favorites, catalog, $timeout, Favorites) {
 	return function createSearchResultData(query, projectId) {
 		var favorite = favorites.getSearchFavorite(query, projectId);
 		return {

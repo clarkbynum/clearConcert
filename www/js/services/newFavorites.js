@@ -7,7 +7,13 @@
 angular.module('clearConcert')
 .factory('newFavorites', ['storage', 'settings' , function(storage, settings){
 	
-
+	var favorites_types = {
+			"QUERY" : 1,
+			"WORK ITEM" : 2,
+			"SEARCH" : 3,
+			"BUILD" : 4
+	};
+	
 	var getFavsByType = function(repository, type){
 		var favs = getFavs();
 		var ret =[];
@@ -83,6 +89,7 @@ angular.module('clearConcert')
 		};
 		return newFav;
 	};
+	
 	var checkFav = function(projectId, queryId, type) {
 		var rawFavs = localStorage['favorites'];
 		if (typeof rawFavs === 'string') {
