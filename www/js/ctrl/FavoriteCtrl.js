@@ -1,9 +1,9 @@
 angular.module('clearConcert')
-.controller('FavoriteCtrl',['$scope', '$routeParams', 'newFavorites', 'settings', 'query', '$location',
-	function($scope, $routeParams, newFavorites, settings, query, $location){
+.controller('FavoriteCtrl',['$scope', '$routeParams', 'Favorites', 'settings', 'query', '$location',
+	function($scope, $routeParams, Favorites, settings, query, $location){
 		$scope.favs=[];
 		$scope.title;
-		$scope.favs = newFavorites.getFavsByType(settings.repository, $routeParams.favoriteType);
+		$scope.favs = Favorites.getFavsByType(settings.repository, $routeParams.favoriteType);
 
 		$scope.favTypeQuery = false;
 		$scope.favTypeItem = false;

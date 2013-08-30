@@ -7,6 +7,7 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
      includeKeywords:""
   };
 
+
   //sets the tag and keyword toggle switches to 'on'
   $scope.search.includeTags = "1";
   $scope.search.includeKeywords = "1";
@@ -16,14 +17,22 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
 	//We page our requests: Only send 20 requests out at a time.
   //This is because the server is so slow sometimes
 
+  $scope.query = $routeParams.query || '';
+  $scope.isFav = false;
+  
+  //We page our requests: Only send 20 requests out at a time.
+  //This is because the server is slow sometimes
+
   var requestPageSize = 20;
   function searchNextProjects(query) {
-    function resolved() { $scope.resolvedCount++; }
+    function resolved() {
+    	$scope.resolvedCount++;
+    }
 
     var requests = search.getProjectResultCounts(
       query, $scope.resolvedCount, requestPageSize
     );
-
+    
     requests.forEach(function(request) {
       request.then(function(result) {
         if (result.total > 0 && result.project.include==="1") {
@@ -79,6 +88,14 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
   $scope.go = function(target) {
     $location.path('/');
   };
+  
+  $scope.addFavorite = function() {
+	  $scope.isFav = true;
+  }
+  
+  $scope.removeFavorite = function() {
+	  $scope.isFav = false;
+  }
 
   if ($scope.query) {
     $scope.searchAllProjects($scope.query);

@@ -1,5 +1,5 @@
 <div jqm-page jqm-theme="a">
-  <div jqm-header>
+  <div jqm-header style="height:42px">
     <div>
       <img ng-click="$back()" src="images/back.png" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;position:absolute;">
     </div>
@@ -10,8 +10,10 @@
     <div class="ui-btn-right"> 
         <span class="ui-btn-inner">
             <span >
-                <img ng-show="isFav" src="images/star.png"  ng-click="isFav = false" style="width:24px;height:24px"/>
-                <img ng-hide="isFav" src="images/star_off.png" ng-click="isFav = true" style="width:24px;height:24px" />
+                <img ng-show="isFav" src="images/star.png"  ng-click="removeFavorite()"
+                     style="width:24px;height:24px"/>
+                <img ng-hide="isFav" src="images/star_off.png" ng-click="addFavorite()"
+                     style="width:24px;height:24px" />
             </span>
         </span>
     </div>
