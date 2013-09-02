@@ -31,11 +31,7 @@ angular.module('clearConcert')
 
 		$scope.selectQuery = function(queryObj) {
 			query.resultsForQuery(queryObj.projectId, queryObj.queryId).then(function(result) {
-				if (result.items.length === 0) {
-					queryObj.noResults = true;
-				} else {
-					$location.path("/query/$0/$1".format(queryObj.projectId, queryObj.queryId));
-				}
+				$location.path("/query/$0/$1".format(queryObj.projectId, queryObj.queryId));
 			});
 
 

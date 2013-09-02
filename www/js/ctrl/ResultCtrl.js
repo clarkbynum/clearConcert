@@ -1,23 +1,30 @@
 angular.module('clearConcert')
-.controller('ResultCtrl',['$scope', '$location', 'resultData', 'orderByFilter', 'filterFilter', '$loadDialog',
-		function($scope, $location, resultData, orderByFilter, filterFilter, $loadDialog){
+.controller('ResultCtrl',['$scope', '$location', '$loadDialog', '$routeParams', 'resultData',
+                          'orderByFilter', 'filterFilter', 'Favorites',
+		function($scope, $location, $loadDialog, $routeParams,resultData, orderByFilter, filterFilter,
+				  Favorites){
 
 			var PAGE_SIZE = 25;
 			var nextPageUrl;
+			
+			$scope.projectId = $routeParams.projectId;
+			$scope.queryId = $routeParams.queryId;
 
 			$scope.results = [];
 			$scope.totalResults = -1;
-			$scope.isFav = resultData.isFavorite();
+			
+			$scope.isFav = Favorites.checkFav($scope.projectId, $scope.queryId, favoriteTypes.QUERY);
+			
 			$scope.fetch = function() {
 				var promise = resultData.fetch(PAGE_SIZE).then(function(result) {
-					console.log(result);
+					
 					$scope.results = $scope.results.concat(result.items);
 					nextPageUrl = result.next;
 					$scope.totalResults = result.total;
 				});
 				$loadDialog.waitFor(promise, "Loading Results");
 			};
-			//$scope.isFav = resultData.isFavorite();
+
 			$scope.loadMore = function() {
 				if ($scope.remaining() > 0 && $scope.results.length > 0) {
 					var promise = resultData.loadMore(nextPageUrl).then(function(result) {
@@ -27,13 +34,17 @@ angular.module('clearConcert')
 					moreTracker.addPromise(promise);
 				}
 			};
+			
 			$scope.addFavorite = function() {
-				resultData.addFavorite();
+				console.log("adding favorite");
+				var newFav = Favorites.newQueryFav($scope.projectId, $scope.queryId, favoriteTypes.QUERY);
+				Favorites.addFav(newFav);
 				$scope.isFav = true;
 			};
 			
 			$scope.removeFavorite = function() {
-				resultData.removeFavorite();
+				console.log("remove");
+				Favorites.removeFav($scope.projectId, $scope.queryId, favoriteTypes.QUERY);
 				$scope.isFav = false;
 			}
 
@@ -87,8 +98,7 @@ angular.module('clearConcert')
 
 			$scope.fetch();
 		}])
-.factory('SearchResultData', ['search', 'catalog', '$timeout', 'Favorites',
-                              function(search, catalog, $timeout, Favorites) {
+.factory('SearchResultData', ['search', 'catalog', '$timeout', function(search, catalog, $timeout) {
 	return function createSearchResultData(query, projectId) {
 		return {
 			advancedFilterOptions: true,
@@ -111,26 +121,11 @@ angular.module('clearConcert')
 			},
 			clear: function() {
 				search.clearCache();
-			},
-			addFavorite: function() {
-				console.log("adding favorite");
-				var newFav = Favorites.newQueryFav(projectId, queryId, favoriteTypes.SEARCH);
-				Favorites.addFav(newFav);
-			},
-			
-			removeFavorite: function() {
-				console.log("remove");
-				Favorites.removeFav(projectId, queryId, favoriteTypes.SEARCH);
-			},
-			
-			isFavorite: function() {
-				return Favorites.checkFav(projectId, queryId, favoriteTypes.SEARCH);
 			}
 		};
 	};
 }])
-.factory('QueryResultData', ['query', 'catalog', '$q', '$timeout', 'Favorites',
-                             function(query, catalog, $q, $timeout, Favorites) {
+.factory('QueryResultData', ['query', 'catalog', '$q', '$timeout', function(query, catalog, $q, $timeout) {
 	return function createQueryResultData(projectId, queryId) {
 
 		//We can't actually page the query results from the server because rtc 
@@ -177,20 +172,6 @@ angular.module('clearConcert')
 				},
 				clear: function() {
 					query.clearCache();
-				},
-				addFavorite: function() {
-					console.log("adding favorite");
-					var newFav = Favorites.newQueryFav(projectId, queryId, favoriteTypes.QUERY);
-					Favorites.addFav(newFav);
-				},
-				
-				removeFavorite: function() {
-					console.log("remove");
-					Favorites.removeFav(projectId, queryId, favoriteTypes.QUERY);
-				},
-				
-				isFavorite: function() {
-					return Favorites.checkFav(projectId, queryId, favoriteTypes.QUERY);
 				}
 		};
 	};
