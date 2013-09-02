@@ -6,6 +6,7 @@ function($scope, $location){
 	};
 
 	
+
 	$scope.go = function(target) {
 		$scope.$hidePanel();
 		$location.path('/' + target);

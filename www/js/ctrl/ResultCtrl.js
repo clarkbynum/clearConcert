@@ -43,6 +43,7 @@ angular.module('clearConcert')
 				$scope.results = [];
 			};
 			$scope.remaining = function() {
+				console.log('remaining');
 				return $scope.totalResults - $scope.results.length;
 			};
 
@@ -136,7 +137,7 @@ angular.module('clearConcert')
 		//forces us to fetch them all at once. But we do page them client side
 		//for performance reasons, so we don't have too many items in the DOM at 
 		//once.  
-		//We get the whole list from the server, then it give it out slowly like
+		//We get the whole list from the server, then give it out slowly like
 		//it's pulling from the server. We even fake a little load time with a
 		//timeout so it looks like it's pulling down more.  Otherwise, it will just
 		//look like sloppy scrolling :-)

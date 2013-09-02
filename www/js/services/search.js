@@ -43,6 +43,8 @@ function($http, workItems, catalog, $q, settings, $cacheFactory) {
   return {
     clearCache: searchCache.removeAll,
     getProjectResultCounts: function(query, start, amount) { 
+      //console.log(isKeyword);
+      //console.log(isTag);
       var requests = [],
         projects = catalog.list(),
         max = Math.min(projects.length, start + amount);

@@ -24,7 +24,7 @@
   					</div>
   					<div class="ui-block-b" style="text-align:right">
               
-  						<div jqm-flip mini="true" jqm-theme="d" ng-model="search.includeTags" on-label="On" on-value="1" off-label="Off" off-value="0"></div>
+  						<div jqm-flip mini="true" jqm-theme="d" ng-model="search.includeTags" on-label="On" on-value="1" off-label="Off" off-value="0" default-value="1"></div>
   					</div>
   				</div>
   			</li>
@@ -34,7 +34,7 @@
   						Keywords 
   					</div>
   					<div class="ui-block-b" style="text-align:right">
-  						<div jqm-flip mini="true" jqm-theme="d" ng-model="search.includeKeywords" on-label="On" on-value="1" off-label="Off" off-value="0">
+  						<div jqm-flip mini="true" jqm-theme="d" ng-model="search.includeKeywords" on-label="On" on-value="1" off-label="Off" off-value="0" default-value="1">
   						</div>
   					</div>
   				</div>
@@ -51,7 +51,8 @@
               <a>{{project.title}}</a>
             </div>
             <div class="ui-block-b" style="text-align:right">
-              <div jqm-flip mini="true" ng-model="project.include" jqm-theme="d" on-label="On" on-value="1" off-label="Off" off-value="0">
+              <div jqm-flip mini="true" ng-model="project.include" jqm-theme="d" on-label="On" on-value="1" off-label="Off" off-value="0" default-value="1">
+                {{project.include}}
               </div>
             </div>
           </div>
