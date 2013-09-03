@@ -73,7 +73,7 @@ angular.module('clearConcert')
 		}
 	};
 	var newQueryFav = function(projectId, queryId, type) {
-		var title = catalog.byId(projectId);
+		var title = catalog.byId(projectId).title;
 		var newFav = {
 			projectId: projectId,
 			queryId: queryId,
