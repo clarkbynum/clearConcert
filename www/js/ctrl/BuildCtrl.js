@@ -1,6 +1,6 @@
 angular.module('clearConcert').controller('BuildCtrl',
-		['$scope', '$loadDialog', '$location', '$routeParams', 'catalog', 'build',
-		 function($scope, $loadDialog, $location, $routeParams, catalog, build){
+		['$scope', '$loadDialog', '$location', 'catalog', 'build',
+		 function($scope, $loadDialog, $location, catalog, build){
 
 			console.log(catalog.list());
 			$scope.projects = catalog.list();
