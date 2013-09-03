@@ -18,9 +18,11 @@
     </div>
   </div>	
 
-  </div>
+
+  
   <div jqm-theme="b">
-    <div style="margin:8px" jqm-theme="a" jqm-textinput ng-model="resultFilterInput" placeholder="Filter Results..."></div>
+  <div jqm-theme="a" jqm-textinput ng-model="resultFilterInput" placeholder="Filter Results..."></div> 
+ 
     <ul jqm-listview 
         when-scrolled="loadMore()">
 
@@ -36,7 +38,7 @@
       <li jqm-li-entry ng-show="totalResults == 0" style="line-height: 80px; text-align: center;">
         <i class="icon-remove"></i> No Results Found 
       </li>
-      <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-repeat="workItem in filterResults(results) track by $index"
+      <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-repeat="workItem in filterResults(results) | filter:resultFilterInput"
           ng-click="go(workItem)">
        <img ng-src="{{workItem.resource['dc:type']['rtc_cm:iconUrl']}}"/>
           {{workItem.item['dc:identifier']}} {{workItem.item['dc:title'].unescapeHTML()}}

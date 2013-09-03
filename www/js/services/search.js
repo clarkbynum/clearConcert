@@ -3,6 +3,8 @@ angular.module('clearConcert')
 function($http, workItems, catalog, $q, settings, $cacheFactory) {
   
   var searchCache = $cacheFactory('searchCache');
+
+ 
    
   function projectQuery(project, query, params) {
 
@@ -10,7 +12,7 @@ function($http, workItems, catalog, $q, settings, $cacheFactory) {
       cache: searchCache,
       params: angular.extend({
         'oslc_cm.query':"oslc_cm%3AsearchTerms%3D%22"+query+"%22",
-        'oslc_cm.properties': 'dc:title,dc:type,dc:identifier,rtc_cm:resolved'
+        'oslc_cm.properties': 'dc:title,dc:description,dc:type,dc:identifier,rtc_cm:resolved'
       }, params || {})
     });
   }
@@ -33,6 +35,7 @@ function($http, workItems, catalog, $q, settings, $cacheFactory) {
     return projectQuery(project, query, {
       'oslc_cm.pageSize': '1'
     }).then(function(response) {
+      console.log(response);
       return {
         project: project,
         total: response.data['oslc_cm:totalCount']
@@ -56,19 +59,11 @@ function($http, workItems, catalog, $q, settings, $cacheFactory) {
     getResultsForProject: function(projectId, query, pageSize) {
       var project = catalog.byId(projectId);
 
-      /*projectQ = projectQuery(project, query, {
-
-        'oslc_cm.pageSize': pageSize
-      } || {});
-      console.log(projectQ);*/
-
       return projectQuery(project, query,  {
 
         'oslc_cm.pageSize': pageSize
       } || {})
       .then(handleSearchResponse);
-      //projectQ.then(handleSearchResponse());
-
     },
     getMoreResults: function(url) {
       return $http.get(url, {cache: searchCache})

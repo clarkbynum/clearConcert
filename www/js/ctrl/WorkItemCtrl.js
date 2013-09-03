@@ -1,6 +1,6 @@
 angular.module('clearConcert').
 controller('WorkItemCtrl', ['$scope','$location', 'workItem', 'catalog', 'settings','$http', '$routeParams', '$loadDialog', '$window', function($scope, $location, workItem, catalog, settings, $http, $routeParams, $loadDialog, $window){
-	console.log(workItem);
+
 	$scope.item = workItem.item;
 	  $scope.resource = workItem.resource;
 	  $scope.comments = workItem.comments;
@@ -120,7 +120,7 @@ controller('WorkItemCtrl', ['$scope','$location', 'workItem', 'catalog', 'settin
 			state: workItem.resource['rtc_cm:state']['dc:identifier']
 					}
 		}).then(function(response) {
-			console.log([workItem.resource['rtc_cm:state']]);
+		
 			$scope.stateOptions = [workItem.resource['rtc_cm:state']].concat(response.data);
 		});
 

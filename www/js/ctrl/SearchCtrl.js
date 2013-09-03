@@ -1,12 +1,12 @@
 angular.module('clearConcert')
-.controller('SearchCtrl', ['$scope','$location','$routeParams','catalog', 'search', '$q', '$loadDialog',
-function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
+.controller('SearchCtrl', ['$scope','$location','$routeParams','catalog', 'search', '$q', '$loadDialog', '$rootScope',
+function($scope, $location, $routeParams, catalog, search, $q, $loadDialog, $rootScope){
 
 	$scope.search = {
      includeTags:"",
-     includeKeywords:"",
-     text:""
+     includeKeywords:""
   };
+
 
   $scope.project = {
     include:""
@@ -31,7 +31,6 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
     requests.forEach(function(request) {
       request.then(function(result) {
 
-        console.log(result);
 
           if (result.total > 0 && result.project.include==="1") {
           $scope.results.push(result);
@@ -53,7 +52,7 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
 
 
   $scope.searchAllProjects = function(query) {
-    console.log(query);
+ 
     $scope.requestCount = catalog.list().length;
     $scope.resolvedCount = 0;
     $scope.results = [];
@@ -61,7 +60,7 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
   };
 
   $scope.resultPressed = function(result) {
-    console.log('resultpressed');
+ 
     $location.path('/search/$0/$1'.format($scope.query, result.project.projectId));
   };
 
@@ -74,6 +73,12 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
   $scope.projects = catalog.list(); 
   var projects = $scope.projects;
 	
+  $scope.projects.search = {
+    includeTags: $scope.search.includeTags,
+    includeKeywords: $scope.search.includeKeywords
+  }
+
+
 	$scope.searchPressed = function(criteria) {
     //If it's a number, go straight to it
     

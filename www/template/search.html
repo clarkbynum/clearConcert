@@ -24,7 +24,8 @@
   					</div>
   					<div class="ui-block-b" style="text-align:right">
               
-  						<div jqm-flip mini="true" jqm-theme="d" ng-model="search.includeTags" on-label="On" on-value="1" off-label="Off" off-value="0" default-value="1"></div>
+  						<div jqm-flip mini="true" jqm-theme="d" ng-model="search.includeTags" on-label="On" on-value="1" off-label="Off" off-value="0" default-value="1" ng-click="check()"></div>
+              {{includeTags}}
   					</div>
   				</div>
   			</li>
@@ -35,6 +36,7 @@
   					</div>
   					<div class="ui-block-b" style="text-align:right">
   						<div jqm-flip mini="true" jqm-theme="d" ng-model="search.includeKeywords" on-label="On" on-value="1" off-label="Off" off-value="0" default-value="1">
+                {{includeKeywords}}
   						</div>
   					</div>
   				</div>

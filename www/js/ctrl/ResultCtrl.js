@@ -22,8 +22,9 @@ angular.module('clearConcert')
 				var promise = resultData.fetch(PAGE_SIZE).then(function(result) {
 				
 					
+					$scope.results.length = 0;
+					$scope.results.push.apply($scope.results, result.items);
 					
-					$scope.results = result.items;
 		
 
 					nextPageUrl = result.next;
@@ -37,7 +38,8 @@ angular.module('clearConcert')
 				if ($scope.remaining() > 0 && $scope.results.length > 0) {
 					var promise = resultData.loadMore(nextPageUrl).then(function(result) {
 						nextPageUrl = result.next;
-						$scope.results = result.items;
+						$scope.results.length = 0;
+						$scope.results.push.apply($scope.results, result.items);
 					});
 					moreTracker.addPromise(promise);
 				}
@@ -59,25 +61,29 @@ angular.module('clearConcert')
 			$scope.refresh = function() {
 				resultData.clear();
 				$scope.fetch();
-				$scope.results = [];
+				$scope.results.length=0;
 			};
 			$scope.remaining = function() {
+		
 				return $scope.totalResults - $scope.results.length;
+				
+
 			};
+
+			
 
 
 
 			$scope.filterResults = function(results) {
-				if (!$scope.showResolved) {
+				//console.log(results);
+				//if (!$scope.showResolved) {
+
 					results = results.filter(function(item) {
 						return !item.item['rtc_cm:resolved'];
 					});
-				}
+				//}
 	
-				if ($scope.resultFilterInput) {
-
-					results = filterFilter(results, $scope.resultFilterInput);
-				}
+				
 				var resultWorkItemOrder = orderByFilter(results, function(item) {
 					return item.identifier;
 				});
@@ -88,7 +94,7 @@ angular.module('clearConcert')
 
 			$scope.go = function(wi){
 		
-				console.log(wi);
+				//console.log(wi);
 				if (wi == ''){
 					$location.path('/');
 					return;
