@@ -62,18 +62,14 @@ angular.module('clearConcert')
 				$scope.results = [];
 			};
 			$scope.remaining = function() {
-				//console.log('remaining');
 				return $scope.totalResults - $scope.results.length;
 			};
 
 
 
 			$scope.filterResults = function(results) {
-
-		
 				if (!$scope.showResolved) {
 					results = results.filter(function(item) {
-						console.log(item);
 						return !item.item['rtc_cm:resolved'];
 					});
 				}
