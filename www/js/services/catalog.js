@@ -2,7 +2,6 @@ angular.module('clearConcert')
 .factory('catalog', ['$http','$rootScope','$q','settings','$timeout','$log',
 function($http, $rootScope, $q, settings, $timeout, $log) {
   var _catalogItems = [];
-  var _idToNameMap = {};
   var _isLoaded = false;
   
   var parser = new DOMParser();
@@ -14,7 +13,6 @@ function($http, $rootScope, $q, settings, $timeout, $log) {
 
   function getCatalog(repository, catalogPath) {
     _catalogItems.length = 0;
-    _idToNameMap = {};
     _isLoaded = false;
     return $http.get(repository + catalogPath).then(function(response) {
       return parseCatalogItems(response.data);
@@ -34,9 +32,6 @@ function($http, $rootScope, $q, settings, $timeout, $log) {
       });
     }).then(function(catalogList) {
       _catalogItems = catalogList;
-      for(index in catalogList) {
-    	  _idToNameMap[catalogList[index].projectId] = catalogList[index].title;
-      }
 
       _isLoaded = true;
       $rootScope.$broadcast("catalog.loaded");
@@ -85,9 +80,8 @@ function($http, $rootScope, $q, settings, $timeout, $log) {
     			return _catalogItems[index];
     		}
     	}
-    	console.log("Unsupported Id");
+    	console.log("Unsupported Id " + id);
     	return null;
-      /*return _idToNameMap[id];*/
     },
     fetch: function() {
       getCatalog(settings.repository, catalogPath);
