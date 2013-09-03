@@ -15,13 +15,6 @@
 	    <searchbox id="searchBox"></searchbox>
            
 		<h1></h1>
-		
-		<!-- <a ng-click="state.panel='right'" class="ui-btn-right ui-btn ui-btn-corner-all ui-btn-icon-notext ui-btn-up-c">	
-			<span class="ui-btn-inner">
-				<span class="ui-icon ui-icon-star">&nbsp;
-				</span>
-			</span>
-		</a> -->
 	</div>
 	
 	<div>
@@ -36,7 +29,7 @@
 	  			<div class="tileIcon">
 	  				<img src="images/panelQueries.png" style="width:30px;height:30px"/>
 	  			</div>
-	  			<div id="favQueryAmount" class="tileCount">9</div>
+	  			<div id="favQueryAmount" class="tileCount">{{queryFavsLength}}</div>
 	  			</div>
 	  		<div id="cell2" ng-click="go('favorites/3')" class="topRight tile "> 
 	  			<div class="tileTitle">Search</div>
