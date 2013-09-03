@@ -23,7 +23,7 @@ angular.module('clearConcert')
 				
 					
 					
-					$scope.results = result.items.concat(result.items);
+					$scope.results = result.items;
 		
 
 					nextPageUrl = result.next;
@@ -37,7 +37,7 @@ angular.module('clearConcert')
 				if ($scope.remaining() > 0 && $scope.results.length > 0) {
 					var promise = resultData.loadMore(nextPageUrl).then(function(result) {
 						nextPageUrl = result.next;
-						$scope.results = $scope.results.concat(result.items);
+						$scope.results = result.items;
 					});
 					moreTracker.addPromise(promise);
 				}
