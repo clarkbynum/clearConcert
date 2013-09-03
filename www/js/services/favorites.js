@@ -5,8 +5,7 @@ favoriteTypes = {
 		"BUILD" : 4
 };
 
-angular.module('clearConcert')
-.factory('Favorites', ['settings', 'catalog', function(settings, catalog){
+angular.module('clearConcert').factory('Favorites', ['settings', 'catalog', function(settings, catalog){
 	
 	var getFavsByType = function(repository, type){
 		var favs = getFavs();
@@ -44,7 +43,9 @@ angular.module('clearConcert')
 
 		if (allFavs instanceof Array) {
 			for (var i in allFavs) {
-				if (fav['projectId'] == allFavs[i]['projectId'] && fav['queryId'] == allFavs[i]['queryId'] && fav['repositoryId'] == allFavs[i]['repositoryId'] && fav['type'] == allFavs[i]['type']) {
+				if (fav['projectId'] == allFavs[i]['projectId'] && fav['queryId'] == allFavs[i]['queryId']
+					 && fav['repositoryId'] == allFavs[i]['repositoryId'] &&
+					 fav['type'] == allFavs[i]['type']) {
 					console.log('we got a match');
 					return;
 				} else {
@@ -72,7 +73,7 @@ angular.module('clearConcert')
 			}
 		}
 	};
-	var newQueryFav = function(projectId, queryId, type) {
+	var newFav = function(projectId, queryId, type) {
 		var title = catalog.byId(projectId).title;
 		var newFav = {
 			projectId: projectId,
@@ -108,7 +109,7 @@ angular.module('clearConcert')
 		getFavs: getFavs,
 		addFav: addFav,
 		removeFav: removeFav,
-		newQueryFav: newQueryFav,
+		newFav: newFav,
 		checkFav: checkFav,
 		getFavsByType: getFavsByType
 	};

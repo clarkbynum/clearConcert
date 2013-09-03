@@ -131,18 +131,18 @@ var clearConcert = angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'
     animation: 'page-pop'
   })
   .when('/build/:proj', {
-	  controller: 'BuildCtrl',
+	  controller: 'ProjBuildsCtrl',
 	  templateUrl: 'template/projbuilds.html',
     animation: 'page-pop'
   })
   .when('/build/:proj/:build', {
-	controller: 'BuildCtrl',
+	controller: 'BuildResultsCtrl',
 	templateUrl: 'template/buildresults.html',
   	animation: 'page-pop'
   })
   .when('/build/:proj/:build/:result', {
-	controller: 'BuildCtrl',
-	templateUrl: 'template/buildresultdetails.html',
+	controller: 'BuildDetailsCtrl',
+	templateUrl: 'template/build_details.html',
     animation: 'page-pop'
   })  
   .otherwise({
