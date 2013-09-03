@@ -8,9 +8,9 @@
     </div>
 	</div>
 	<div  style="padding-top:8px">
-    <div jqm-theme="a" jqm-textinput ng-model="criteria" placeholder="Phrase or work item ID">
+    <div jqm-theme="a" jqm-textinput ng-model="search.text" placeholder="Phrase or work item ID">
       </div>
-      <a jqm-button jqm-theme="b" style="margin-left:40px;margin-right:40px" ng-click="searchPressed(criteria)">Search</a>
+      <a jqm-button jqm-theme="b" style="margin-left:40px;margin-right:40px" ng-click="searchPressed(search.text)">Search</a>
     <div style="height:20px"></div>
    
 		<div jqm-theme="b">
@@ -24,8 +24,7 @@
   					</div>
   					<div class="ui-block-b" style="text-align:right">
               
-  						<div jqm-flip mini="true" jqm-theme="d" ng-model="search.includeTags" on-label="On" on-value="1" off-label="Off" off-value="0" defaultValue="1"></div>
-            
+  						<div jqm-flip mini="true" jqm-theme="d" ng-model="search.includeTags" on-label="On" on-value="1" off-label="Off" off-value="0" default-value="1"></div>
   					</div>
   				</div>
   			</li>
@@ -35,7 +34,7 @@
   						Keywords 
   					</div>
   					<div class="ui-block-b" style="text-align:right">
-  						<div jqm-flip mini="true" jqm-theme="d" ng-model="search.includeKeywords" on-label="On" on-value="1" off-label="Off" off-value="0">
+  						<div jqm-flip mini="true" jqm-theme="d" ng-model="search.includeKeywords" on-label="On" on-value="1" off-label="Off" off-value="0" default-value="1">
   						</div>
   					</div>
   				</div>
@@ -52,7 +51,8 @@
               <a>{{project.title}}</a>
             </div>
             <div class="ui-block-b" style="text-align:right">
-              <div jqm-flip mini="true" ng-model="project.include" jqm-theme="d" on-label="On" on-value="1" off-label="Off" off-value="0">
+              <div jqm-flip mini="true" ng-model="project.include" jqm-theme="d" on-label="On" on-value="1" off-label="Off" off-value="0" default-value="1">
+                {{project.include}}
               </div>
             </div>
           </div>

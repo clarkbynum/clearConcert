@@ -5,6 +5,7 @@ function($http, workItems, catalog, $q, settings, $cacheFactory) {
   var searchCache = $cacheFactory('searchCache');
    
   function projectQuery(project, query, params) {
+
     return $http.get(project['rdf:resource'] + ".json", {
       cache: searchCache,
       params: angular.extend({
@@ -15,6 +16,7 @@ function($http, workItems, catalog, $q, settings, $cacheFactory) {
   }
 
   function handleSearchResponse(response) {
+
     return $q.all(response.data['oslc_cm:results'].map(function(r) {
       return workItems.get(settings.repository, r['dc:identifier'], r)
         .$getResource('dc:type');
@@ -41,6 +43,8 @@ function($http, workItems, catalog, $q, settings, $cacheFactory) {
   return {
     clearCache: searchCache.removeAll,
     getProjectResultCounts: function(query, start, amount) { 
+      //console.log(isKeyword);
+      //console.log(isTag);
       var requests = [],
         projects = catalog.list(),
         max = Math.min(projects.length, start + amount);
@@ -51,10 +55,20 @@ function($http, workItems, catalog, $q, settings, $cacheFactory) {
     },
     getResultsForProject: function(projectId, query, pageSize) {
       var project = catalog.byId(projectId);
-      return projectQuery(project, query, pageSize && {
+
+      /*projectQ = projectQuery(project, query, {
+
+        'oslc_cm.pageSize': pageSize
+      } || {});
+      console.log(projectQ);*/
+
+      return projectQuery(project, query,  {
+
         'oslc_cm.pageSize': pageSize
       } || {})
       .then(handleSearchResponse);
+      //projectQ.then(handleSearchResponse());
+
     },
     getMoreResults: function(url) {
       return $http.get(url, {cache: searchCache})

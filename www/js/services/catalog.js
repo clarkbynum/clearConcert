@@ -15,6 +15,10 @@ function($http, $rootScope, $q, settings, $timeout, $log) {
     _catalogItems.length = 0;
     _isLoaded = false;
     return $http.get(repository + catalogPath).then(function(response) {
+
+      //console.log(response);
+      //console.log(response.data);
+
       return parseCatalogItems(response.data);
     }).then(function(catalogList) {
       return $http.get(repository + "oslc/categories")
@@ -61,6 +65,7 @@ function($http, $rootScope, $q, settings, $timeout, $log) {
 
   return {
     load: function() {
+  
       if (!_isLoaded) {
         var deferred = $q.defer();
         $rootScope.$on('catalog.loaded', function(){ 

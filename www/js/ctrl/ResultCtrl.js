@@ -15,13 +15,21 @@ angular.module('clearConcert')
 			
 			$scope.isFav = Favorites.checkFav($scope.projectId, $scope.queryId, favoriteTypes.QUERY);
 			
+		
+
 			$scope.fetch = function() {
+			
 				var promise = resultData.fetch(PAGE_SIZE).then(function(result) {
+				
 					
-					$scope.results = $scope.results.concat(result.items);
+					
+					$scope.results = result.items.concat(result.items);
+		
+
 					nextPageUrl = result.next;
 					$scope.totalResults = result.total;
 				});
+		
 				$loadDialog.waitFor(promise, "Loading Results");
 			};
 
@@ -54,16 +62,24 @@ angular.module('clearConcert')
 				$scope.results = [];
 			};
 			$scope.remaining = function() {
+				//console.log('remaining');
 				return $scope.totalResults - $scope.results.length;
 			};
 
+
+
 			$scope.filterResults = function(results) {
+
+		
 				if (!$scope.showResolved) {
 					results = results.filter(function(item) {
+						console.log(item);
 						return !item.item['rtc_cm:resolved'];
 					});
 				}
+	
 				if ($scope.resultFilterInput) {
+
 					results = filterFilter(results, $scope.resultFilterInput);
 				}
 				var resultWorkItemOrder = orderByFilter(results, function(item) {
@@ -75,7 +91,8 @@ angular.module('clearConcert')
 			};
 
 			$scope.go = function(wi){
-				
+		
+				console.log(wi);
 				if (wi == ''){
 					$location.path('/');
 					return;
@@ -105,6 +122,9 @@ angular.module('clearConcert')
 				return query + ': ' + catalog.byId(projectId).title;
 			},
 			fetch: function(pageSize) {
+
+	
+			
 				return search.getResultsForProject(projectId, query, pageSize);
 			},
 			//Use $timeout to make sure we load for at least a short time, or else
@@ -131,7 +151,7 @@ angular.module('clearConcert')
 		//forces us to fetch them all at once. But we do page them client side
 		//for performance reasons, so we don't have too many items in the DOM at 
 		//once.  
-		//We get the whole list from the server, then it give it out slowly like
+		//We get the whole list from the server, then give it out slowly like
 		//it's pulling from the server. We even fake a little load time with a
 		//timeout so it looks like it's pulling down more.  Otherwise, it will just
 		//look like sloppy scrolling :-)
