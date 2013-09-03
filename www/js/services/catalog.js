@@ -19,13 +19,11 @@ function($http, $rootScope, $q, settings, $timeout, $log) {
     return $http.get(repository + catalogPath).then(function(response) {
       return parseCatalogItems(response.data);
     }).then(function(catalogList) {
-    //	debugger;
       return $http.get(repository + "oslc/categories")
       .then(function(categoriesResponse) {
         var categories = categoriesResponse.data['oslc_cm:results'];
         //Get all the categories that match each project in the _catalogItems
         catalogList.forEach(function(project) {
-          //debugger;
           project.categories = categories.filter(function(category) {
             var resource = category['rtc_cm:projectArea']['rdf:resource'];
             return resource.indexOf(project.projectId) > -1;
@@ -62,7 +60,6 @@ function($http, $rootScope, $q, settings, $timeout, $log) {
         projectId: detailsUrl.substring(detailsUrl.lastIndexOf("/")+1),
         categories: []
       });
-    //  debugger;
     });
     return projects;
   }
@@ -83,7 +80,14 @@ function($http, $rootScope, $q, settings, $timeout, $log) {
       return _catalogItems;
     },
     byId: function(id) {
-      return _idToNameMap[id];
+    	for(index in _catalogItems) {
+    		if(_catalogItems[index].projectId === id) {
+    			return _catalogItems[index];
+    		}
+    	}
+    	console.log("Unsupported Id");
+    	return null;
+      /*return _idToNameMap[id];*/
     },
     fetch: function() {
       getCatalog(settings.repository, catalogPath);
