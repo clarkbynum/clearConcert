@@ -7,14 +7,8 @@
         <img src="images/home.png" ng-click="go('')" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;">
     </div>
     <div class="ui-btn-right"> 
-      <span class="ui-btn-inner">
-        <span>
-        <img ng-show="isFav" ng-click="removeFavorite()" src="images/star.png" 
-             style="width:24px;height:24px"/>
-        <img ng-show="!isFav" ng-click="addFavorite()" src="images/star_off.png"
-             style="width:24px;height:24px" />
-        </span>
-      </span>
+      <favorites-star project-id="projectId" query-id="queryId" fav-type="favType">
+      </favorites-star>
     </div>
   </div>	
 

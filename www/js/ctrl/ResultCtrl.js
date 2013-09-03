@@ -9,13 +9,10 @@ angular.module('clearConcert')
 			
 			$scope.projectId = $routeParams.projectId;
 			$scope.queryId = $routeParams.queryId;
+			$scope.favType= favoriteTypes.QUERY;
 
 			$scope.results = [];
 			$scope.totalResults = -1;
-			
-			$scope.isFav = Favorites.checkFav($scope.projectId, $scope.queryId, favoriteTypes.QUERY);
-			
-		
 
 			$scope.fetch = function() {
 			
@@ -42,19 +39,6 @@ angular.module('clearConcert')
 					moreTracker.addPromise(promise);
 				}
 			};
-			
-			$scope.addFavorite = function() {
-				console.log("adding favorite");
-				var newFav = Favorites.newQueryFav($scope.projectId, $scope.queryId, favoriteTypes.QUERY);
-				Favorites.addFav(newFav);
-				$scope.isFav = true;
-			};
-			
-			$scope.removeFavorite = function() {
-				console.log("remove");
-				Favorites.removeFav($scope.projectId, $scope.queryId, favoriteTypes.QUERY);
-				$scope.isFav = false;
-			}
 
 			$scope.refresh = function() {
 				resultData.clear();
@@ -87,8 +71,6 @@ angular.module('clearConcert')
 			};
 
 			$scope.go = function(wi){
-		
-				console.log(wi);
 				if (wi == ''){
 					$location.path('/');
 					return;
