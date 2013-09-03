@@ -20,8 +20,6 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
     
     requests.forEach(function(request) {
       request.then(function(result) {
-     
-        console.log(result);
        
           if (result.total > 0 ) {
           $scope.results.push(result);
