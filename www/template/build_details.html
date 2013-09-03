@@ -33,7 +33,7 @@
 	  	<ul jqm-listview style="padding-top:12px;">
       
 	      <li jqm-li-divider>Logs ({{resultDetail.logs.length}})</li>
-	      <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-click="selectProject(project)" ng-repeat="log in resultDetail.logs">
+	      <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-repeat="log in resultDetail.logs">
 	        <a>{{log.filename}}{{log.filesize}}</a>
 	      </li>
     	</ul>

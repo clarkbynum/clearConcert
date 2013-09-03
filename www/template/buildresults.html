@@ -14,9 +14,9 @@
 	      
 	      <li jqm-li-divider>builds ({{buildResults.length}})</li>
 	      <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-click="selectResult(result)" 
-        ng-repeat="result in buildResults | filter:logFilter">
+              ng-repeat="result in buildResults | filter:logFilter">
 	        <a>{{result.name}}</a>
-			   <a class="right">{{result.state}}</a>
+			<a class="right">{{result.state}}</a>
 	      </li>
 	    </ul>
   </div>
