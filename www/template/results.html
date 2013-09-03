@@ -36,9 +36,10 @@
       <li jqm-li-entry ng-show="totalResults == 0" style="line-height: 80px; text-align: center;">
         <i class="icon-remove"></i> No Results Found 
       </li>
-      <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-repeat="workItem in filterResults(results)" ng-click="go(workItem)">
+      <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-repeat="workItem in filterResults(results) track by $index"
+          ng-click="go(workItem)">
        <img ng-src="{{workItem.resource['dc:type']['rtc_cm:iconUrl']}}"/>
-          {{workItem.item['dc:identifier']}} {{workItem.item['dc:title'].unescapeHTML()}}bleh
+          {{workItem.item['dc:identifier']}} {{workItem.item['dc:title'].unescapeHTML()}}
       </li>
       <li jqm-li-entry ng-show="remaining() == 0" style="text-align: center;">
         <i class="icon-ok"></i> Retrieved {{results.length}} results

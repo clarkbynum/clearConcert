@@ -5,9 +5,7 @@ function($http, workItems, catalog, $q, settings, $cacheFactory) {
   var searchCache = $cacheFactory('searchCache');
    
   function projectQuery(project, query, params) {
-    console.log(project);
-    console.log(query);
-    console.log(params);
+
     return $http.get(project['rdf:resource'] + ".json", {
       cache: searchCache,
       params: angular.extend({
@@ -18,8 +16,7 @@ function($http, workItems, catalog, $q, settings, $cacheFactory) {
   }
 
   function handleSearchResponse(response) {
-    console.log("handleSearchResponse");
-    console.log(response);
+
     return $q.all(response.data['oslc_cm:results'].map(function(r) {
       return workItems.get(settings.repository, r['dc:identifier'], r)
         .$getResource('dc:type');

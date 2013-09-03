@@ -18,20 +18,18 @@ angular.module('clearConcert')
 		
 
 			$scope.fetch = function() {
-				console.log('fetch');
+			
 				var promise = resultData.fetch(PAGE_SIZE).then(function(result) {
 				
 					
 					
 					$scope.results = result.items.concat(result.items);
-					console.log($scope.results);
+		
 
 					nextPageUrl = result.next;
 					$scope.totalResults = result.total;
 				});
-				console.log($scope.totalResults);
-				console.log($scope.results);
-				console.log(promise);
+		
 				$loadDialog.waitFor(promise, "Loading Results");
 			};
 
@@ -68,20 +66,18 @@ angular.module('clearConcert')
 				return $scope.totalResults - $scope.results.length;
 			};
 
-			console.log('results: ' + $scope.results);
+
 
 			$scope.filterResults = function(results) {
-				/*console.log($scope.fetch());
-				var results = $scope.fetch();*/
-				console.log('resolved: ' + $scope.showResolved);
-				console.log(results);
+
+		
 				if (!$scope.showResolved) {
 					results = results.filter(function(item) {
 						console.log(item);
 						return !item.item['rtc_cm:resolved'];
 					});
 				}
-				console.log('resultFiler: ' + $scope.resultFilterInput);
+	
 				if ($scope.resultFilterInput) {
 
 					results = filterFilter(results, $scope.resultFilterInput);
@@ -95,7 +91,7 @@ angular.module('clearConcert')
 			};
 
 			$scope.go = function(wi){
-				console.log('goooooooooooooooooooooooooooal');
+		
 				console.log(wi);
 				if (wi == ''){
 					$location.path('/');
@@ -127,7 +123,7 @@ angular.module('clearConcert')
 			},
 			fetch: function(pageSize) {
 
-				console.log("project id " +  projectId);
+	
 			
 				return search.getResultsForProject(projectId, query, pageSize);
 			},

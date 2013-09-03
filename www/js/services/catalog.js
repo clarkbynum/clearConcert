@@ -70,7 +70,7 @@ function($http, $rootScope, $q, settings, $timeout, $log) {
 
   return {
     load: function() {
-      console.log(_isLoaded);
+  
       if (!_isLoaded) {
         var deferred = $q.defer();
         $rootScope.$on('catalog.loaded', function(){ 
