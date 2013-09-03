@@ -15,13 +15,23 @@ angular.module('clearConcert')
 			
 			$scope.isFav = Favorites.checkFav($scope.projectId, $scope.queryId, favoriteTypes.QUERY);
 			
+		
+
 			$scope.fetch = function() {
+				console.log('fetch');
 				var promise = resultData.fetch(PAGE_SIZE).then(function(result) {
+				
 					
-					$scope.results = $scope.results.concat(result.items);
+					
+					$scope.results = result.items.concat(result.items);
+					console.log($scope.results);
+
 					nextPageUrl = result.next;
 					$scope.totalResults = result.total;
 				});
+				console.log($scope.totalResults);
+				console.log($scope.results);
+				console.log(promise);
 				$loadDialog.waitFor(promise, "Loading Results");
 			};
 
@@ -54,17 +64,26 @@ angular.module('clearConcert')
 				$scope.results = [];
 			};
 			$scope.remaining = function() {
-				console.log('remaining');
+				//console.log('remaining');
 				return $scope.totalResults - $scope.results.length;
 			};
 
+			console.log('results: ' + $scope.results);
+
 			$scope.filterResults = function(results) {
+				/*console.log($scope.fetch());
+				var results = $scope.fetch();*/
+				console.log('resolved: ' + $scope.showResolved);
+				console.log(results);
 				if (!$scope.showResolved) {
 					results = results.filter(function(item) {
+						console.log(item);
 						return !item.item['rtc_cm:resolved'];
 					});
 				}
+				console.log('resultFiler: ' + $scope.resultFilterInput);
 				if ($scope.resultFilterInput) {
+
 					results = filterFilter(results, $scope.resultFilterInput);
 				}
 				var resultWorkItemOrder = orderByFilter(results, function(item) {
@@ -76,7 +95,8 @@ angular.module('clearConcert')
 			};
 
 			$scope.go = function(wi){
-				
+				console.log('goooooooooooooooooooooooooooal');
+				console.log(wi);
 				if (wi == ''){
 					$location.path('/');
 					return;
@@ -106,6 +126,9 @@ angular.module('clearConcert')
 				return query + ': ' + catalog.byId(projectId).title;
 			},
 			fetch: function(pageSize) {
+
+				console.log("project id " +  projectId);
+			
 				return search.getResultsForProject(projectId, query, pageSize);
 			},
 			//Use $timeout to make sure we load for at least a short time, or else

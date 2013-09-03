@@ -1,16 +1,6 @@
 angular.module('clearConcert')
-.controller('SearchCtrl', ['$scope','$location','$routeParams','catalog', 'search', '$q', '$loadDialog',
+.controller('QuickSearchCtrl', ['$scope','$location','$routeParams','catalog', 'search', '$q', '$loadDialog',
 function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
-
-	$scope.search = {
-     includeTags:"",
-     includeKeywords:"",
-     text:""
-  };
-
-  $scope.project = {
-    include:""
-  };
 
   $scope.query = $routeParams.query || '';
 	$scope.isFav = false;
@@ -30,15 +20,15 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
     
     requests.forEach(function(request) {
       request.then(function(result) {
-
+     
         console.log(result);
-
-          if (result.total > 0 && result.project.include==="1") {
+       
+          if (result.total > 0 ) {
           $scope.results.push(result);
         }
         
         
-      }).then(resolved);
+      }).then(resolved, resolved);
     });
 
     var all = $q.all(requests).then(function() {
@@ -53,7 +43,6 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
 
 
   $scope.searchAllProjects = function(query) {
-    console.log(query);
     $scope.requestCount = catalog.list().length;
     $scope.resolvedCount = 0;
     $scope.results = [];
@@ -61,7 +50,6 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
   };
 
   $scope.resultPressed = function(result) {
-    console.log('resultpressed');
     $location.path('/search/$0/$1'.format($scope.query, result.project.projectId));
   };
 
@@ -73,8 +61,12 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
 
   $scope.projects = catalog.list(); 
   var projects = $scope.projects;
+
+   
+
+  
 	
-	$scope.searchPressed = function(criteria) {
+	/*$scope.searchPressed = function(criteria) {
     //If it's a number, go straight to it
     
     if (criteria == +criteria) {
@@ -82,7 +74,10 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
     } else { 
       $location.path('/search/$0'.format(criteria));
     }
-  };
+    
+    //$scope.searchAllProjects(criteria);
+  
+  };*/
 
   if ($scope.query) {
     $scope.searchAllProjects($scope.query);
@@ -99,4 +94,7 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
   $scope.removeFavorite = function() {
 	  $scope.isFav = false;
   }
+
+ 
+
 }]);

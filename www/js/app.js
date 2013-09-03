@@ -36,6 +36,10 @@ var clearConcert = angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'
     templateUrl: 'template/login-recent.html',
     controller: 'LoginCtrl'
   })
+  .when('/quick-search/:query',{
+    controller: 'QuickSearchCtrl',
+    templateUrl: 'template/search-projects.html'
+  })
   .when('/search',{
     controller: 'SearchCtrl',
     templateUrl: 'template/search.html'
@@ -53,7 +57,7 @@ var clearConcert = angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'
     templateUrl: 'template/results.html',
     resolve: {
       resultData: function($route, SearchResultData, catalog) {
-        return catalog.load().then(function() {
+        return catalog.load().then(function() {        
           return SearchResultData($route.current.params.query, $route.current.params.projectId);
         });
       },

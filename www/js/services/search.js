@@ -5,6 +5,9 @@ function($http, workItems, catalog, $q, settings, $cacheFactory) {
   var searchCache = $cacheFactory('searchCache');
    
   function projectQuery(project, query, params) {
+    console.log(project);
+    console.log(query);
+    console.log(params);
     return $http.get(project['rdf:resource'] + ".json", {
       cache: searchCache,
       params: angular.extend({
@@ -55,10 +58,20 @@ function($http, workItems, catalog, $q, settings, $cacheFactory) {
     },
     getResultsForProject: function(projectId, query, pageSize) {
       var project = catalog.byId(projectId);
-      return projectQuery(project, query, pageSize && {
+
+      /*projectQ = projectQuery(project, query, {
+
+        'oslc_cm.pageSize': pageSize
+      } || {});
+      console.log(projectQ);*/
+
+      return projectQuery(project, query,  {
+
         'oslc_cm.pageSize': pageSize
       } || {})
       .then(handleSearchResponse);
+      //projectQ.then(handleSearchResponse());
+
     },
     getMoreResults: function(url) {
       return $http.get(url, {cache: searchCache})
