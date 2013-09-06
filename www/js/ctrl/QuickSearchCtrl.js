@@ -82,7 +82,7 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
   }
     
   $scope.go = function(target) {
-    $location.path('/');
+    $location.path('/'+target);
   };
   
   $scope.addFavorite = function() {

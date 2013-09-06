@@ -1,0 +1,23 @@
+<div jqm-page jqm-theme="a">
+  <div jqm-header>
+    <div style="font-size:16px;font-weight:lighter;color:black;padding:10px;text-shadow:none;" class="backButton" ng-click="$back()">
+          Cancel
+      </div>
+        <div style="font-size:16px;font-weight:lighter;color:black;padding:10px;text-shadow:none;" class="ui-btn-right" ng-click="saveApprove()">  
+      Save
+    </div>
+    <h1>{{approver.approver.name}}</h1>
+  </div>
+
+ <section id="Type">
+    <mobi-select ng-model="state">
+      <mobi-option ng-repeat="t in types" value="t.id">{{t.label}}</mobi-option>
+    </mobi-select>
+    <li jqm-divider>Comment</li>
+    <div jqm-textarea ng-model="item['dc:title']" focus-on-page-shown></div>
+  </section> 
+
+  
+
+
+</div>

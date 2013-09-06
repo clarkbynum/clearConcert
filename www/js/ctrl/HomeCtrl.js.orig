@@ -1,17 +1,30 @@
 angular.module('clearConcert')
+<<<<<<< HEAD
+.controller('HomeCtrl',['$scope','$location', '$loadDialog', 
+function($scope, $location, $loadDialog){
+	$scope.search={
+		text:""
+	};
 
+	// function showDialog(){
+	// 	document.body.appendElement(dialog);
+	// 	//dialog.show();
+	// };
+
+	// setTimeout(showDialog,500);
+
+
+=======
 .controller('HomeCtrl',['$scope','$location', 'Favorites', 'settings', 
                         function($scope, $location, Favorites, settings){
 	$scope.search={
 		text:""
 	};
+>>>>>>> ba088283cc918f92b2c68246d4d9fa85dabacc17
 	
 	$scope.queryFavsLength = Favorites.getFavsByType(settings.repository, favoriteTypes.QUERY).length;
 	$scope.buildFavsLength = Favorites.getFavsByType(settings.repository, favoriteTypes.BUILD).length;
-	$scope.workItemsFavsLength =
-		Favorites.getFavsByType(settings.repository, favoriteTypes.WORKITEM).length;
-	$scope.searchFavsLength = Favorites.getFavsByType(settings.repository, favoriteTypes.SEARCH).length;
-	
+
 	$scope.go = function(target) {
 		$scope.$hidePanel();
 		$location.path('/' + target);

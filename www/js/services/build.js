@@ -1,6 +1,8 @@
 angular.module('clearConcert')
 .service('build', ['settings', '$http', '$q', '$loadDialog',
 		function(settings, $http, $q, $loadDialog){
+	
+			idToNameMap = {};
 
 			this.getAutomationProjects = function(){
 				// return $http.get("$0oslc/automation/catalog".format(settings.repository)
@@ -48,14 +50,14 @@ angular.module('clearConcert')
 				$http.get(url).success(function(data) {
 					var useable = []
 					var stuff = data['oslc_cm:results'];
-				for(var i in stuff) {
-					var newObj = {};
-					newObj['name'] = stuff[i]['dc:name'];
-					newObj['state'] = stuff[i]['oslc_auto:state'];
-					newObj['resultId'] = stuff[i]['dc:identifier'];
-					useable.push(newObj);
-				}
-				deferred.resolve(useable);
+					for(var i in stuff) {
+						var newObj = {};
+						newObj['name'] = stuff[i]['dc:name'];
+						newObj['state'] = stuff[i]['oslc_auto:state'];
+						newObj['resultId'] = stuff[i]['dc:identifier'];
+						useable.push(newObj);
+					}
+					deferred.resolve(useable);
 				});
 				return deferred.promise;
 			};
@@ -113,6 +115,7 @@ angular.module('clearConcert')
 							logObj = {};
 							logObj['filename'] = data['oslc_cm:results'][i]['oslc_auto:fileName'];
 							logObj['filesize'] = data['oslc_cm:results'][i]['oslc_auto:fileSize'];
+							logObj['filecontent'] = data['oslc_cm:results'][i]['oslc_auto:fileContent'];
 							detObj['logs'].push(logObj);
 						}
 					}
@@ -130,13 +133,29 @@ angular.module('clearConcert')
 					});
 				});
 			};
+
+			//variable to store and share the lookup path for the log file
+			this.logContentPath="";
+			//function to look up the log file content
+			this.getLogFile = function(logContentPath){
+				if (logContentPath != "" ){
+					var deferred = $q.defer();
+					$http.get(logContentPath).success(function(data) {
+	            		//alert(data);
+	            		deferred.resolve(data);
+	        		});
+	        		return deferred.promise;
+	        	} 
+	        	return;
+			}
 			//test
 			var parser = new DOMParser();
 			this.buildsForProject = function(projectId) {
 				var headers = {
 					'Accept': 'application/rdf+xml, application/xml, text/html'
 				};
-				return $http.get("$0oslc/contexts/$1/automation/plans".format(settings.repository, projectId), {headers: headers
+				return $http.get("$0oslc/contexts/$1/automation/plans".format(settings.repository,
+																			   projectId), {headers: headers
 				}).then(function(response) {
 					var xml = parser.parseFromString(response.data, 'text/xml');
 					var builds = [];
@@ -150,12 +169,17 @@ angular.module('clearConcert')
 						var identifier = plan.getElementsByTagName("identifier")[0].firstChild.textContent;
 						var fullBuildDefinition = {
 							title: title,
-						description: description,
-						identifier: identifier
+							description: description,
+							identifier: identifier
 						};
+						idToNameMap[identifier] =  title;
 						builds.push(fullBuildDefinition);
 					});
 					return builds;
 				});
 			};
+			
+			this.getBuildName = function(buildId) {
+				return idToNameMap[buildId];
+			}
 		}]);

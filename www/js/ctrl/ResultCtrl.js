@@ -1,28 +1,29 @@
 angular.module('clearConcert')
 .controller('ResultCtrl',['$scope', '$location', '$loadDialog', '$routeParams', 'resultData',
-                          'orderByFilter', 'filterFilter', 'Favorites',
+                          'orderByFilter', 'filterFilter', 'Favorites', 'search',
 		function($scope, $location, $loadDialog, $routeParams,resultData, orderByFilter, filterFilter,
-				  Favorites){
+				  Favorites, search){
 
 			var PAGE_SIZE = 25;
 			var nextPageUrl;
 			
-			$scope.projectId = $routeParams.projectId;
-			$scope.queryId = $routeParams.queryId;
-			$scope.favType= favoriteTypes.QUERY;
+			$scope.projectId = resultData.projectId;
+			$scope.keyId = resultData.keyId;
+			$scope.favType = resultData.type;
+
 
 			$scope.results = [];
 			$scope.totalResults = -1;
+
+			$scope.includes = search.getInclude();
+			console.log($scope.includes);
 
 			$scope.fetch = function() {
 			
 				var promise = resultData.fetch(PAGE_SIZE).then(function(result) {
 				
-					
 					$scope.results.length = 0;
 					$scope.results.push.apply($scope.results, result.items);
-					
-		
 
 					nextPageUrl = result.next;
 					$scope.totalResults = result.total;
@@ -54,19 +55,46 @@ angular.module('clearConcert')
 
 			};
 
-			
-
-
-
-			$scope.filterResults = function(results) {
-				//console.log(results);
-				//if (!$scope.showResolved) {
+			$scope.filterResults = function(results) {			
 
 					results = results.filter(function(item) {
-						return !item.item['rtc_cm:resolved'];
+			
+						var includes = search.getInclude();
+						var query = includes.text;
+						var tagsOn = includes.includeTags;
+						var keysOn = includes.includeKeywords;
+
+						var inSummary = item.item['dc:title'].toLowerCase().indexOf(query) > -1;
+						var inDesc = item.item['dc:description'].toLowerCase().indexOf(query) > -1;
+						var inTags = item.item['dc:subject'].toLowerCase().indexOf(query) > -1;
+						//var commentUrl = item.item['rtc_cm:comments'][0]['rdf:resource'];
+						//var inComments = item.item['rtc_cm:comments'][0]['rdf:resource'].toLowerCase().indexOf(query) > -1;
+						
+
+						if(tagsOn==="1" && keysOn==="1"){
+							
+							if(inSummary || inDesc || inTags){
+								return item;
+							}
+						
+						} 
+						else if(tagsOn==="1" && keysOn==="0"){
+							
+							if(inTags){
+								return item;
+							}
+						}
+						else if(tagsOn==="0" && keysOn==="1"){			
+							
+							if(inSummary || inDesc){
+								return item;
+							}
+						}					
 					});
-				//}
-	
+				
+				results = results.filter(function(item) {
+					return !item.item['rtc_cm:resolved'];
+				});
 				
 				var resultWorkItemOrder = orderByFilter(results, function(item) {
 					return item.identifier;
@@ -102,14 +130,14 @@ angular.module('clearConcert')
 .factory('SearchResultData', ['search', 'catalog', '$timeout', function(search, catalog, $timeout) {
 	return function createSearchResultData(query, projectId) {
 		return {
+			keyId: query,
+			projectId: projectId,
+			type: favoriteTypes.SEARCH,
 			advancedFilterOptions: true,
 			title: function() {
 				return query + ': ' + catalog.byId(projectId).title;
 			},
 			fetch: function(pageSize) {
-
-	
-			
 				return search.getResultsForProject(projectId, query, pageSize);
 			},
 			//Use $timeout to make sure we load for at least a short time, or else
@@ -149,34 +177,37 @@ angular.module('clearConcert')
 		}
 
 		return {
+			projectId: projectId,
+			keyId: queryId,
+			type: favoriteTypes.QUERY,
 			advancedFilterOptions: false,
-				title: function() {
-					return queryId + ': ' + catalog.byId(projectId).title;
-				},
-				fetch: function(_pageSize) {
-					pageSize = _pageSize;
-					currentPage = 0;
-					fullResult = [];
-					return query.resultsForQuery(projectId, queryId, pageSize)
-						.then(function(result) {
-							fullResult = result;
-							return {
-								items: getNextPage(),
-							total: result.items.length
-							};
-						});
-				},
-				loadMore: function() {
-					return $timeout(function(){},750).then(function() {
-						return $q.when({
+			title: function() {
+				return queryId + ': ' + catalog.byId(projectId).title;
+			},
+			fetch: function(_pageSize) {
+				pageSize = _pageSize;
+				currentPage = 0;
+				fullResult = [];
+				return query.resultsForQuery(projectId, queryId, pageSize)
+					.then(function(result) {
+						fullResult = result;
+						return {
 							items: getNextPage(),
-						total: fullResult.items.length
-						});
+						total: result.items.length
+						};
 					});
-				},
-				clear: function() {
-					query.clearCache();
-				}
+			},
+			loadMore: function() {
+				return $timeout(function(){},750).then(function() {
+					return $q.when({
+						items: getNextPage(),
+					total: fullResult.items.length
+					});
+				});
+			},
+			clear: function() {
+				query.clearCache();
+			}
 		};
 	};
 }]);

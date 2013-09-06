@@ -4,21 +4,22 @@ angular.module("clearConcert").directive("favoritesStar", function(Favorites) {
 		templateUrl: 'template/directives/favorites_star.html',
 		scope: {
 			projectId: '@',
-			queryId: '@',
-			favType: '@'
+			keyId: '@',
+			favType: '@',
+			key: '@'
 		},
 		link: function(scope) {
-			scope.favType = parseInt(scope.favType);
-			scope.isFav = Favorites.checkFav(scope.projectId, scope.queryId, scope.favType);
+			scope.favTypeInt = parseInt(scope.favType);
+			scope.isFav = Favorites.checkFav(scope.projectId, scope.keyId, scope.favTypeInt);
 			
 			scope.addFavorite = function() {
-				var newFav = Favorites.newFav(scope.projectId, scope.queryId, scope.favType);
+				var newFav = Favorites.newFav(scope.projectId, scope.keyId, scope.favTypeInt, scope.key);
 				Favorites.addFav(newFav);
 				scope.isFav = true;
 			};
 			
 			scope.removeFavorite = function() {
-				Favorites.removeFav(scope.projectId, scope.queryId, scope.favType);
+				Favorites.removeFav(scope.projectId, scope.keyId, scope.favTypeInt);
 				scope.isFav = false;
 			};
 		}

@@ -31,7 +31,6 @@ function($scope, catalog, $location, $log, query, $loadDialog, $routeParams) {
   };
 
   $scope.selectProject = function(proj) {
-    console.log(proj);
     $scope.getProjectQueries(proj.projectId).then(function(queries) {
       $scope.queries = queries;
       if (queries.length === 0) {
@@ -49,7 +48,6 @@ function($scope, catalog, $location, $log, query, $loadDialog, $routeParams) {
   };
 
   $scope.selectQuery = function(queryObj) {
-    console.log(queryObj.queryId);
     $scope.getProjectQueries(projectId, queryObj.queryId).then(function(result) {
     //query.resultsForQuery(projectId, queryObj.queryId).then(function(result) {
       if (result.length === 0) {

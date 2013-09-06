@@ -1,6 +1,6 @@
-angular.module('clearConcert')
-.factory('workItems', ['$http', '$q', 'settings', '$cacheFactory', 'catalog', '$log',
-function($http, $q, settings, $cacheFactory, catalog, $log) {
+angular.module('clearConcert').factory('workItems',
+		['$http', '$q', 'settings', '$cacheFactory', 'catalog','$log',
+		 function($http, $q, settings, $cacheFactory, catalog, $log) {
 
   var itemHeaders = {
     "Content-Type": "application/x-oslc-cm-change-request+json", 
@@ -12,20 +12,23 @@ function($http, $q, settings, $cacheFactory, catalog, $log) {
     "Accept": "application/rdf+xml"
   };
 
-  var defaultPropsToGet = ['dc:type','dc:identifier','dc:title','oslc_cm:severity','rtc_cm:state','rtc_cm:ownedBy','oslc_cm:priority','rtc_cm:projectArea','rtc_cm:filedAgainst','dc:created','rtc_cm:plannedFor','dc:modified','rtc_cm:due','rtc_cm:estimate','rtc_cm:resolved','rtc_cm:resolvedBy','dc:description','rtc_cm:comments',
-    'rtc_cm:com.ibm.team.workitem.linktype.parentworkitem.parent',
-    'rtc_cm:com.ibm.team.workitem.linktype.parentworkitem.children',
-    'rtc_cm:com.ibm.team.workitem.linktype.relatedworkitem.related',
-    'rtc_cm:com.ibm.team.workitem.linktype.relatedartifact.relatedArtifact',
-    'rtc_cm:com.ibm.team.workitem.linktype.resolvesworkitem.resolves',
-    'rtc_cm:com.ibm.team.workitem.linktype.resolvesworkitem.resolvedBy',
-    'rtc_cm:com.ibm.team.workitem.linktype.duplicateworkitem.duplicateOf',
-    'rtc_cm:com.ibm.team.workitem.linktype.duplicateworkitem.duplicates',
-    'rtc_cm:com.ibm.team.workitem.linktype.copiedworkitem.copiedFrom',
-    'rtc_cm:com.ibm.team.workitem.linktype.copiedworkitem.copies',
-    'rtc_cm:com.ibm.team.workitem.linktype.blocksworkitem.blocks',
-    'rtc_cm:com.ibm.team.workitem.linktype.blocksworkitem.dependsOn'
-    ];
+  var defaultPropsToGet = ['dc:type','dc:identifier','dc:title','oslc_cm:severity','rtc_cm:state',
+                           'rtc_cm:ownedBy','oslc_cm:priority','rtc_cm:projectArea','rtc_cm:filedAgainst',
+                           'dc:created','rtc_cm:plannedFor','dc:modified','rtc_cm:due','rtc_cm:estimate',
+                           'rtc_cm:resolved','rtc_cm:resolvedBy','dc:description','rtc_cm:comments',
+                           'rtc_cm:com.ibm.team.workitem.linktype.parentworkitem.parent',
+                           'rtc_cm:com.ibm.team.workitem.linktype.parentworkitem.children',
+                           'rtc_cm:com.ibm.team.workitem.linktype.relatedworkitem.related',
+                           'rtc_cm:com.ibm.team.workitem.linktype.relatedartifact.relatedArtifact',
+                           'rtc_cm:com.ibm.team.workitem.linktype.resolvesworkitem.resolves',
+                           'rtc_cm:com.ibm.team.workitem.linktype.resolvesworkitem.resolvedBy',
+                           'rtc_cm:com.ibm.team.workitem.linktype.duplicateworkitem.duplicateOf',
+                           'rtc_cm:com.ibm.team.workitem.linktype.duplicateworkitem.duplicates',
+                           'rtc_cm:com.ibm.team.workitem.linktype.copiedworkitem.copiedFrom',
+                           'rtc_cm:com.ibm.team.workitem.linktype.copiedworkitem.copies',
+                           'rtc_cm:com.ibm.team.workitem.linktype.blocksworkitem.blocks',
+                           'rtc_cm:com.ibm.team.workitem.linktype.blocksworkitem.dependsOn'
+                           ];
 
   function WorkItem(options) {
     var self = this;
@@ -71,7 +74,8 @@ function($http, $q, settings, $cacheFactory, catalog, $log) {
     };
 
     self.$create = function() {
-      return $http.post(self.item['rtc_cm:projectArea']['rdf:resource'], self.item, {headers:itemHeaders}).then(function(response) {
+      return $http.post(self.item['rtc_cm:projectArea']['rdf:resource'], self.item,
+    		  {headers:itemHeaders}).then(function(response) {
         return response.data['dc:identifier'];
       });
     };
@@ -80,7 +84,7 @@ function($http, $q, settings, $cacheFactory, catalog, $log) {
       self.isNew = false;
       self.identifier = item['dc:identifier'];
       angular.extend(self.item, item);
-      cachePutItem(self.repository, self.identifier, self);
+      //cachePutItem(self.repository, self.identifier, self);
     }
 
     self.$getResource = function(property, fetch) {
@@ -131,6 +135,7 @@ function($http, $q, settings, $cacheFactory, catalog, $log) {
     };
 
     function getComment(comment) {
+      console.log(comment);
       return $http.get(comment['rdf:resource']).then(function(resp) {
         var comment = resp.data;
         return $http.get(comment['dc:creator']['rdf:resource'])
@@ -171,6 +176,7 @@ function($http, $q, settings, $cacheFactory, catalog, $log) {
         return self.$getResource(res, fetch);
       });
       promises.push(self.$getComments());
+      promises.push(self.$getApprovals());
       return $q.all(promises).then(function() {
         return self;
       }, function() {
@@ -178,43 +184,24 @@ function($http, $q, settings, $cacheFactory, catalog, $log) {
       });
     };
 
-    // self.$getLink = function(property, fetch) {
-    //   if (self.item[property] && self.item[property]['oslc_cm:collref']) {
-    //     var value = self.resource[property];
-    //     var modified = self.item['dc:modified'];
-    //    //If this was fetched after item was modified last (or if item was
-    //     //never modified), just use the old value
-    //     if (!fetch && value && (!modified || value.$timestamp > new Date(modified))) {
-    //       return $q.when(self);
-    //     } else {
-    //       console.log(self.item[property]);
-    //       return $http.get(self.item[property]['rdf:resource'], {headers:itemHeaders}).then(
-    //         function(response) {
-    //           self.resource[property] = response.data;
-    //           self.resource[property].$timestamp = new Date();
-    //         return self;
-    //       }, 
-    //       function(error){
-    //         $log.log("workitems.getResource: "+error);
-    //       });
-          
-    //     }
-    //   }
-    //   return $q.when(self);
-    // }
-
-    // self.$getAllLinks = function (fetch) {
-    //   var linksToDownload = ['rtc_cm:com.ibm.team.workitem.linktype.parentworkitem.parent'];
-    //   var promises = linksToDownload.map(function(res) {
-    //     return self.$getLink(res, fetch);
-    //   });
-    //   return $q.all(promises).then(function() {
-    //     //success
-    //     return self;
-    //   }, function(){
-    //     //error
-    //   })
-    // }
+    self.$getApprovals = function(){
+      var url = "";
+      url = url + self.repository;
+      url = url + "service/com.ibm.team.workitem.common.internal.rest.IWorkItemRestService/workItemDTO2";
+      url = url + "?includeHistory=false&includeLinks=false&includeAttributes=false&includeApprovals=true";
+      url =url + "&id=" +self.identifier;
+      return $http.get(url, { headers: itemHeaders }
+        
+      ).then(function(response) {
+        console.log(response);
+        //var dp = new DOMParser();
+        //var xDoc = dp.parseFromString(response.data, "text/xml");
+        self.approvalValue = response.data["soapenv:Body"]["response"]["returnValue"]["value"];
+        return self.approvalValue;
+      }, function(response){
+        return response;
+      });
+    };
 
     //Can define just which properties to fetch
     self.$fetch = function() {
@@ -251,13 +238,13 @@ function($http, $q, settings, $cacheFactory, catalog, $log) {
     };
   }
 
-  var itemCache = $cacheFactory('workItems', {capacity: 1000});
-  function cacheGetItem(repo, id) {
-    return itemCache.get(repo + id);
-  }
-  function cachePutItem(repo, id, item) {
-    itemCache.put(repo + id, item);
-  }
+  // var itemCache = $cacheFactory('workItems', {capacity: 1000});
+  // function cacheGetItem(repo, id) {
+  //   return itemCache.get(repo + id);
+  // }
+  // function cachePutItem(repo, id, item) {
+  //   itemCache.put(repo + id, item);
+  // }
   return {
     create: function(repository) {
       var item = new WorkItem({ repository: repository });
@@ -266,14 +253,14 @@ function($http, $q, settings, $cacheFactory, catalog, $log) {
     get: function(repository, identifier, itemData) {
       var item;
       //console.log(identifier, cacheGetItem(identifier));
-      if (!(item = cacheGetItem(repository, identifier))) {
+     // if (!(item = cacheGetItem(repository, identifier))) {
         item = new WorkItem({
           repository: repository,
           identifier: identifier,
           data: itemData
         });
-        cachePutItem(repository, identifier, item);
-      }
+      //  cachePutItem(repository, identifier, item);
+      //}
       return item;
     }
   };

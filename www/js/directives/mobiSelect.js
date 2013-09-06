@@ -51,9 +51,9 @@ angular.module('mobiSelect', [])
     },
     template: [
     '<div>',
-      '<li jqm-li-entry ng-click="select()" class="pair mobiSelect" ng-style="{color: selected && \'white\', \'background-color\': selected && \'#046DE6\'}">',
-        '<span class="left mobiSelect" style="max-width:95%; padding-right: 0;" ng-transclude></span>',
-        '<span class="right mobiSelect"><i ng-class="{\'icon-ok\': selected}" style="color:white;"></i></span>',
+      '<li ng-click="select()" class="pair" ng-style="{color: selected && \'white\', \'background-color\': selected && \'#046DE6\'}">',
+        '<span class="left" style="max-width:95%; padding-right: 0;" ng-transclude></span>',
+        '<span class="right"><i ng-class="{\'icon-ok\': selected}" style="color:white;"></i></span>',
       '</li>',
       '</div>'
     ].join(''),

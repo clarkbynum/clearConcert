@@ -11,15 +11,15 @@
 </div>
 <div class="list-group">
   <ul jqm-listview>
-    <li jqm-li-entry ng-click="edit('Type')">
+    <li jqm-li-entry ng-click="edit('Type')" class="pair">
       <a><img ng-src="{{itemType['rtc_cm:iconUrl']}}"> Type</a>
       <span class="right" ng-bind="itemType['dc:title']"></span>
     </li>
-    <li jqm-li-entry  ng-click="edit('Project Area')" >
+    <li jqm-li-entry class="pair" ng-click="edit('Project Area')" >
       <a><img src="images/projectArea.gif"> Project Area</a>
       <span class="right">{{projectArea.title}}</span>
     </li>
-    <li jqm-li-entry  ng-click="edit('Filed Against')" >
+    <li jqm-li-entry class="pair" ng-click="edit('Filed Against')" >
       <a><img src="images/database_table.png"> Filed Against</a>
       <span class="right">{{filedAgainst['dc:title']}}</span>
     </li>

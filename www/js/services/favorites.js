@@ -5,7 +5,8 @@ favoriteTypes = {
 		"BUILD" : 4
 };
 
-angular.module('clearConcert').factory('Favorites', ['settings', 'catalog', function(settings, catalog){
+angular.module('clearConcert').factory('Favorites', ['settings', 'catalog', 'build',
+                                                     function(settings, catalog, build){
 	
 	var getFavsByType = function(repository, type){
 		var favs = getFavs();
@@ -43,7 +44,7 @@ angular.module('clearConcert').factory('Favorites', ['settings', 'catalog', func
 
 		if (allFavs instanceof Array) {
 			for (var i in allFavs) {
-				if (fav['projectId'] == allFavs[i]['projectId'] && fav['queryId'] == allFavs[i]['queryId']
+				if (fav['projectId'] == allFavs[i]['projectId'] && fav['keyId'] == allFavs[i]['keyId']
 					 && fav['repositoryId'] == allFavs[i]['repositoryId'] &&
 					 fav['type'] == allFavs[i]['type']) {
 					console.log('we got a match');
@@ -60,10 +61,11 @@ angular.module('clearConcert').factory('Favorites', ['settings', 'catalog', func
 		localStorage['favorites'] = JSON.stringify(allFavs);
 	};
 	
-	var removeFav = function(projectId, queryId, type) {
+	var removeFav = function(projectId, keyId, type) {
 		var allFavs = getFavs();
 		for (i in allFavs) {
-			if (projectId == allFavs[i]['projectId'] && queryId == allFavs[i]['queryId'] && settings.repository == allFavs[i]['repositoryId'] && type == allFavs[i]['type']) {
+			if (projectId == allFavs[i]['projectId'] && keyId == allFavs[i]['keyId'] &&
+					settings.repository == allFavs[i]['repositoryId'] && type == allFavs[i]['type']) {
 
 				allFavs.splice(i, 1);
 				localStorage['favorites'] = JSON.stringify(allFavs);
@@ -73,19 +75,60 @@ angular.module('clearConcert').factory('Favorites', ['settings', 'catalog', func
 			}
 		}
 	};
-	var newFav = function(projectId, queryId, type) {
+	
+	function newQueryOrSearchFav(projectId, queryId, type) {
 		var title = catalog.byId(projectId).title;
 		var newFav = {
 			projectId: projectId,
-			queryId: queryId,
+			keyId: queryId,
 			repositoryId: settings.repository,
 			type: type,
-			title: title
+			title: title,
+			key: queryId
 		};
 		return newFav;
+	}
+	
+	function newBuildFav(projectId, buildId, type) {
+		var title = catalog.byId(projectId).title;
+		var buildName = build.getBuildName(buildId);
+		var newFav = {
+				projectId: projectId,
+				keyId: buildId,
+				repositoryId: settings.repository,
+				type: type,
+				title: title,
+				key: buildName
+		};
+		return newFav;
+	}
+	
+	function newWorkItemFav(projectArea, workItemId, type, key) {
+		var newFav = {
+				projectId: projectArea,
+				keyId: workItemId,
+				repositoryId: settings.repository,
+				type: type,
+				title: projectArea,
+				key: key
+		}
+		return newFav
+	}
+	
+	var newFav = function(projectId, keyId, type, key) {
+		switch(type) {
+		case favoriteTypes.QUERY:
+			return newQueryOrSearchFav(projectId, keyId, type);
+		case favoriteTypes.BUILD:
+			return newBuildFav(projectId, keyId, type);
+		case favoriteTypes.WORKITEM:
+			return newWorkItemFav(projectId, keyId, type, key);
+		case favoriteTypes.SEARCH:
+			return newQueryOrSearchFav(projectId, keyId, type);
+		}
 	};
 	
-	var checkFav = function(projectId, queryId, type) {
+	var checkFav = function(projectId, keyId, type) {
 		var rawFavs = localStorage['favorites'];
 		if (typeof rawFavs === 'string') {
 			if (rawFavs == "" ) {
@@ -98,8 +141,11 @@ angular.module('clearConcert').factory('Favorites', ['settings', 'catalog', func
 		}
 
 		for (var i in allFavs) {
-			if (projectId == allFavs[i]['projectId'] && queryId == allFavs[i]['queryId'] && settings.repository == allFavs[i]['repositoryId'] && type == allFavs[i]['type']){
+			if(projectId == allFavs[i]['projectId'] && keyId == allFavs[i]['keyId'] &&
+			   settings.repository == allFavs[i]['repositoryId'] && type == allFavs[i]['type']){
+				
 				return true;
+				
 			}
 		}
 		return false;

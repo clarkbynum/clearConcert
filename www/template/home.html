@@ -19,9 +19,8 @@
 	
 	<div>
 		
-	  <div class="subTitle" style="padding-top:10px">Favorites</div>
-	      
-	  <div style="padding-top:4px;height:240px;">
+	  <div class="subTitle" style="padding-top:10px">Favorites</div>    
+	 	<div style="padding-top:4px;height:240px;">
 	  	<div id="row1" style="position:relative;width:100%">
 	  		<div id="cell1" ng-click="go('favorites/1')" class="tile topleft" >
 	  			
@@ -34,9 +33,9 @@
 	  		<div id="cell2" ng-click="go('favorites/3')" class="topRight tile "> 
 	  			<div class="tileTitle">Search</div>
 	  			<div class="tileIcon">
-	  				<img src="images/panelSearch.png" style="width:30px;height:30px"/>
+	  				<img src="images/headerSearch.png" style="width:30px;height:30px"/>
 	  			</div>
-	  			<div id="favSearchAmount" class="tileCount">22</div>
+	  			<div id="favSearchAmount" class="tileCount">{{searchFavsLength}}</div>
 	  		</div>
 	  		<div id="cell3" ng-click="go('favorites/2')" class="tile bottomRight">
 	  			<div class="tileTitle">Work Items</div>
@@ -45,27 +44,51 @@
 	  				<img src="images/panelCreate.png" style="width:30px;height:30px"/>
 	  			</div>
 	  			
-	  			<div id="favItemAmount" class="tileCount">0</div>
+	  			<div id="favItemAmount" class="tileCount">{{workItemsFavsLength}}</div>
 	  		</div>
 			<div id="cell4" ng-click="go('favorites/4')" class="tile bottomLeft">
 				<div class="tileTitle">Builds</div>
 	  			<div class="tileIcon">
 	  				<img src="images/panelBuilds.png" style="width:30px;height:30px"/>
 	  			</div>
-	  			<div id="favBuildAmount" class="tileCount">2</div>
+	  			<div id="favBuildAmount" class="tileCount">{{buildFavsLength}}</div>
 	  		</div>	  		
 
 	  	</div>
-	  </div>
+	  </div> 
+	  <!--
 	  <div jqm-theme="b">
-			<div class="subTitle" style="padding-top:10px">Pending Work</div>
+			<div class="subTitle" style="padding-top:10px">Favorites</div>
+			<div class="list-group">
+				<ul jqm-listview style="">
+			      <li jqm-li-entry jqm-theme="b" class="pair" >
+			        <span><img src="images/panelQueries.png" style="padding-right:8px;">Queries</span>
+			        <span class="right" style="height:30px;bottom:0px">9</span>
+			      </li>
+			      <li jqm-li-entry jqm-theme="b" class="pair" >
+			        <span><img src="images/panelCreate.png" style="padding-right:8px;">Work Items</span>
+			        <span class="right" style="height:30px;bottom:0px">4</span>
+			      </li>
+			      <li jqm-li-entry jqm-theme="b" class="pair" >
+			        <span><img src="images/headerSearch.png" style="padding-right:8px;">Searches</span>
+			        <span class="right" style="height:30px;bottom:0px">6</span>
+			      </li>
+			      <li jqm-li-entry jqm-theme="b" class="pair" >
+			        <span><img src="images/panelBuilds.png" style="padding-right:8px;">Builds</span>
+			        <span class="right" style="height:30px;bottom:0px">2</span>
+			      </li>
+			</div>
+		</div>
+	-->
+	  <div jqm-theme="b">
+			<div class="subTitle" style="padding-top:10px">My Work</div>
 			<div class="list-group" >
 			    <ul jqm-listview style="">
-			      <li jqm-li-entry jqm-theme="b" class="ui-icon-alt" >
+			      <li jqm-li-entry jqm-theme="b" class="pair" >
 			        <span>Android 2.2 has strange...</span>
 			        <span class="right">Approval</span>
 			      </li>
-			      <li jqm-li-entry jqm-theme="b" class="ui-icon-alt">
+			      <li jqm-li-entry jqm-theme="b" class="pair">
 			        <span>iphone black screen...</span>
 			        <span class="right">Approval</span>
 			      </li>

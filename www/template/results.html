@@ -7,7 +7,7 @@
         <img src="images/home.png" ng-click="go('')" style="width:24px;height:24px;margin-top:6px;margin-bottom:8px;">
     </div>
     <div class="ui-btn-right"> 
-      <favorites-star project-id="{{projectId}}" query-id="{{queryId}}" fav-type="{{favType}}">
+      <favorites-star project-id="{{projectId}}" key-id="{{keyId}}" fav-type="{{favType}}">
       </favorites-star>
     </div>
   </div>	
@@ -19,13 +19,6 @@
  
     <ul jqm-listview 
         when-scrolled="loadMore()">
-
-      <!-- <i class="icon-search left input" style="top: -4px;"></i>
-      <i class="icon-remove-sign input" ng-show="filterText" ng-tap="resultFilterInput = ''" style="top: -4px"></i>
-      <li jqm-li-entry ng-show="showResolvedSwitchEnabled">
-        <span class="left">Show Resolved</span>
-        <mobi-checkbox class="right" ng-model="showResolved"></mobi-checkbox>
-      </li> -->
       <li jqm-li-divider>
         {{title}}
       </li>

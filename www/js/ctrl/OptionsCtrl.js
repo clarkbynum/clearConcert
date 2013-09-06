@@ -22,6 +22,7 @@ angular.module('clearConcert')
 		console.log('logged out');
 		$scope.$hidePanel();
 		auth.logout();
+		//$location.path('/splash');
 	  };
 
 

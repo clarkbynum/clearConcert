@@ -18,13 +18,9 @@
 
      <li jqm-li-divider>Favorite {{title}}</li>
      <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-repeat="favorite in favs"
-         ng-click="selectQuery(favorite)" ng-show="favTypeQuery">
-       <b>{{favorite.queryId}}</b> in project <b>{{favorite.title}}</b>
+         ng-click="select(favorite)">
+       <b>{{favorite.key}}</b> in project <b>{{favorite.title}}</b>
      </li>
-     <li jqm-li-link jqm-theme="a" class="ui-icon-alt" ng-repeat="favorite in favs"
-         ng-click="selectItems(favorite)" ng-show="favTypeItem">
-      {{favorite.itemId}}
-    </li>
-  </ul>
-</div>
+   </ul>
+  </div>
 </div>

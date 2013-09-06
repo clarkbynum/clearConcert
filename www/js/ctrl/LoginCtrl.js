@@ -38,9 +38,7 @@ angular.module('clearConcert')
   $scope.testConnection = function(repository){
     settings.setUntrusted(true);
 
-    if (repository[repository.length-1] != '/') {
-      repository += '/';
-    }
+   $scope.standardizeUrl(repository);
 
     var xhr = new XMLHttpRequest();
 
@@ -83,13 +81,25 @@ angular.module('clearConcert')
     if ($scope.repositoryIsValid(repositoryUrl)){
      repositoryUrl = repositoryUrl.toLowerCase();
      settings.repository = repositoryUrl;
+
      var promise = rootServices.fetch(repositoryUrl);
      $loadDialog.waitFor(promise, "Getting Root Services");
+
      promise.then(function(){
       $location.path("/login-credentials");
+     },  function(response){
+         alert('Invalid server. Please check to ensure you have the correct URL ')
+         console.log(response);
+
     }); 
-   }
+   }else{
+        alert('Please ensure the URL includes http:// or https://');
+    }
   };
+
+
+
+
   $scope.setRepoFromRecent = function(repo){
 	settings.username = repo.username;
 	settings.repository = repo.repository;

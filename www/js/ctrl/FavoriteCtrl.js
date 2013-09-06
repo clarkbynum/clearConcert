@@ -3,40 +3,46 @@ angular.module('clearConcert')
 	function($scope, $routeParams, Favorites, settings, query, $location){
 		$scope.favs=[];
 		$scope.title;
+		$scope.select = null;
+		
 		$scope.favs = Favorites.getFavsByType(settings.repository, $routeParams.favoriteType);
-
-		$scope.favTypeQuery = false;
-		$scope.favTypeItem = false;
-		$scope.favTypeSearch = false;
-		$scope.favTypeBuilds = false;
-
-		switch($routeParams.favoriteType){
-			case '1':
-			$scope.title="Queries";
-			$scope.favTypeQuery=true;
-			break;
-			case ('2'):
-			$scope.title="Work Items";
-			$scope.favTypeItem = true;
-			break;
-			case ('3'):
-			$scope.title="Searches";
-			$scope.favTypeSearch = true;
-			break;
-			case ('4'):
-			$scope.title="Builds";
-			$scope.favTypeBuilds = true;
-			break;
+		
+		function selectQuery(queryObj) {
+			query.resultsForQuery(queryObj.projectId, queryObj.keyId).then(function(result) {
+				$location.path("/query/$0/$1".format(queryObj.projectId, queryObj.keyId));
+			});
+		}
+		
+		function selectBuild(buildObj) {
+			$location.path("/build/$0/$1".format(buildObj.projectId, buildObj.keyId));
+		}
+		
+		function selectWorkItem(workItem) {
+			$location.path("/workitem/$0".format(workItem.keyId));
+		}
+		
+		function selectSearch(searchObj) {
+			$location.path("/search/$0/$1".format(searchObj.keyId, searchObj.projectId));
 		}
 
-		$scope.selectQuery = function(queryObj) {
-			query.resultsForQuery(queryObj.projectId, queryObj.queryId).then(function(result) {
-				$location.path("/query/$0/$1".format(queryObj.projectId, queryObj.queryId));
-			});
-
-
-
-		};
+		switch($routeParams.favoriteType){
+		case '1':
+			$scope.title="Queries";
+			$scope.select = selectQuery;
+			break;
+		case ('2'):
+			$scope.title="Work Items";
+			$scope.select = selectWorkItem;
+			break;
+		case ('3'):
+			$scope.title="Searches";
+			$scope.select = selectSearch;
+			break;
+		case ('4'):
+			$scope.title="Builds";
+			$scope.select = selectBuild;
+			break;
+		}
 
 		$scope.goHome = function() {
 			$location.path("/");

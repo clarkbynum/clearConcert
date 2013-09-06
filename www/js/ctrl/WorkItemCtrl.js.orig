@@ -5,13 +5,21 @@ angular.module('clearConcert').controller('WorkItemCtrl',
 				  $window, approvalService){
 
 	$scope.item = workItem.item;
+<<<<<<< HEAD
+	  $scope.resource = workItem.resource;
+	  $scope.comments = workItem.comments;
+	  $scope.catalog = catalog;
+	  $scope.editProperty = $routeParams.prop;
+	  $scope.approvalValue = workItem.approvalValue;
+=======
 	$scope.resource = workItem.resource;
 	$scope.comments = workItem.comments;
 	$scope.catalog = catalog;
 	$scope.editProperty = $routeParams.prop;
-	$scope.approvalValue = workItem.approvalValue;
+	$scope.approvals = workItem.approvals;
 	
 	$scope.favType = favoriteTypes.WORKITEM;
+>>>>>>> 627fcec1a210fddaa7052c345181aa14453f0862
 
 	$scope.editPop = false;
 
@@ -37,7 +45,7 @@ angular.module('clearConcert').controller('WorkItemCtrl',
   	};
 
   	$scope.navigateToLink = function(linkItem){
-  		var id = linkItem['rdf:resource'].fesubstring(linkItem['rdf:resource'].lastIndexOf('/'))
+  		var id = linkItem['rdf:resource'].substring(linkItem['rdf:resource'].lastIndexOf('/'))
   		$location.path('/workitem'+id+'/')
   	}
 

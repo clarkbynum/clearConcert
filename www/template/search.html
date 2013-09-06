@@ -23,9 +23,8 @@
   						Tags
   					</div>
   					<div class="ui-block-b" style="text-align:right">
-              
-  						<div jqm-flip mini="true" jqm-theme="d" ng-model="search.includeTags" on-label="On" on-value="1" off-label="Off" off-value="0" default-value="1" ng-click="check()"></div>
-              {{includeTags}}
+             <jqm-flip mini="true" jqm-theme="d" ng-model="search.includeTags" on-label="On" on-value="1" off-label="Off" 
+             off-value="0" default-value="1"></jqm-flip>          
   					</div>
   				</div>
   			</li>
@@ -35,8 +34,7 @@
   						Keywords 
   					</div>
   					<div class="ui-block-b" style="text-align:right">
-  						<div jqm-flip mini="true" jqm-theme="d" ng-model="search.includeKeywords" on-label="On" on-value="1" off-label="Off" off-value="0" default-value="1">
-                {{includeKeywords}}
+  						<jqm-flip mini="true" jqm-theme="d" ng-model="search.includeKeywords" on-label="On" on-value="1" off-label="Off" off-value="0" default-value="1"></jqm-flip>
   						</div>
   					</div>
   				</div>
@@ -46,6 +44,10 @@
       <ul jqm-listview style="padding-top:12px;">
       
         <li jqm-li-divider>Project Areas ({{projects.length}})</li>
+        <li jqm-li-entry jqm-theme="b" class="ui-icon-alt">Toggle all Projects
+          <jqm-flip mini="true" jqm-theme="d" ng-model="allSwitch.value" on-label="On" on-value="1" off-label="Off" 
+             off-value="0" default-value="1" ng-click="toggleAll()"></jqm-flip>
+        </li>
         <li jqm-li-entry jqm-theme="b" class="ui-icon-alt" ng-repeat="project in projects">
           
           <div class="ui-grid-a">
@@ -53,11 +55,11 @@
               <a>{{project.title}}</a>
             </div>
             <div class="ui-block-b" style="text-align:right">
-              <div jqm-flip mini="true" ng-model="project.include" jqm-theme="d" on-label="On" on-value="1" off-label="Off" off-value="0" default-value="1">
-                {{project.include}}
+              <jqm-flip mini="true" jqm-theme="d" ng-model="project.include" on-label="On" on-value="1" 
+              off-label="Off" off-value="0" default-value="1"></jqm-flip>        
               </div>
             </div>
-          </div>
+          
         </li>
       </ul>
     </div>

@@ -45,7 +45,7 @@ var clearConcert = angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'
     templateUrl: 'template/search.html'
   })
   .when('/search/:query', {
-    controller: 'SearchCtrl',
+    controller: 'SearchResultsCtrl',
     templateUrl: 'template/search-projects.html',
     resolve: {
       loadCatalog: loadCatalog
@@ -76,6 +76,7 @@ var clearConcert = angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'
   })
   .when('/workitem/:id/:prop', {
     controller: 'WorkItemCtrl',
+    animation: 'page-pop',
     templateUrl: 'template/workitem-edit.html',
     resolve: {
       workItem: resolveWorkItem
@@ -105,7 +106,7 @@ var clearConcert = angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'
     resolve: {
       loadCatalog: loadCatalog
     },
-    animation: 'page-pop'
+    //animation: 'page-pop'
   })
   .when('/query/:projectId/:queryId', {
     controller: 'ResultCtrl',
@@ -135,14 +136,31 @@ var clearConcert = angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'
 	  templateUrl: 'template/projbuilds.html',
     animation: 'page-pop'
   })
+  
   .when('/build/:proj/:build', {
 	controller: 'BuildResultsCtrl',
 	templateUrl: 'template/buildresults.html',
   	animation: 'page-pop'
   })
   .when('/build/:proj/:build/:result', {
-	controller: 'BuildDetailsCtrl',
-	templateUrl: 'template/build_details.html',
+	 controller: 'BuildDetailsCtrl',
+    templateUrl: 'template/build_details.html',
+    //animation: 'page-pop'
+  })
+  .when('/build/:proj/:build/:result/log', {
+   controller: 'BuildLogCtrl',
+    templateUrl: 'template/build-log.html',
+    //animation: 'page-pop'
+  })
+
+  .when('/approval', {
+    controller: 'ApprovalCtrl',
+    templateUrl: 'template/approval.html'
+  })
+  .when('/approve', {
+    controller: 'ApproveCtrl',
+    templateUrl: 'template/approve.html',
+	
     animation: 'page-pop'
   })  
   .otherwise({
