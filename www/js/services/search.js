@@ -36,7 +36,7 @@ function($http, workItems, catalog, $q, settings, $cacheFactory) {
     return projectQuery(project, query, {
       'oslc_cm.pageSize': '1'
     }).then(function(response) {
-      //console.log(response);
+      console.log(response);
       return {
         project: project,
         total: response.data['oslc_cm:totalCount']
@@ -63,12 +63,13 @@ function($http, workItems, catalog, $q, settings, $cacheFactory) {
       comment = comm;
     },
     getProjectResultCounts: function(query, start, amount) { 
-      //console.log(isKeyword);
-      //console.log(isTag);
+      
       var requests = [],
         projects = catalog.list(),
+        
         max = Math.min(projects.length, start + amount);
-      for (var i = start; i < max; i++) {
+ 
+       for (var i = start; i < max; i++) {
         requests.push(projectResults(projects[i], query));
       }
       return requests;

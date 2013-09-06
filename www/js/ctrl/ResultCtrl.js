@@ -60,6 +60,12 @@ angular.module('clearConcert')
 					results = results.filter(function(item) {
 			
 						var includes = search.getInclude();
+					
+						if(includes==="" || undefined){
+							return item;
+						}
+						else {
+
 						var query = includes.text;
 						var tagsOn = includes.includeTags;
 						var keysOn = includes.includeKeywords;
@@ -89,7 +95,8 @@ angular.module('clearConcert')
 							if(inSummary || inDesc){
 								return item;
 							}
-						}					
+						}
+					}					
 					});
 				
 				results = results.filter(function(item) {
