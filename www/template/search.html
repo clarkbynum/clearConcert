@@ -37,16 +37,23 @@
   						<jqm-flip mini="true" jqm-theme="d" ng-model="search.includeKeywords" on-label="On" on-value="1" off-label="Off" off-value="0" default-value="1"></jqm-flip>
   						</div>
   					</div>
-  				</div>
   			</li>
-  			
+      </div> 			
   		</ul>
+
       <ul jqm-listview style="padding-top:12px;">
       
         <li jqm-li-divider>Project Areas ({{projects.length}})</li>
-        <li jqm-li-entry jqm-theme="b" class="ui-icon-alt">Toggle all Projects
+        <li jqm-li-entry jqm-theme="b" class="ui-icon-alt">
+          <div class="ui-grid-a">
+            <div class="ui-block-a">
+                <a>Toggle all Projects</a>
+            </div>
+              <div class="ui-block-b" style="text-align:right">
           <jqm-flip mini="true" jqm-theme="d" ng-model="allSwitch.value" on-label="On" on-value="1" off-label="Off" 
              off-value="0" default-value="1" ng-click="toggleAll()"></jqm-flip>
+              </div>
+          </div>
         </li>
         <li jqm-li-entry jqm-theme="b" class="ui-icon-alt" ng-repeat="project in projects">
           
