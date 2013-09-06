@@ -11,7 +11,6 @@ angular.module('clearConcert')
 			$scope.keyId = resultData.keyId;
 			$scope.favType = resultData.type;
 
-
 			$scope.results = [];
 			$scope.totalResults = -1;
 
@@ -21,7 +20,7 @@ angular.module('clearConcert')
 			$scope.fetch = function() {
 			
 				var promise = resultData.fetch(PAGE_SIZE).then(function(result) {
-				
+					console.log(result);
 					$scope.results.length = 0;
 					$scope.results.push.apply($scope.results, result.items);
 
@@ -49,6 +48,8 @@ angular.module('clearConcert')
 				$scope.results.length=0;
 			};
 			$scope.remaining = function() {
+				console.log($scope.totalResults);
+				console.log($scope.results.length);
 		
 				return $scope.totalResults - $scope.results.length;
 				

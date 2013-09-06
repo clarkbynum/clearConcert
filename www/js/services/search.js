@@ -17,7 +17,7 @@ function($http, workItems, catalog, $q, settings, $cacheFactory) {
   }
 
   function handleSearchResponse(response) {
-
+    console.log(response);
     return $q.all(response.data['oslc_cm:results'].map(function(r) {
       return workItems.get(settings.repository, r['dc:identifier'], r)
         .$getResource('dc:type');
