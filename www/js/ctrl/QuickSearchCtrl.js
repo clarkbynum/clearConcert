@@ -8,7 +8,7 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
    //We page our requests: Only send 20 requests out at a time.
   //This is because the server is slow sometimes
 
-  var requestPageSize = 20;
+  var requestPageSize = 150;
   function searchNextProjects(query) {
     function resolved() {
     	$scope.resolvedCount++;

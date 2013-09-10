@@ -1,5 +1,5 @@
 angular.module('clearConcert')
-.controller('ResultCtrl',['$scope', '$location', '$loadDialog', '$routeParams', 'resultData',
+.controller('QueryResultCtrl',['$scope', '$location', '$loadDialog', '$routeParams', 'resultData',
                           'orderByFilter', 'filterFilter', 'Favorites', 'search',
 		function($scope, $location, $loadDialog, $routeParams,resultData, orderByFilter, filterFilter,
 				  Favorites, search){
@@ -14,12 +14,13 @@ angular.module('clearConcert')
 			$scope.results = [];
 			$scope.totalResults = -1;
 
-			$scope.includes = search.getInclude();
-			console.log($scope.includes);
-
 			$scope.fetch = function() {
-			
-				var promise = resultData.fetch(PAGE_SIZE).then(function(result) {
+
+				var promise = resultData.fetch(PAGE_SIZE);
+
+				$loadDialog.waitFor(promise, "Loading Results");
+
+				promise.then(function(result) {
 				
 					$scope.results.length = 0;
 					$scope.results.push.apply($scope.results, result.items);
@@ -27,8 +28,6 @@ angular.module('clearConcert')
 					nextPageUrl = result.next;
 					$scope.totalResults = result.total;
 				});
-		
-				$loadDialog.waitFor(promise, "Loading Results");
 			};
 
 			$scope.loadMore = function() {
@@ -52,73 +51,12 @@ angular.module('clearConcert')
 				return $scope.totalResults - $scope.results.length;				
 			};
 
-			$scope.showResolved = {
-				value: ""
-			};
-
-			$scope.$apply();
-
 
 			$scope.filterResults = function(results) {		
-
-					results = results.filter(function(item) {
-
-						//var showResolved = $scope.showResolved;
-
-						
-						console.log($scope.showResolved.value);
-						var includes = search.getInclude();
-					
-						if(includes==="" || undefined){
-							if($scope.showResolved.value === "1"){
-								console.log('showResolved');
-								return item;	
-							}
-							else {
-								console.log('showTodo');
-								return !item.item['rtc_cm:resolved'];
-							}
-						}
-						else {
-
-						var query = includes.text;
-						var tagsOn = includes.includeTags;
-						var keysOn = includes.includeKeywords;
-
-						var inSummary = item.item['dc:title'].toLowerCase().indexOf(query) > -1;
-						var inDesc = item.item['dc:description'].toLowerCase().indexOf(query) > -1;
-						var inTags = item.item['dc:subject'].toLowerCase().indexOf(query) > -1;
-						var isResolved = item.item['rtc_cm:resolved'];
-						console.log(isResolved);
-						//var commentUrl = item.item['rtc_cm:comments'][0]['rdf:resource'];
-						//var inComments = item.item['rtc_cm:comments'][0]['rdf:resource'].toLowerCase().indexOf(query) > -1;
-						
-
-						if(tagsOn==="1" && keysOn==="1"){
-							
-							if(inSummary || inDesc || inTags){
-								return item;
-							}
-						
-						} 
-						else if(tagsOn==="1" && keysOn==="0"){
-							
-							if(inTags){
-								return item;
-							}
-						}
-						else if(tagsOn==="0" && keysOn==="1"){			
-							
-							if(inSummary || inDesc){
-								return item;
-							}
-						}
-					}					
-					});
 				
-				//results = results.filter(function(item) {
-				//	return !item.item['rtc_cm:resolved'];
-				//});
+				results = results.filter(function(item) {
+					return !item.item['rtc_cm:resolved'];
+				});
 				
 				var resultWorkItemOrder = orderByFilter(results, function(item) {
 					return item.identifier;

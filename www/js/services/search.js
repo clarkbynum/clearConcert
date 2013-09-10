@@ -17,7 +17,7 @@ function($http, workItems, catalog, $q, settings, $cacheFactory) {
   }
 
   function handleSearchResponse(response) {
-    console.log(response);
+   
     return $q.all(response.data['oslc_cm:results'].map(function(r) {
       return workItems.get(settings.repository, r['dc:identifier'], r)
         .$getResource('dc:type');
@@ -34,7 +34,7 @@ function($http, workItems, catalog, $q, settings, $cacheFactory) {
 
   function projectResults(project, query) {
     return projectQuery(project, query, {
-      'oslc_cm.pageSize': '1'
+      'oslc_cm.pageSize': '2'
     }).then(function(response) {
       console.log(response);
       return {
@@ -75,6 +75,7 @@ function($http, workItems, catalog, $q, settings, $cacheFactory) {
       return requests;
     },
     getResultsForProject: function(projectId, query, pageSize) {
+    
       var project = catalog.byId(projectId);
 
       return projectQuery(project, query,  {

@@ -5,7 +5,7 @@ function($scope, $location, $routeParams, catalog, search, $q, $loadDialog){
 $scope.query = $routeParams.query || '';
 	$scope.isFav = false;
 
-var requestPageSize = 20;
+var requestPageSize = 150;
   function searchNextProjects(query) {
     function resolved() {
       $scope.resolvedCount++;

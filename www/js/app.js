@@ -109,8 +109,8 @@ var clearConcert = angular.module('clearConcert', ['jqm','ngMobile', 'clearJazz'
     //animation: 'page-pop'
   })
   .when('/query/:projectId/:queryId', {
-    controller: 'ResultCtrl',
-    templateUrl: 'template/results.html',
+    controller: 'QueryResultCtrl',
+    templateUrl: 'template/query-results.html',
     reloadOnSearch: false,
     resolve: {
       resultData: function($route, QueryResultData, catalog) {
